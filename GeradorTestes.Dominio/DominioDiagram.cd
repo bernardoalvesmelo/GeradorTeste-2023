@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GeradorTestes.Dominio.ModuloQuestao.Alternativa">
+    <Position X="15.75" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAIAAAAAAAAAEgAAAAAACAAAAAIAAEAAgAAAAAAA=</HashCode>
+      <FileName>ModuloQuestao\Alternativa.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Questao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GeradorTestes.Dominio.ModuloQuestao.AlternativaCorreta">
+    <Position X="3" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAAAEAAAA=</HashCode>
+      <FileName>ModuloQuestao\AlternativaCorreta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeradorTestes.Dominio.ModuloDisciplina.Disciplina">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAQgAAAAAAAIAAIAAgAAEAABA=</HashCode>
+      <FileName>ModuloDisciplina\Disciplina.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Materias" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="GeradorTestes.Dominio.ModuloTeste.Gabarito">
+    <Position X="3" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuloTeste\Gabarito.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="QuestoesCorretas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="GeradorTestes.Dominio.ModuloMateria.Materia">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Disciplina" Type="GeradorTestes.Dominio.ModuloDisciplina.Disciplina">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.081" Y="0.11" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Questoes" Type="GeradorTestes.Dominio.ModuloQuestao.Questao" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.062" Y="3.915" />
+        <Point X="11.062" Y="5.75" />
+        <Point X="12.5" Y="5.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.081" Y="0.141" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAACAIAAAAAAEgAAAAAAAAAAAAIAAAAMgAAEAABE=</HashCode>
+      <FileName>ModuloMateria\Materia.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Disciplina" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Questoes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="GeradorTestes.Dominio.ModuloQuestao.Questao">
+    <Position X="12.5" Y="4.5" Width="2" />
+    <Members>
+      <Property Name="Materia" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Alternativas" Type="GeradorTestes.Dominio.ModuloQuestao.Alternativa" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.5" Y="6.5" />
+        <Point X="17.125" Y="6.5" />
+        <Point X="17.125" Y="3.781" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.044" Y="0.152" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAgQAAAGCAAAQABIBAYAAAAAAIAgAAAAABA=</HashCode>
+      <FileName>ModuloQuestao\Questao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Alternativas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="GeradorTestes.Dominio.ModuloTeste.Teste">
+    <Position X="6.25" Y="5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Questoes" Type="GeradorTestes.Dominio.ModuloQuestao.Questao" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="6.438" />
+        <Point X="12.5" Y="6.438" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Materia" Type="GeradorTestes.Dominio.ModuloMateria.Materia" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="5.937" />
+        <Point X="10.625" Y="5.937" />
+        <Point X="10.625" Y="3.915" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABCAAACAIAAAAAICAAAAAAAABAQEAAAAIAEgAAAAABA=</HashCode>
+      <FileName>ModuloTeste\Teste.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Disciplina" />
+      <Property Name="Materia" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Questoes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
