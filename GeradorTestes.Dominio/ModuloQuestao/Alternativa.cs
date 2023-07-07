@@ -8,6 +8,21 @@ namespace GeradorTestes.Dominio.ModuloQuestao
         {
         }
 
+        public Alternativa(char letra, string resposta, bool correta)
+        {
+            Letra = letra;
+            Resposta = resposta;
+            Correta = correta;
+        }
+
+        public Alternativa(int id, char letra, string resposta, bool correta)
+        {
+            Id = id;
+            Letra = letra;
+            Resposta = resposta;
+            Correta = correta;
+        }
+
         public bool Correta { get; set; }
 
         public char Letra { get; set; }

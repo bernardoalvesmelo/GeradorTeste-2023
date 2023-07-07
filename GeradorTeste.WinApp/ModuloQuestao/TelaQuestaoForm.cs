@@ -12,18 +12,32 @@ namespace GeradorTeste.WinApp.ModuloQuestao
     {
         private Questao questao;
 
+        private readonly List<Disciplina> disciplinas;
+
         public TelaQuestaoForm(List<Disciplina> disciplinas)
         {
             InitializeComponent();
             this.ConfigurarDialog();
             CarregarDisciplinas(disciplinas);
+            this.disciplinas = disciplinas;
         }
 
         public Questao ObterQuestao()
         {
             questao.Enunciado = txtEnunciado.Text;
             questao.Materia = (Materia)cmbMaterias.SelectedItem;
-            
+
+            int i = 0;
+            foreach (var item in listAlternativas.Items)
+            {
+                if (listAlternativas.GetItemChecked(i))
+                {
+                    Alternativa a = item as Alternativa;
+                    questao.AtualizarAlternativaCorreta(a);
+                }
+                i++;
+            }
+
             return questao;
         }
 
@@ -33,7 +47,9 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
             txtEnunciado.Text = questao.Enunciado;
             cmbDisciplinas.SelectedItem = questao.Materia?.Disciplina;
-            cmbMaterias.SelectedItem = questao.Materia;            
+            cmbMaterias.SelectedItem = questao.Materia;
+
+            RecarregarAlternativas();
         }      
 
         private void btnGravar_Click(object sender, EventArgs e)
@@ -96,7 +112,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
         private void cmbDisciplinas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var disciplina = cmbDisciplinas.SelectedItem as Disciplina;
+            Disciplina disciplina = cmbDisciplinas.SelectedItem as Disciplina;
 
             if (disciplina != null)
                 CarregarMaterias(disciplina.Materias);

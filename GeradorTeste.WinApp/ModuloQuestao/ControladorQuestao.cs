@@ -10,7 +10,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioQuestao repositorioQuestao;
 
-        private TabelaQuestaoControl tabelaQuestoes;
+        private TabelaQuestaoControl tabelaQuestao;
 
         public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioDisciplina repositorioDisciplina)
         {
@@ -20,25 +20,29 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
         public override void Inserir()
         {
-            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos();
+            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true);
 
             TelaQuestaoForm tela = new TelaQuestaoForm(disciplinas);
 
-            //tela.Questao = new Questao();
+            tela.ConfigurarQuestao(new Questao());
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
             {
+                Questao novaQuestao = tela.ObterQuestao();
+
+                repositorioQuestao.Inserir(novaQuestao);
+
                 CarregarQuestoes();
             }
         }
 
         public override void Editar()
         {
-            var numero = tabelaQuestoes.ObtemIdSelecionado();
+            int id = tabelaQuestao.ObtemIdSelecionado();
 
-            Questao questaoSelecionada = repositorioQuestao.SelecionarPorId(numero);
+            Questao questaoSelecionada = repositorioQuestao.SelecionarPorId(id, incluirAlternativas: true);
 
             if (questaoSelecionada == null)
             {
@@ -47,23 +51,27 @@ namespace GeradorTeste.WinApp.ModuloQuestao
                 return;
             }
 
-            var disciplinas = repositorioDisciplina.SelecionarTodos();
+            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true);
 
-            var tela = new TelaQuestaoForm(disciplinas);
+            TelaQuestaoForm tela = new TelaQuestaoForm(disciplinas);
 
-            //tela.Questao = questaoSelecionada; 
+            tela.ConfigurarQuestao(questaoSelecionada); 
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
             {
+                Questao questao = tela.ObterQuestao();
+
+                repositorioQuestao.Editar(questao);
+
                 CarregarQuestoes();
             }
         }
 
         public override void Excluir()
         {
-            var numero = tabelaQuestoes.ObtemIdSelecionado();
+            var numero = tabelaQuestao.ObtemIdSelecionado();
 
             Questao questaoSelecionada = repositorioQuestao.SelecionarPorId(numero);
 
@@ -80,6 +88,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
             if (resultado == DialogResult.OK)
             {
                 repositorioQuestao.Excluir(questaoSelecionada);
+
                 CarregarQuestoes();
             }
         }
@@ -91,21 +100,21 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
         public override UserControl ObtemListagem()
         {
-            if (tabelaQuestoes == null)
-                tabelaQuestoes = new TabelaQuestaoControl();
+            if (tabelaQuestao == null)
+                tabelaQuestao = new TabelaQuestaoControl();
 
             CarregarQuestoes();
 
-            return tabelaQuestoes;
+            return tabelaQuestao;
         }
 
         private void CarregarQuestoes()
         {
             List<Questao> questoes = repositorioQuestao.SelecionarTodos();
 
-            tabelaQuestoes.AtualizarRegistros(questoes);
+            tabelaQuestao.AtualizarRegistros(questoes);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {questoes.Count} questão(ões)");
+            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando quest{0}", questoes.Count > 1 ? "ão" : "ões"));
         }
     }
 }

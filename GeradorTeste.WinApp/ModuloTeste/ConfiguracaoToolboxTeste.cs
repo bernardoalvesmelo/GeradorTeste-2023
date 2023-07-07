@@ -14,6 +14,8 @@
 
         public override string TooltipVisualizar => "Visualizar o Teste selecionado";
 
+        public override string TooltipGerarPdf => "Gerar PDF do Teste Selecionado";
+
         public override bool EditarHabilitado => false;
 
         public override bool DuplicarHabilitado => true;

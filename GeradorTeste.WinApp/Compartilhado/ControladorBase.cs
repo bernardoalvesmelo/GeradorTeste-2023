@@ -6,7 +6,7 @@ namespace GeradorTeste.WinApp
     {
         public abstract void Inserir();
 
-        public abstract void Editar();
+        public virtual void Editar() { }
 
         public abstract void Excluir();
 

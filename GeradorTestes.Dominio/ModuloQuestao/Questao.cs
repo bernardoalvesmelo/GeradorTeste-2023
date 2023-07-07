@@ -11,11 +11,18 @@ namespace GeradorTestes.Dominio.ModuloQuestao
 
         public Questao()
         {
+            Alternativas = new List<Alternativa>();
         }
 
-        public Questao(string enunciado) : this()
+        public Questao(string enunciado, Materia materia) : this()
         {
             Enunciado = enunciado;
+            Materia = materia;
+        }
+
+        public Questao(int id, string enunciado, Materia materia) : this(enunciado, materia)
+        {
+            Id = id;           
         }
 
         public List<Alternativa> Alternativas
@@ -111,7 +118,7 @@ namespace GeradorTestes.Dominio.ModuloQuestao
 
         public string[] Validar()
         {
-            throw new NotImplementedException();
+            return new string[] { };
         }
     }
 }

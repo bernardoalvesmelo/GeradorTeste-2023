@@ -1,8 +1,6 @@
-﻿using FluentValidation;
-using GeradorTestes.Dominio;
+﻿using GeradorTestes.Dominio;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace eAgenda.Infra.Arquivos.ModuloDisciplina
 {
@@ -21,12 +19,7 @@ namespace eAgenda.Infra.Arquivos.ModuloDisciplina
             return contextoDados.Disciplinas;
         }
 
-        public Disciplina SelecionarDisciplinaPorNome(string nome)
-        {
-            return contextoDados.Disciplinas.Where(x => x.Nome == nome).FirstOrDefault();
-        }
-
-        public List<Disciplina> SelecionarTodos(bool incluirMateriasEhQuestoes)
+        public List<Disciplina> SelecionarTodos(bool incluirMaterias = false, bool incluirQuestoes = false)
         {
             return ObterRegistros();
         }

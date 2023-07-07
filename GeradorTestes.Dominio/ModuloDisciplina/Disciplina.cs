@@ -12,6 +12,17 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
         {
         }
 
+        public Disciplina(string nome)
+        {
+            Nome = nome;
+        }
+
+        public Disciplina(int id, string nome)
+        {
+            Id = id;
+            Nome = nome;
+        }
+
         public List<Questao> ObterTodasQuestoes()
         {
             var todasQuestoes = new List<Questao>();
@@ -71,7 +82,7 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
 
         public string[] Validar()
         {
-            throw new NotImplementedException();
+            return new string[] { };
         }
     }
 }

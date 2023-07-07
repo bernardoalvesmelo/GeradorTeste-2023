@@ -1,18 +1,39 @@
-﻿using GeradorTestes.Dominio.ModuloMateria;
+﻿using GeradorTestes.Dominio.ModuloDisciplina;
+using GeradorTestes.Dominio.ModuloMateria;
+using GeradorTestes.Infra.Sql.ModuloDisciplina;
 using System;
 
 namespace GeradorTestes.Infra.Sql.ModuloMateria
 {
     public class MapeadorMateriaSql : MapeadorBase<Materia>
     {
-        public override void ConfigurarParametros(SqlCommand comando, Materia registro)
+        public override void ConfigurarParametros(SqlCommand comando, Materia materia)
         {
-            throw new NotImplementedException();
+            comando.Parameters.AddWithValue("ID", materia.Id);
+
+            comando.Parameters.AddWithValue("NOME", materia.Nome);
+
+            comando.Parameters.AddWithValue("SERIE", materia.Serie);
+
+            comando.Parameters.AddWithValue("DISCIPLINA_ID", materia.Disciplina.Id);
         }
 
-        public override Materia ConverterRegistro(SqlDataReader leitorRegistro)
+        public override Materia ConverterRegistro(SqlDataReader leitorMateria)
         {
-            throw new NotImplementedException();
+            if (leitorMateria.HasColumn("MATERIA_ID") == false)
+                return null;
+
+            int id = Convert.ToInt32(leitorMateria["MATERIA_ID"]);
+
+            string nome = Convert.ToString(leitorMateria["MATERIA_NOME"]);
+
+            SerieMateriaEnum serie = (SerieMateriaEnum)leitorMateria["MATERIA_SERIE"];
+
+            Disciplina disciplina = new MapeadorDisciplinaSql().ConverterRegistro(leitorMateria);
+
+            Materia materia = new Materia(id, nome, serie, disciplina);
+
+            return materia;
         }
     }
 }

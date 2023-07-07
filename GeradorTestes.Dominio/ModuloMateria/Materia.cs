@@ -11,10 +11,16 @@ namespace GeradorTestes.Dominio.ModuloMateria
         {
         }
 
-        public Materia(string n, SerieMateriaEnum s) : this()
+        public Materia(string n, SerieMateriaEnum s, Disciplina disciplina) 
         {
             Nome = n;
             Serie = s;
+            Disciplina = disciplina;
+        }
+
+        public Materia(int id, string nome, SerieMateriaEnum serie, Disciplina disciplina) : this(nome, serie, disciplina)
+        {
+            this.Id = id;
         }
 
         public string Nome { get; set; }

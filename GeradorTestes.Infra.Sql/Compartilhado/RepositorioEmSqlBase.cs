@@ -1,8 +1,11 @@
 ﻿using GeradorTestes.Dominio;
+using GeradorTestes.Dominio.ModuloMateria;
+using GeradorTestes.Dominio.ModuloQuestao;
+using GeradorTestes.Infra.Sql.ModuloQuestao;
 using System;
 using System.Collections.Generic;
 
-namespace GeradorTestes.Infra.BancoDados.Sql.Compartilhado
+namespace GeradorTestes.Infra.Sql.Compartilhado
 {
     public abstract class RepositorioEmSqlBase<TEntidade, TMapeador>
      where TEntidade : EntidadeBase<TEntidade>
@@ -132,7 +135,8 @@ namespace GeradorTestes.Infra.BancoDados.Sql.Compartilhado
             {
                 TEntidade registro = mapeador.ConverterRegistro(leitorItens);
 
-                registros.Add(registro);
+                if (registro != null)
+                    registros.Add(registro);
             }
 
             //encerra a conexão
@@ -141,5 +145,49 @@ namespace GeradorTestes.Infra.BancoDados.Sql.Compartilhado
             return registros;
         }
 
+        protected List<T> SelecionarRegistros<T>(string sql, ConverterRegistroDelegate<T> ConverterRegistro, SqlParameter[] parametros)
+        {
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comandoSelecao = new SqlCommand(sql, conexaoComBanco);
+
+            foreach (SqlParameter parametro in parametros)
+            {
+                comandoSelecao.Parameters.Add(parametro);
+            }
+
+            conexaoComBanco.Open();
+            SqlDataReader leitorRegistros = comandoSelecao.ExecuteReader();
+
+            List<T> registros = new List<T>();
+
+            while (leitorRegistros.Read())
+            {
+                T registro = ConverterRegistro(leitorRegistros);
+
+                registros.Add(registro);
+            }
+
+            conexaoComBanco.Close();
+
+            return registros;
+        }
+
+        protected void ExecutarComando(string sql, SqlParameter[] parametros)
+        {
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comando = new SqlCommand(sql, conexaoComBanco);
+
+            foreach (SqlParameter parametro in parametros)
+            {
+                comando.Parameters.Add(parametro);
+            }
+
+            conexaoComBanco.Open();
+            comando.ExecuteNonQuery();
+
+            conexaoComBanco.Close();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace GeradorTeste.WinApp.ModuloTeste
 {
-    partial class TelaCriacaoTesteForm
+    partial class TelaTesteForm
     {
         /// <summary>
         /// Required designer variable.

@@ -1,5 +1,4 @@
 ﻿using GeradorTestes.Dominio.ModuloQuestao;
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -19,7 +18,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
         {
             var colunas = new DataGridViewColumn[]
             {
-                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", FillWeight=15F, Visible=false },
+                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", FillWeight=15F},
 
                 new DataGridViewTextBoxColumn { Name = "Nome", HeaderText = "Nome", FillWeight=35F },
 

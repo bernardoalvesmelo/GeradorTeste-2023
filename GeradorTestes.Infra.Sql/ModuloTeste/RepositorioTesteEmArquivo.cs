@@ -1,7 +1,7 @@
 ﻿using GeradorTestes.Dominio.ModuloTeste;
 using System.Collections.Generic;
 
-namespace GeradorTestes.Infra.BancoDados.Sql.ModuloTeste
+namespace GeradorTestes.Infra.Sql.ModuloTeste
 {
     public class RepositorioTesteEmSql : RepositorioEmSqlBase<Teste, MapeadorTesteSql>, IRepositorioTeste
     {

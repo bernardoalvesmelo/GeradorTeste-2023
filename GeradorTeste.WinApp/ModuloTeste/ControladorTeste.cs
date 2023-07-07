@@ -20,9 +20,9 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
         public override void Inserir()
         {
-            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos(incluirMateriasEhQuestoes: true);
+            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true, incluirQuestoes: true);
 
-            TelaCriacaoTesteForm tela = new TelaCriacaoTesteForm(disciplinas);
+            TelaTesteForm tela = new TelaTesteForm(disciplinas);
 
             tela.ConfigurarTeste(new Teste());
 
@@ -30,6 +30,10 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             if (resultado == DialogResult.OK)
             {
+                Teste novoTeste = tela.ObterTeste();
+
+                repositorioTeste.Inserir(novoTeste);
+
                 CarregarTestes();
             }
         }
@@ -43,36 +47,38 @@ namespace GeradorTeste.WinApp.ModuloTeste
             if (testeSelecionado == null)
             {
                 MessageBox.Show("Selecione um Teste primeiro",
-                "Duplicação de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    "Duplicação de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            var disciplinas = repositorioDisciplina.SelecionarTodos();
+            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos();
 
-            var tela = new TelaCriacaoTesteForm(disciplinas);
+            TelaTesteForm tela = new TelaTesteForm(disciplinas);
 
-            //tela.Teste = testeSelecionado.Clone();
-
-            //tela.GravarRegistro = repositorioTeste.Inserir;
+            tela.ConfigurarTeste(testeSelecionado);
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
             {
+                Teste novoTeste = tela.ObterTeste();
+
+                repositorioTeste.Inserir(novoTeste);
+
                 CarregarTestes();
             }
         }
 
         public override void Excluir()
         {
-            var numero = tabelaTeste.ObtemIdSelecionado();
+            int id = tabelaTeste.ObtemIdSelecionado();
 
-            Teste testeSelecionado = repositorioTeste.SelecionarPorId(numero);
+            Teste testeSelecionado = repositorioTeste.SelecionarPorId(id);
 
             if (testeSelecionado == null)
             {
                 MessageBox.Show("Selecione um Teste primeiro",
-                "Exclusão de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    "Exclusão de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -82,15 +88,16 @@ namespace GeradorTeste.WinApp.ModuloTeste
             if (resultado == DialogResult.OK)
             {
                 repositorioTeste.Excluir(testeSelecionado);
+
                 CarregarTestes();
             }
         }
 
         public override void Visualizar()
         {
-            var numero = tabelaTeste.ObtemIdSelecionado();
+            int id = tabelaTeste.ObtemIdSelecionado();
 
-            Teste testeSelecionado = repositorioTeste.SelecionarPorId(numero);
+            Teste testeSelecionado = repositorioTeste.SelecionarPorId(id);
 
             if (testeSelecionado == null)
             {
@@ -125,12 +132,6 @@ namespace GeradorTeste.WinApp.ModuloTeste
             tabelaTeste.AtualizarRegistros(testes);
 
             TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {testes.Count} teste(s)");
-        }
-
-        #region métodos não implementados
-        public override void Editar()
-        {
-        }
-        #endregion
+        }        
     }
 }

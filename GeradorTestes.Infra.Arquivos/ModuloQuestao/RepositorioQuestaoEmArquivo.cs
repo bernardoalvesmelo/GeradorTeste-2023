@@ -1,6 +1,5 @@
 ﻿using GeradorTestes.Dominio;
 using GeradorTestes.Dominio.ModuloQuestao;
-using System;
 using System.Collections.Generic;
 
 namespace eAgenda.Infra.Arquivos.ModuloQuestao
@@ -19,11 +18,9 @@ namespace eAgenda.Infra.Arquivos.ModuloQuestao
             return contextoDados.Questoes;
         }
 
-        public Questao SelecionarPorId(int id, bool incluirMateria, bool incluirAlternativas = false)
+        public Questao SelecionarPorId(int id, bool incluirAlternativas = false)
         {
             return SelecionarPorId(id);
-        }
-
-       
+        }       
     }
 }

@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace GeradorTeste.WinApp.ModuloTeste
 {
-    public partial class TelaCriacaoTesteForm : Form
+    public partial class TelaTesteForm : Form
     {
         private Teste teste;
 
-        public TelaCriacaoTesteForm(List<Disciplina> disciplinas)
+        public TelaTesteForm(List<Disciplina> disciplinas)
         {
             InitializeComponent();
             this.ConfigurarDialog();

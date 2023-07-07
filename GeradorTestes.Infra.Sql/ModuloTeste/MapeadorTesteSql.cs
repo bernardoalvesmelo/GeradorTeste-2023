@@ -1,6 +1,6 @@
 ﻿using GeradorTestes.Dominio.ModuloTeste;
 
-namespace GeradorTestes.Infra.BancoDados.Sql.ModuloTeste
+namespace GeradorTestes.Infra.Sql.ModuloTeste
 {
     public class MapeadorTesteSql : MapeadorBase<Teste>
     {
