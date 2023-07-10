@@ -19,7 +19,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
         private void ConfigurarTela(Teste teste)
         {
             labelTitulo.Text = teste.Titulo;
-            labelDisciplina.Text = teste.Disciplina.Nome;
+            labelDisciplina.Text = teste.Provao ? teste.Disciplina.Nome : teste.Materia.Disciplina.Nome;
             if (teste.Provao)
                 labelMateria.Text = "Todas as Matérias";
             else

@@ -35,7 +35,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
             this.teste = teste;
 
             txtTitulo.Text = teste.Titulo;
-            cmbDisciplinas.SelectedItem = teste.Disciplina;
+            cmbDisciplinas.SelectedItem = teste.Provao ? teste.Disciplina : teste.Materia?.Disciplina;
             cmbMaterias.SelectedItem = teste.Materia;
             chkProvao.Checked = teste.Provao;
             txtQtdQuestoes.Value = teste.QuantidadeQuestoes;
@@ -92,13 +92,6 @@ namespace GeradorTeste.WinApp.ModuloTeste
             }
         }
 
-        private void cmbDisciplinas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var disciplina = (Disciplina)cmbDisciplinas.SelectedItem;
-
-            CarregarMaterias(disciplina.Materias);
-        }
-
         private void CarregarDisciplinas(List<Disciplina> disciplinas)
         {
             cmbDisciplinas.Items.Clear();
@@ -136,6 +129,12 @@ namespace GeradorTeste.WinApp.ModuloTeste
             }
         }
 
+        private void cmbDisciplinas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var disciplina = cmbDisciplinas.SelectedItem as Disciplina;
 
+            if (disciplina != null)
+                CarregarMaterias(disciplina.Materias);
+        }
     }
 }

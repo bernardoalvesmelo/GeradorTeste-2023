@@ -1,4 +1,5 @@
 ﻿using GeradorTestes.Dominio.ModuloDisciplina;
+using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloTeste;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -9,18 +10,23 @@ namespace GeradorTeste.WinApp.ModuloTeste
     {
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioTeste repositorioTeste;
+        private IRepositorioMateria repositorioMateria;
 
         private TabelaTesteControl tabelaTeste;
 
-        public ControladorTeste(IRepositorioTeste repositorioTeste, IRepositorioDisciplina repositorioDisciplina)
+        public ControladorTeste(IRepositorioTeste repositorioTeste, 
+            IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria)
         {
             this.repositorioDisciplina = repositorioDisciplina;
             this.repositorioTeste = repositorioTeste;
+            this.repositorioMateria = repositorioMateria;
         }
 
         public override void Inserir()
         {
             List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true, incluirQuestoes: true);
+
+            //List<Materia> materias = repositorioMateria.SelecionarTodos(incluirQuestoes: true);
 
             TelaTesteForm tela = new TelaTesteForm(disciplinas);
 
@@ -51,7 +57,9 @@ namespace GeradorTeste.WinApp.ModuloTeste
                 return;
             }
 
-            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos();
+            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true, incluirQuestoes: true);
+
+            //List<Materia> materias = repositorioMateria.SelecionarTodos(incluirQuestoes: true);
 
             TelaTesteForm tela = new TelaTesteForm(disciplinas);
 

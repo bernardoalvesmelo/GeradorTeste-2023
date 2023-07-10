@@ -49,7 +49,7 @@ namespace GeradorTeste.WinApp
             controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina));
 
             IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
-            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste, repositorioDisciplina));
+            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste, repositorioDisciplina, repositorioMateria));
         }
 
         public static TelaPrincipalForm Instancia

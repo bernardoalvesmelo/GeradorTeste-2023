@@ -28,211 +28,205 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmbMaterias = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmbDisciplinas = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTitulo = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.chkProvao = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnSortear = new System.Windows.Forms.ToolStripButton();
-            this.listQuestoes = new System.Windows.Forms.ListBox();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnGravar = new System.Windows.Forms.Button();
-            this.txtQtdQuestoes = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtQtdQuestoes)).BeginInit();
-            this.SuspendLayout();
+            cmbMaterias = new System.Windows.Forms.ComboBox();
+            label4 = new System.Windows.Forms.Label();
+            cmbDisciplinas = new System.Windows.Forms.ComboBox();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            txtTitulo = new System.Windows.Forms.TextBox();
+            label5 = new System.Windows.Forms.Label();
+            chkProvao = new System.Windows.Forms.CheckBox();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            toolStrip1 = new System.Windows.Forms.ToolStrip();
+            btnSortear = new System.Windows.Forms.ToolStripButton();
+            listQuestoes = new System.Windows.Forms.ListBox();
+            btnCancelar = new System.Windows.Forms.Button();
+            btnGravar = new System.Windows.Forms.Button();
+            txtQtdQuestoes = new System.Windows.Forms.NumericUpDown();
+            groupBox1.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtQtdQuestoes).BeginInit();
+            SuspendLayout();
             // 
             // cmbMaterias
             // 
-            this.cmbMaterias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMaterias.FormattingEnabled = true;
-            this.cmbMaterias.Location = new System.Drawing.Point(102, 116);
-            this.cmbMaterias.Name = "cmbMaterias";
-            this.cmbMaterias.Size = new System.Drawing.Size(324, 23);
-            this.cmbMaterias.TabIndex = 32;
+            cmbMaterias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbMaterias.FormattingEnabled = true;
+            cmbMaterias.Location = new System.Drawing.Point(102, 116);
+            cmbMaterias.Name = "cmbMaterias";
+            cmbMaterias.Size = new System.Drawing.Size(324, 23);
+            cmbMaterias.TabIndex = 32;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(42, 119);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 15);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "Matéria:";
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(42, 119);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(50, 15);
+            label4.TabIndex = 31;
+            label4.Text = "Matéria:";
             // 
             // cmbDisciplinas
             // 
-            this.cmbDisciplinas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDisciplinas.FormattingEnabled = true;
-            this.cmbDisciplinas.Location = new System.Drawing.Point(102, 57);
-            this.cmbDisciplinas.Name = "cmbDisciplinas";
-            this.cmbDisciplinas.Size = new System.Drawing.Size(167, 23);
-            this.cmbDisciplinas.TabIndex = 30;
-            this.cmbDisciplinas.SelectedIndexChanged += new System.EventHandler(this.cmbDisciplinas_SelectedIndexChanged);
+            cmbDisciplinas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbDisciplinas.FormattingEnabled = true;
+            cmbDisciplinas.Location = new System.Drawing.Point(102, 57);
+            cmbDisciplinas.Name = "cmbDisciplinas";
+            cmbDisciplinas.Size = new System.Drawing.Size(167, 23);
+            cmbDisciplinas.TabIndex = 30;
+            cmbDisciplinas.SelectedIndexChanged += cmbDisciplinas_SelectedIndexChanged;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 15);
-            this.label3.TabIndex = 29;
-            this.label3.Text = "Disciplina:";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(29, 61);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(61, 15);
+            label3.TabIndex = 29;
+            label3.Text = "Disciplina:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(278, 61);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 15);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "Qtd. Questões:";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(278, 61);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(85, 15);
+            label2.TabIndex = 26;
+            label2.Text = "Qtd. Questões:";
             // 
             // txtTitulo
             // 
-            this.txtTitulo.Location = new System.Drawing.Point(102, 23);
-            this.txtTitulo.Name = "txtTitulo";
-            this.txtTitulo.Size = new System.Drawing.Size(324, 23);
-            this.txtTitulo.TabIndex = 34;
+            txtTitulo.Location = new System.Drawing.Point(102, 23);
+            txtTitulo.Name = "txtTitulo";
+            txtTitulo.Size = new System.Drawing.Size(324, 23);
+            txtTitulo.TabIndex = 34;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(53, 25);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 15);
-            this.label5.TabIndex = 33;
-            this.label5.Text = "Título:";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(53, 25);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(40, 15);
+            label5.TabIndex = 33;
+            label5.Text = "Título:";
             // 
             // chkProvao
             // 
-            this.chkProvao.AutoSize = true;
-            this.chkProvao.Location = new System.Drawing.Point(99, 89);
-            this.chkProvao.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.chkProvao.Name = "chkProvao";
-            this.chkProvao.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkProvao.Size = new System.Drawing.Size(71, 19);
-            this.chkProvao.TabIndex = 38;
-            this.chkProvao.Text = "? Provão";
-            this.chkProvao.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chkProvao.UseVisualStyleBackColor = true;
-            this.chkProvao.CheckedChanged += new System.EventHandler(this.chkProvao_CheckedChanged);
+            chkProvao.AutoSize = true;
+            chkProvao.Location = new System.Drawing.Point(99, 89);
+            chkProvao.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            chkProvao.Name = "chkProvao";
+            chkProvao.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            chkProvao.Size = new System.Drawing.Size(71, 19);
+            chkProvao.TabIndex = 38;
+            chkProvao.Text = "? Provão";
+            chkProvao.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            chkProvao.UseVisualStyleBackColor = true;
+            chkProvao.CheckedChanged += chkProvao_CheckedChanged;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.toolStrip1);
-            this.groupBox1.Controls.Add(this.listQuestoes);
-            this.groupBox1.Location = new System.Drawing.Point(12, 156);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(414, 259);
-            this.groupBox1.TabIndex = 39;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Questões Selecionadas:";
+            groupBox1.Controls.Add(toolStrip1);
+            groupBox1.Controls.Add(listQuestoes);
+            groupBox1.Location = new System.Drawing.Point(12, 156);
+            groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox1.Size = new System.Drawing.Size(414, 259);
+            groupBox1.TabIndex = 39;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Questões Selecionadas:";
             // 
             // toolStrip1
             // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnSortear});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 18);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(408, 50);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            toolStrip1.AutoSize = false;
+            toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnSortear });
+            toolStrip1.Location = new System.Drawing.Point(3, 18);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new System.Drawing.Size(408, 50);
+            toolStrip1.TabIndex = 1;
+            toolStrip1.Text = "toolStrip1";
             // 
             // btnSortear
             // 
-            this.btnSortear.Image = global::GeradorTeste.WinApp.Properties.Resources.checklist_FILL0_wght400_GRAD0_opsz24;
-            this.btnSortear.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSortear.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSortear.Margin = new System.Windows.Forms.Padding(5);
-            this.btnSortear.Name = "btnSortear";
-            this.btnSortear.Padding = new System.Windows.Forms.Padding(5);
-            this.btnSortear.Size = new System.Drawing.Size(82, 40);
-            this.btnSortear.Text = "Sortear";
-            this.btnSortear.Click += new System.EventHandler(this.btnSortear_Click);
+            btnSortear.Image = Properties.Resources.checklist_FILL0_wght400_GRAD0_opsz24;
+            btnSortear.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            btnSortear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnSortear.Margin = new System.Windows.Forms.Padding(5);
+            btnSortear.Name = "btnSortear";
+            btnSortear.Padding = new System.Windows.Forms.Padding(5);
+            btnSortear.Size = new System.Drawing.Size(82, 40);
+            btnSortear.Text = "Sortear";
+            btnSortear.Click += btnSortear_Click;
             // 
             // listQuestoes
             // 
-            this.listQuestoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.listQuestoes.FormattingEnabled = true;
-            this.listQuestoes.ItemHeight = 15;
-            this.listQuestoes.Location = new System.Drawing.Point(3, 73);
-            this.listQuestoes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.listQuestoes.Name = "listQuestoes";
-            this.listQuestoes.Size = new System.Drawing.Size(408, 184);
-            this.listQuestoes.TabIndex = 0;
+            listQuestoes.Dock = System.Windows.Forms.DockStyle.Bottom;
+            listQuestoes.FormattingEnabled = true;
+            listQuestoes.ItemHeight = 15;
+            listQuestoes.Location = new System.Drawing.Point(3, 73);
+            listQuestoes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            listQuestoes.Name = "listQuestoes";
+            listQuestoes.Size = new System.Drawing.Size(408, 184);
+            listQuestoes.TabIndex = 0;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancelar.Location = new System.Drawing.Point(351, 457);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 45);
-            this.btnCancelar.TabIndex = 41;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancelar.Location = new System.Drawing.Point(351, 457);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new System.Drawing.Size(75, 45);
+            btnCancelar.TabIndex = 41;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
             // 
             // btnGravar
             // 
-            this.btnGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnGravar.Location = new System.Drawing.Point(270, 457);
-            this.btnGravar.Name = "btnGravar";
-            this.btnGravar.Size = new System.Drawing.Size(75, 45);
-            this.btnGravar.TabIndex = 40;
-            this.btnGravar.Text = "Gravar";
-            this.btnGravar.UseVisualStyleBackColor = true;
-            this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
+            btnGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnGravar.Location = new System.Drawing.Point(270, 457);
+            btnGravar.Name = "btnGravar";
+            btnGravar.Size = new System.Drawing.Size(75, 45);
+            btnGravar.TabIndex = 40;
+            btnGravar.Text = "Gravar";
+            btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnGravar_Click;
             // 
             // txtQtdQuestoes
             // 
-            this.txtQtdQuestoes.Location = new System.Drawing.Point(373, 57);
-            this.txtQtdQuestoes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtQtdQuestoes.Name = "txtQtdQuestoes";
-            this.txtQtdQuestoes.Size = new System.Drawing.Size(53, 23);
-            this.txtQtdQuestoes.TabIndex = 42;
-            this.txtQtdQuestoes.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+            txtQtdQuestoes.Location = new System.Drawing.Point(373, 57);
+            txtQtdQuestoes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            txtQtdQuestoes.Name = "txtQtdQuestoes";
+            txtQtdQuestoes.Size = new System.Drawing.Size(53, 23);
+            txtQtdQuestoes.TabIndex = 42;
+            txtQtdQuestoes.Value = new decimal(new int[] { 5, 0, 0, 0 });
             // 
-            // TelaCriacaoTesteForm
+            // TelaTesteForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 519);
-            this.Controls.Add(this.txtQtdQuestoes);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnGravar);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.chkProvao);
-            this.Controls.Add(this.txtTitulo);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.cmbMaterias);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.cmbDisciplinas);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "TelaCriacaoTesteForm";
-            this.Text = "Geração de Testes";
-            this.groupBox1.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtQtdQuestoes)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(448, 519);
+            Controls.Add(txtQtdQuestoes);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnGravar);
+            Controls.Add(groupBox1);
+            Controls.Add(chkProvao);
+            Controls.Add(txtTitulo);
+            Controls.Add(label5);
+            Controls.Add(cmbMaterias);
+            Controls.Add(label4);
+            Controls.Add(cmbDisciplinas);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            Name = "TelaTesteForm";
+            Text = "Geração de Testes";
+            groupBox1.ResumeLayout(false);
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtQtdQuestoes).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

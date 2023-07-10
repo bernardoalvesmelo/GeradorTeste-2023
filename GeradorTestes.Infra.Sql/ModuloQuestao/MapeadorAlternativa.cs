@@ -1,5 +1,6 @@
 ﻿using GeradorTestes.Dominio.ModuloQuestao;
 using System;
+using System.Collections.Generic;
 
 namespace GeradorTestes.Infra.Sql.ModuloQuestao
 {
@@ -7,26 +8,20 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
     {
         public SqlParameter[] ObterParametros(Alternativa alternativa)
         {
-            SqlParameter[] parametros = new SqlParameter[5];
+            List<SqlParameter> parametros = new List<SqlParameter>() 
+            {
+                new SqlParameter("ID", alternativa.Id),
+                new SqlParameter("LETRA", alternativa.Letra),
+                new SqlParameter("RESPOSTA", alternativa.Resposta),
+                new SqlParameter("CORRETA", alternativa.Correta),
+                new SqlParameter("QUESTAO_ID", alternativa.Questao.Id)
+            };
 
-            parametros[0] = new SqlParameter("ID", alternativa.Id);
-
-            parametros[1] = new SqlParameter("LETRA", alternativa.Letra);
-
-            parametros[2] = new SqlParameter("RESPOSTA", alternativa.Resposta);
-
-            parametros[3] = new SqlParameter("CORRETA", alternativa.Correta);
-
-            parametros[4] = new SqlParameter("QUESTAO_ID", alternativa.Questao.Id);
-
-            return parametros;
+            return parametros.ToArray();
         }
 
         public Alternativa ConverterRegistro(SqlDataReader leitorAlternativa)
         {
-            if (leitorAlternativa["ALTERNATIVA_ID"] == DBNull.Value)
-                return null;
-
             int id = Convert.ToInt32(leitorAlternativa["ALTERNATIVA_ID"]);
 
             char letra = Convert.ToChar(leitorAlternativa["ALTERNATIVA_LETRA"]);

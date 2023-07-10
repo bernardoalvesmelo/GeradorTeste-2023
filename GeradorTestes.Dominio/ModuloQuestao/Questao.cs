@@ -22,7 +22,7 @@ namespace GeradorTestes.Dominio.ModuloQuestao
 
         public Questao(int id, string enunciado, Materia materia) : this(enunciado, materia)
         {
-            Id = id;           
+            Id = id;
         }
 
         public List<Alternativa> Alternativas
@@ -46,6 +46,24 @@ namespace GeradorTestes.Dominio.ModuloQuestao
 
             return true;
         }
+
+        public void AtualizarAlternativaCorreta(Alternativa alternativaCorreta)
+        {
+            foreach (var a in Alternativas)
+            {
+                if (a.Equals(alternativaCorreta))
+                    a.Correta = true;
+                else
+                    a.Correta = false;
+            }
+        }
+
+        public void RemoverAlternativa(Alternativa alternativa)
+        {
+            Alternativas.Remove(alternativa);
+            RedefinirLetras();
+        }
+
 
         public Alternativa ObtemAlternativaCorreta()
         {
@@ -79,27 +97,6 @@ namespace GeradorTestes.Dominio.ModuloQuestao
 
             return Alternativas.Count == 0 ? 'A' :
                 Alternativas.Select(x => x.Letra).Last().Next();
-        }
-
-        public void AtualizarAlternativaCorreta(Alternativa alternativaCorreta)
-        {
-            foreach (var a in Alternativas)
-            {
-                if (a.Equals(alternativaCorreta))
-                {
-                    a.Correta = true;
-                }
-                else
-                {
-                    a.Correta = false;
-                }
-            }
-        }
-
-        public void RemoverAlternativa(Alternativa alternativa)
-        {
-            Alternativas.Remove(alternativa);
-            RedefinirLetras();
         }
 
         public void ConfigurarMateria(Materia materia)

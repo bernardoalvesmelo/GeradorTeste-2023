@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GeradorTeste.Infra.MassaDados\GeradorTeste.Infra.MassaDados.csproj" />
     <ProjectReference Include="..\GeradorTestes.Dominio\GeradorTestes.Dominio.csproj" />
   </ItemGroup>
 

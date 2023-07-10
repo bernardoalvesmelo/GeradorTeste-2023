@@ -12,8 +12,16 @@ namespace GeradorTestes.Dominio.ModuloTeste
     {
         public Teste()
         {
-            DataGeracao = DateTime.Now;
-            QuantidadeQuestoes = 5;
+            Questoes = new List<Questao>();
+        }
+
+        public Teste(int id, string titulo, bool provao, DateTime dataGeracao, int quantidadeQuestoes) : this() 
+        {
+            Id = id;
+            Titulo = titulo;
+            Provao = provao;
+            DataGeracao = dataGeracao;
+            QuantidadeQuestoes = quantidadeQuestoes;
         }
 
         public string Titulo { get; set; }
@@ -37,7 +45,6 @@ namespace GeradorTestes.Dominio.ModuloTeste
         public Guid? MateriaId { get; set; }
 
         public int QuantidadeQuestoes { get; set; }
-
 
         public Gabarito ObterGabarito()
         {
@@ -105,7 +112,7 @@ namespace GeradorTestes.Dominio.ModuloTeste
 
         public string[] Validar()
         {
-            throw new NotImplementedException();
+            return new string[] { };
         }
     }
 }

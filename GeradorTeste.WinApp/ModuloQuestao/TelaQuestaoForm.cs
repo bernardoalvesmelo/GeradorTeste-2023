@@ -32,7 +32,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
             {
                 if (listAlternativas.GetItemChecked(i))
                 {
-                    Alternativa a = item as Alternativa;
+                    Alternativa a = (Alternativa)item;
                     questao.AtualizarAlternativaCorreta(a);
                 }
                 i++;

@@ -167,18 +167,18 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
             SqlParameter[] parametros = new SqlParameter[] { new SqlParameter("QUESTAO_ID", questao.Id) };
 
             List<Alternativa> alternativas = SelecionarRegistros(sqlSelecionarAlternativas, mapeador.ConverterRegistro, parametros);
-          
+
             foreach (Alternativa alternativa in alternativas)
             {
                 questao.AdicionarAlternativa(alternativa);
             }
         }
-        
+
         private void RemoverAlternativas(Questao questao)
         {
             SqlParameter[] parametros = new SqlParameter[] { new SqlParameter("QUESTAO_ID", questao.Id) };
 
             ExecutarComando(sqlExcluirAlternativas, parametros);
-        }        
+        }
     }
 }

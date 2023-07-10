@@ -1,12 +1,11 @@
-﻿using eAgenda.Infra.Arquivos;
-using eAgenda.Infra.Arquivos.ModuloDisciplina;
-using eAgenda.Infra.Arquivos.ModuloMateria;
-using eAgenda.Infra.Arquivos.ModuloQuestao;
-using eAgenda.Infra.Arquivos.ModuloTeste;
-using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
+using GeradorTestes.Infra.Sql.ModuloDisciplina;
+using GeradorTestes.Infra.Sql.ModuloMateria;
+using GeradorTestes.Infra.Sql.ModuloQuestao;
+using GeradorTestes.Infra.Sql.ModuloTeste;
 using System;
 using System.Collections.Generic;
 
@@ -14,14 +13,10 @@ namespace GeradorTeste.Infra.MassaDados
 {
     public class GeradorMassaDados
     {
-        static ISerializador serializador = new SerializadorDadosEmJsonDotnet();
-
-        static GeradorTesteJsonContext contexto = new GeradorTesteJsonContext(serializador);
-
-        static IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmArquivo(contexto);
-        static IRepositorioMateria repositorioMateria = new RepositorioMateriaEmArquivo(contexto);
-        static IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmArquivo(contexto);
-        static IRepositorioTeste repositorioTeste = new RepositorioTesteEmArquivo(contexto);
+        static IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
+        static IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
+        static IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
+        static IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
 
         public static void ConfigurarAplicacao()
         {
@@ -32,41 +27,23 @@ namespace GeradorTeste.Infra.MassaDados
 
         private static void ConfigurarTestePortugues()
         {
-            var portugues = new Disciplina
-            {
-                Nome = "Português"
-            };
+            Disciplina portugues = new Disciplina("Português");            
 
-            var vogais = new Materia
-            {
-                Nome = "Vogais",
-                Serie = SerieMateriaEnum.PrimeiraSerie
-            };
+            repositorioDisciplina.Inserir(portugues);
 
-            vogais.ConfigurarDisciplina(portugues);
+            Materia consoantes = new Materia("Consoantes", SerieMateriaEnum.PrimeiraSerie, portugues);
 
-            var consoantes = new Materia
-            {
-                Nome = "Consoantes",
-                Serie = SerieMateriaEnum.PrimeiraSerie
-            };
+            repositorioMateria.Inserir(consoantes);
 
-            consoantes.ConfigurarDisciplina(portugues);
+            Questao q1 = NovaQuestaoPortugues(consoantes, 'C', 'A');
+            Questao q2 = NovaQuestaoPortugues(consoantes, 'E', 'C');
+            Questao q3 = NovaQuestaoPortugues(consoantes, 'G', 'E');
+            Questao q4 = NovaQuestaoPortugues(consoantes, 'I', 'G');
 
-            Questao q1 = NovaQuestaoPortugues(consoantes, 1, 'C', 'A');
-            Questao q2 = NovaQuestaoPortugues(consoantes, 2, 'E', 'C');
-            Questao q3 = NovaQuestaoPortugues(consoantes, 3, 'G', 'E');
-            Questao q4 = NovaQuestaoPortugues(consoantes, 4, 'I', 'G');
-
-            contexto.Disciplinas.Add(portugues);
-
-            contexto.Materias.Add(vogais);
-            contexto.Materias.Add(consoantes);
-
-            contexto.Questoes.Add(q1);
-            contexto.Questoes.Add(q2);
-            contexto.Questoes.Add(q3);
-            contexto.Questoes.Add(q4);
+            repositorioQuestao.Inserir(q1);
+            repositorioQuestao.Inserir(q2);
+            repositorioQuestao.Inserir(q3);
+            repositorioQuestao.Inserir(q4);
 
             Teste novoTeste = new Teste();
 
@@ -76,34 +53,20 @@ namespace GeradorTeste.Infra.MassaDados
             novoTeste.Provao = false;
             novoTeste.QuantidadeQuestoes = 5;
             novoTeste.SortearQuestoes();
+            novoTeste.DataGeracao = DateTime.Now;
 
-            repositorioDisciplina.Inserir(portugues);
-
-            repositorioMateria.Inserir(vogais);
-            repositorioMateria.Inserir(consoantes);
-
-            repositorioQuestao.Inserir(q1);
-            repositorioQuestao.Inserir(q2);
-            repositorioQuestao.Inserir(q3);
-            repositorioQuestao.Inserir(q4);
             repositorioTeste.Inserir(novoTeste);
         }
 
-        private static Questao NovaQuestaoPortugues(Materia materia, int idQuestao, char letra, char resposta)
+        private static Questao NovaQuestaoPortugues(Materia materia, char letra, char resposta)
         {
-            var questao = new Questao
-            {
-                Id = idQuestao,
-                Enunciado = $"Depois da letra {letra} qual é a próxima letra do alfabeto?"
-            };
-
-            questao.ConfigurarMateria(materia);
+            Questao questao = new Questao($"Depois da letra {letra} qual é a próxima letra no alfabeto?", materia);
 
             Alternativa[] alternativas = new Alternativa[4];
 
             for (int i = 0; i < 4; i++)
             {
-                alternativas[i] = new Alternativa
+                alternativas[i] = new Alternativa()
                 {
                     Resposta = ((char)(resposta + (i + 1))).ToString()
                 };
@@ -122,49 +85,29 @@ namespace GeradorTeste.Infra.MassaDados
 
         private static void ConfigurarTesteMatematica()
         {
-            var matematica = new Disciplina
-            {
-                Nome = "Matemática"
-            };
+            Disciplina matematica = new Disciplina("Matemática");
 
-            var adicaoUnidades = new Materia
-            {
-                Nome = "Adição de Unidades",
-                Serie = SerieMateriaEnum.PrimeiraSerie
-            };
+            Materia adicaoUnidades = new Materia("Adição de Unidades", SerieMateriaEnum.PrimeiraSerie, matematica);
 
-            adicaoUnidades.ConfigurarDisciplina(matematica);
+            Materia adicaoDezenas = new Materia("Adição de Dezenas", SerieMateriaEnum.PrimeiraSerie, matematica);
 
-            var adicaoDezenas = new Materia
-            {
-                Nome = "Adição de Dezenas",
-                Serie = SerieMateriaEnum.PrimeiraSerie
-            };
+            Materia adicaoCentenas = new Materia("Adição de Centenas", SerieMateriaEnum.SegundaSerie, matematica);
 
-            adicaoDezenas.ConfigurarDisciplina(matematica);
+            Materia adicaoMilhar = new Materia("Adição de Milhar", SerieMateriaEnum.SegundaSerie, matematica);
 
-            var adicaoCentenas = new Materia
-            {
-                Nome = "Adição de Centenas",
-                Serie = SerieMateriaEnum.SegundaSerie
-            };
-
-            adicaoCentenas.ConfigurarDisciplina(matematica);
-
-            var adicaoMilhar = new Materia
-            {
-                Nome = "Adição de Milhar",
-                Serie = SerieMateriaEnum.SegundaSerie
-            };
-
-            adicaoMilhar.ConfigurarDisciplina(matematica);
-
-            var materias = new Materia[] { adicaoUnidades, adicaoDezenas, adicaoCentenas, adicaoMilhar };
+            Materia[] materias = new Materia[] { adicaoUnidades, adicaoDezenas, adicaoCentenas, adicaoMilhar };
 
             int contadorAlternativa = 1;
             int resposta = 0;
 
-            var questoes = new List<Questao>();
+            repositorioDisciplina.Inserir(matematica);
+
+            repositorioMateria.Inserir(adicaoUnidades);
+            repositorioMateria.Inserir(adicaoDezenas);
+            repositorioMateria.Inserir(adicaoCentenas);
+            repositorioMateria.Inserir(adicaoMilhar);
+
+            List<Questao> questoes = new List<Questao>();
 
             for (int i = 1; i < 40; i++)
             {
@@ -196,23 +139,11 @@ namespace GeradorTeste.Infra.MassaDados
                     fator = 1000; posicaoMateria = 3;
                 }
 
-                Questao q = NovaQuestaoMatematica(materias[posicaoMateria], i, ++resposta, fator);
+                Questao q = NovaQuestaoMatematica(materias[posicaoMateria], ++resposta, fator);
 
                 contadorAlternativa += 4;
 
                 questoes.Add(q);
-            }
-
-            contexto.Disciplinas.Add(matematica);
-
-            contexto.Materias.Add(adicaoUnidades);
-            contexto.Materias.Add(adicaoDezenas);
-            contexto.Materias.Add(adicaoCentenas);
-            contexto.Materias.Add(adicaoMilhar);
-
-            foreach (var questao in questoes)
-            {
-                contexto.Questoes.Add(questao);
             }
 
             foreach (var questao in questoes)
@@ -228,22 +159,16 @@ namespace GeradorTeste.Infra.MassaDados
             novoTeste.Provao = false;
             novoTeste.QuantidadeQuestoes = 5;
             novoTeste.SortearQuestoes();
+            novoTeste.DataGeracao = DateTime.Now;
 
-            repositorioDisciplina.Inserir(matematica);
-
-            repositorioMateria.Inserir(adicaoUnidades);
-            repositorioMateria.Inserir(adicaoDezenas);
-            repositorioMateria.Inserir(adicaoCentenas);
-            repositorioMateria.Inserir(adicaoMilhar);
             repositorioTeste.Inserir(novoTeste);
         }
 
-        private static Questao NovaQuestaoMatematica(Materia materia, int idQuestao, int resposta, int fator)
+        private static Questao NovaQuestaoMatematica(Materia materia, int resposta, int fator)
         {
             var questao = new Questao
             {
-                Id = idQuestao,
-                Enunciado = $"Quanto é {fator * resposta} + {fator * resposta } ?"
+                Enunciado = $"Quanto é {fator * resposta} + {fator * resposta} ?"
             };
 
             questao.ConfigurarMateria(materia);
@@ -269,6 +194,5 @@ namespace GeradorTeste.Infra.MassaDados
 
             return questao;
         }
-
     }
 }

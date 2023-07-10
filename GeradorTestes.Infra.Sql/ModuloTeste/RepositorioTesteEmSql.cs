@@ -1,0 +1,193 @@
+﻿using GeradorTestes.Dominio.ModuloQuestao;
+using GeradorTestes.Dominio.ModuloTeste;
+using GeradorTestes.Infra.Sql.ModuloQuestao;
+using System.Collections.Generic;
+
+namespace GeradorTestes.Infra.Sql.ModuloTeste
+{
+    public class RepositorioTesteEmSql :
+        RepositorioEmSqlBase<Teste, MapeadorTesteSql>, IRepositorioTeste
+    {
+        #region sql queries
+        protected override string sqlInserir =>
+          @"INSERT INTO [TBTESTE]
+                (
+                    [TITULO],                    
+                    [DATAGERACAO],
+                    [QUANTIDADEQUESTOES],
+                    [PROVAO],
+                    [MATERIA_ID],
+                    [DISCIPLINA_ID]
+	            )
+	            VALUES
+                (
+                    @TITULO,
+                    @DATAGERACAO,
+                    @QUANTIDADEQUESTOES,
+                    @PROVAO,
+                    @MATERIA_ID,
+                    @DISCIPLINA_ID
+
+                );SELECT SCOPE_IDENTITY();";
+
+        protected override string sqlExcluir =>
+           @"DELETE FROM [TBTESTE]
+
+		            WHERE
+			            [ID] = @ID";
+
+        protected override string sqlEditar => "";
+
+        private string sqlAdicionarQuestao =>
+          @"INSERT INTO [TBTESTE_TBQUESTAO]
+                (
+                    [TESTE_ID],                    
+                    [QUESTAO_ID]
+	            )
+	            VALUES
+                (
+                    @TESTE_ID,
+                    @QUESTAO_ID
+
+                );";
+
+        private string sqlRemoverQuestao =>
+          @"DELETE FROM [TBTESTE_TBQUESTAO]
+
+		            WHERE
+			            [TESTE_ID] = @TESTE_ID;";
+
+        protected override string sqlSelecionarTodos =>
+             @"SELECT        
+	                T.ID                    TESTE_ID
+	               ,T.TITULO                TESTE_TITULO
+	               ,T.DATAGERACAO           TESTE_DATAGERACAO
+	               ,T.PROVAO                TESTE_PROVAO
+ 	               ,T.QUANTIDADEQUESTOES    TESTE_QUANTIDADEQUESTOES
+                   
+	               ,D.ID                    DISCIPLINA_ID
+	               ,D.NOME                  DISCIPLINA_NOME
+	               
+	               ,M.ID                    MATERIA_ID
+	               ,M.NOME                  MATERIA_NOME
+	               ,M.SERIE                 MATERIA_SERIE 	
+
+                FROM  
+	                TBTESTE T 
+                    
+                    INNER JOIN TBDISCIPLINA D
+                        ON T.DISCIPLINA_ID = D.ID
+
+                    LEFT JOIN TBMATERIA M 
+                        ON T.MATERIA_ID = M.ID";
+
+        protected override string sqlSelecionarPorId =>
+             @"SELECT        
+	                T.ID                    TESTE_ID
+	               ,T.TITULO                TESTE_TITULO
+	               ,T.DATAGERACAO           TESTE_DATAGERACAO
+	               ,T.PROVAO                TESTE_PROVAO
+ 	               ,T.QUANTIDADEQUESTOES    TESTE_QUANTIDADEQUESTOES
+                   
+	               ,D.ID                    DISCIPLINA_ID
+	               ,D.NOME                  DISCIPLINA_NOME
+	               
+	               ,M.ID                    MATERIA_ID
+	               ,M.NOME                  MATERIA_NOME
+	               ,M.SERIE                 MATERIA_SERIE 	
+
+                FROM  
+	                TBTESTE T 
+                    
+                    INNER JOIN TBDISCIPLINA D
+                        ON T.DISCIPLINA_ID = D.ID
+
+                    LEFT JOIN TBMATERIA M 
+                        ON T.MATERIA_ID = M.ID
+
+                WHERE 
+	                T.[ID] = @ID";
+
+        private string sqlSelecionarQuestoesDoTeste =>
+            @"SELECT 
+	                Q.ID            QUESTAO_ID
+	               ,Q.ENUNCIADO     QUESTAO_ENUNCIADO
+
+                FROM 
+	                TBQUESTAO AS Q 
+
+                INNER JOIN TBTESTE_TBQUESTAO AS TQ
+                    ON Q.ID = TQ.QUESTAO_ID
+
+                WHERE 
+	                TQ.TESTE_ID = @TESTE_ID";
+        #endregion
+
+        public override void Inserir(Teste teste)
+        {
+            base.Inserir(teste);
+
+            AdicionarQuestoesNoTeste(teste);
+        }
+        
+        public override void Excluir(Teste testeSelecionado)
+        {
+            RemoverQuestoesNoTeste(testeSelecionado);
+
+            base.Excluir(testeSelecionado);
+        }
+
+        public override void Editar(Teste registro) { }
+
+        public override Teste SelecionarPorId(int id)
+        {
+            Teste teste = base.SelecionarPorId(id);
+
+            if (teste != null)
+                CarregarQuestoes(teste);
+
+            return teste;
+        }
+
+        private void AdicionarQuestoesNoTeste(Teste teste)
+        {
+            foreach (var questao in teste.Questoes)
+            {
+                SqlParameter[] parametros = new SqlParameter[]
+                {
+                    new SqlParameter("TESTE_ID", teste.Id),
+                    new SqlParameter("QUESTAO_ID", questao.Id)
+                };
+
+                ExecutarComando(sqlAdicionarQuestao, parametros);
+            }
+        }
+
+        private void CarregarQuestoes(Teste teste)
+        {
+            MapeadorQuestaoSql mapeador = new MapeadorQuestaoSql();
+
+            SqlParameter[] parametros = new SqlParameter[]
+            {
+                new SqlParameter("TESTE_ID", teste.Id)
+            };
+
+            List<Questao> questoes = SelecionarRegistros(sqlSelecionarQuestoesDoTeste, mapeador.ConverterRegistro, parametros);
+
+            foreach (Questao questao in questoes)
+            {
+                teste.Questoes.Add(questao);
+            }
+        }
+
+        private void RemoverQuestoesNoTeste(Teste teste)
+        {
+            SqlParameter[] parametros = new SqlParameter[]
+               {
+                    new SqlParameter("TESTE_ID", teste.Id),
+               };
+
+            ExecutarComando(sqlRemoverQuestao, parametros);
+        }
+    }
+}
