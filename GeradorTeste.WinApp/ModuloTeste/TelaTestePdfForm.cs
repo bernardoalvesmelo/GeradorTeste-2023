@@ -12,6 +12,16 @@ namespace GeradorTeste.WinApp.ModuloTeste
             ConfigurarTela(teste);
         }
 
+        public string Diretorio
+        {
+            get { return txtDiretorio.Text;  }
+        }
+
+        public bool GerarGabarito
+        {
+            get { return chkGabarito.Checked; }
+        }
+
         private void ConfigurarTela(Teste teste)
         {
             labelTitulo.Text = teste.Titulo;
@@ -20,6 +30,14 @@ namespace GeradorTeste.WinApp.ModuloTeste
                 labelMateria.Text = "Todas as Matérias";
             else
                 labelMateria.Text = teste.Materia.Nome;
+        }
+
+        private void btnLocalizar_Click(object sender, System.EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog(this) == DialogResult.OK)
+            {
+                txtDiretorio.Text = folderBrowserDialog1.SelectedPath;
+            }
         }
     }
 }

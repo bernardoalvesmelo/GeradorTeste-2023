@@ -34,13 +34,13 @@
             label4 = new System.Windows.Forms.Label();
             labelTitulo = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
-            saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             label2 = new System.Windows.Forms.Label();
-            checkBox1 = new System.Windows.Forms.CheckBox();
-            textBox1 = new System.Windows.Forms.TextBox();
-            button1 = new System.Windows.Forms.Button();
+            chkGabarito = new System.Windows.Forms.CheckBox();
+            txtDiretorio = new System.Windows.Forms.TextBox();
+            btnLocalizar = new System.Windows.Forms.Button();
             btnCancelar = new System.Windows.Forms.Button();
             btnGerar = new System.Windows.Forms.Button();
+            folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             SuspendLayout();
             // 
             // labelMateria
@@ -109,31 +109,32 @@
             label2.TabIndex = 12;
             label2.Text = "Diretório:";
             // 
-            // checkBox1
+            // chkGabarito
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new System.Drawing.Point(96, 155);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new System.Drawing.Size(140, 19);
-            checkBox1.TabIndex = 13;
-            checkBox1.Text = "Gerar Pdf do Gabarito";
-            checkBox1.UseVisualStyleBackColor = true;
+            chkGabarito.AutoSize = true;
+            chkGabarito.Location = new System.Drawing.Point(96, 155);
+            chkGabarito.Name = "chkGabarito";
+            chkGabarito.Size = new System.Drawing.Size(140, 19);
+            chkGabarito.TabIndex = 13;
+            chkGabarito.Text = "Gerar Pdf do Gabarito";
+            chkGabarito.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtDiretorio
             // 
-            textBox1.Location = new System.Drawing.Point(96, 116);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(342, 23);
-            textBox1.TabIndex = 14;
+            txtDiretorio.Location = new System.Drawing.Point(96, 116);
+            txtDiretorio.Name = "txtDiretorio";
+            txtDiretorio.Size = new System.Drawing.Size(342, 23);
+            txtDiretorio.TabIndex = 14;
             // 
-            // button1
+            // btnLocalizar
             // 
-            button1.Location = new System.Drawing.Point(444, 116);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(90, 23);
-            button1.TabIndex = 15;
-            button1.Text = "Localizar";
-            button1.UseVisualStyleBackColor = true;
+            btnLocalizar.Location = new System.Drawing.Point(444, 116);
+            btnLocalizar.Name = "btnLocalizar";
+            btnLocalizar.Size = new System.Drawing.Size(90, 23);
+            btnLocalizar.TabIndex = 15;
+            btnLocalizar.Text = "Localizar";
+            btnLocalizar.UseVisualStyleBackColor = true;
+            btnLocalizar.Click += btnLocalizar_Click;
             // 
             // btnCancelar
             // 
@@ -162,9 +163,9 @@
             ClientSize = new System.Drawing.Size(546, 317);
             Controls.Add(btnCancelar);
             Controls.Add(btnGerar);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
-            Controls.Add(checkBox1);
+            Controls.Add(btnLocalizar);
+            Controls.Add(txtDiretorio);
+            Controls.Add(chkGabarito);
             Controls.Add(label2);
             Controls.Add(labelMateria);
             Controls.Add(label6);
@@ -186,12 +187,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelTitulo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chkGabarito;
+        private System.Windows.Forms.TextBox txtDiretorio;
+        private System.Windows.Forms.Button btnLocalizar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGerar;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

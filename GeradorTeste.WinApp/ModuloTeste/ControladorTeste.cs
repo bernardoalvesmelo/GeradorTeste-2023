@@ -1,5 +1,4 @@
 ﻿using GeradorTestes.Dominio.ModuloDisciplina;
-using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloTeste;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -136,11 +135,9 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             if (resultado == DialogResult.OK)
             {
-                geradorRelatorio.GerarRelatorioEmPdf(testeSelecionado, @"C:\temp", true);
+                geradorRelatorio.GerarRelatorioEmPdf(testeSelecionado, tela.Diretorio, tela.GerarGabarito);
             }
         }
-
-
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
         {
