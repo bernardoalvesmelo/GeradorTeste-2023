@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acesso a Dados", "Acesso a 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PDF", "PDF", "{C8CB4103-0A0A-412B-A4B3-45A2B8C26A17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorTeste.Infra.Pdf", "GeradorTeste.Infra.Pdf\GeradorTeste.Infra.Pdf.csproj", "{C086B6F2-05A6-4AD4-A2F5-8C6B738078AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorTeste.Infra.Pdf.iText", "GeradorTeste.Infra.Pdf\GeradorTeste.Infra.Pdf.iText.csproj", "{C086B6F2-05A6-4AD4-A2F5-8C6B738078AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

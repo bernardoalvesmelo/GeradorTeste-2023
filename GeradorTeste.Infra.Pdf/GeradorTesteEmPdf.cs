@@ -2,14 +2,13 @@
 using GeradorTestes.Dominio.ModuloTeste;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System;
 using System.IO;
 
 namespace GeradorTeste.Infra.Pdf
 {
-    public class GeradorRelatorioPdf : IGeradorRelatorio
+    public class GeradorTesteEmPdf : IGeradorArquivo
     {
-        public void GerarRelatorioEmPdf(Teste testeSelecionado, string diretorio, bool gerarGabarito)
+        public void GravarTesteEmPdf(Teste testeSelecionado, string diretorio, bool gerarGabarito)
         {
             GerarTeste(testeSelecionado, diretorio);
 

@@ -83,7 +83,7 @@ namespace GeradorTeste.Infra.MassaDados
             return questao;
         }
 
-        private static void ConfigurarTesteMatematica()
+        public static void ConfigurarTesteMatematica()
         {
             Disciplina matematica = new Disciplina("Matemática");
 

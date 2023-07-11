@@ -10,6 +10,7 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
     public class RepositorioDisciplinaEmSql :
         RepositorioEmSqlBase<Disciplina, MapeadorDisciplinaSql>, IRepositorioDisciplina
     {
+        #region slq queries
         protected override string sqlInserir =>
             @"INSERT INTO [TBDISCIPLINA]
                 (
@@ -75,6 +76,8 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
 		        WHERE
                     [MATERIA_ID] = @MATERIA_ID";
 
+        #endregion
+        
         public List<Disciplina> SelecionarTodos(bool incluirMaterias = false, bool incluirQuestoes=false)
         {
             List<Disciplina> disciplinas = base.SelecionarTodos();

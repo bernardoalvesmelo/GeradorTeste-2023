@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GeradorTestes.Dominio.ModuloQuestao
+﻿namespace GeradorTestes.Dominio.ModuloQuestao
 {
     public interface IRepositorioQuestao : IRepositorio<Questao>
     {

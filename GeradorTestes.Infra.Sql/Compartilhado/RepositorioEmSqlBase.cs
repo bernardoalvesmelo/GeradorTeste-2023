@@ -11,7 +11,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
      where TEntidade : EntidadeBase<TEntidade>
      where TMapeador : MapeadorBase<TEntidade>, new()
     {
-        protected string enderecoBanco =
+        protected static string enderecoBanco =
            @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=GeradorTesteSql;Integrated Security=True";
 
         protected abstract string sqlInserir { get; }
@@ -145,7 +145,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
             return registros;
         }
 
-        protected List<T> SelecionarRegistros<T>(string sql, ConverterRegistroDelegate<T> ConverterRegistro, SqlParameter[] parametros)
+        protected static List<T> SelecionarRegistros<T>(string sql, ConverterRegistroDelegate<T> ConverterRegistro, SqlParameter[] parametros)
         {
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
 
@@ -173,7 +173,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
             return registros;
         }
 
-        protected void ExecutarComando(string sql, SqlParameter[] parametros)
+        protected static void ExecutarComando(string sql, SqlParameter[] parametros)
         {
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
 

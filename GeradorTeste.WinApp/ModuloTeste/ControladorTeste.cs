@@ -9,17 +9,17 @@ namespace GeradorTeste.WinApp.ModuloTeste
     {
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioTeste repositorioTeste;
-        private IGeradorRelatorio geradorRelatorio;
+        private IGeradorArquivo geradorArquivo;
 
         private TabelaTesteControl tabelaTeste;
 
         public ControladorTeste(IRepositorioTeste repositorioTeste,
             IRepositorioDisciplina repositorioDisciplina,
-            IGeradorRelatorio geradorRelatorio)
+            IGeradorArquivo geradorArquivo)
         {
             this.repositorioDisciplina = repositorioDisciplina;
             this.repositorioTeste = repositorioTeste;
-            this.geradorRelatorio = geradorRelatorio;
+            this.geradorArquivo = geradorArquivo;
         }
 
         public override void Inserir()
@@ -135,7 +135,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             if (resultado == DialogResult.OK)
             {
-                geradorRelatorio.GerarRelatorioEmPdf(testeSelecionado, tela.Diretorio, tela.GerarGabarito);
+                geradorArquivo.GravarTesteEmPdf(testeSelecionado, tela.Diretorio, tela.GerarGabarito);
             }
         }
 
