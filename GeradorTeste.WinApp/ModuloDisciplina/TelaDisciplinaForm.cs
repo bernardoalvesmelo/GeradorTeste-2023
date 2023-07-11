@@ -16,11 +16,11 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
         }
 
         public Disciplina ObterDisciplina()
-        {               
+        {
             disciplina.Id = Convert.ToInt32(txtId.Text);
             disciplina.Nome = txtNome.Text;
 
-            return disciplina;          
+            return disciplina;
         }
 
         public void ConfigurarDisciplina(Disciplina disciplina)

@@ -8,19 +8,16 @@ namespace GeradorTestes.Dominio.ModuloQuestao
         {
         }
 
-        public Alternativa(char letra, string resposta, bool correta)
+        public Alternativa(char letra, string resposta, bool correta) : this()
         {
             Letra = letra;
             Resposta = resposta;
             Correta = correta;
         }
 
-        public Alternativa(int id, char letra, string resposta, bool correta)
+        public Alternativa(int id, char letra, string resposta, bool correta) : this(letra, resposta, correta)
         {
             Id = id;
-            Letra = letra;
-            Resposta = resposta;
-            Correta = correta;
         }
 
         public bool Correta { get; set; }
@@ -28,8 +25,6 @@ namespace GeradorTestes.Dominio.ModuloQuestao
         public char Letra { get; set; }
 
         public Questao Questao { get; set; }
-
-        public Guid QuestaoId { get; set; }
 
         public string Resposta { get; set; }
 

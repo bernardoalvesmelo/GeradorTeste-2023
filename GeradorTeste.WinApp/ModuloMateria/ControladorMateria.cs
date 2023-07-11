@@ -36,8 +36,8 @@ namespace GeradorTeste.WinApp.ModuloMateria
 
                 this.repositorioMateria.Inserir(novaMateria);
 
-                CarregarMaterias();
             }
+            CarregarMaterias();
         }
 
         public override void Editar()
@@ -57,7 +57,7 @@ namespace GeradorTeste.WinApp.ModuloMateria
 
             TelaMateriaForm tela = new TelaMateriaForm(materias);
 
-            tela.ConfigurarMateria(materiaSelecionada); 
+            tela.ConfigurarMateria(materiaSelecionada);
 
             DialogResult resultado = tela.ShowDialog();
 
@@ -67,8 +67,8 @@ namespace GeradorTeste.WinApp.ModuloMateria
 
                 this.repositorioMateria.Editar(materia);
 
-                CarregarMaterias();
             }
+            CarregarMaterias();
         }
 
         public override void Excluir()
@@ -90,8 +90,8 @@ namespace GeradorTeste.WinApp.ModuloMateria
             if (resultado == DialogResult.OK)
             {
                 repositorioMateria.Excluir(materiaSelecionada);
-                CarregarMaterias();
             }
+            CarregarMaterias();
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
@@ -115,7 +115,7 @@ namespace GeradorTeste.WinApp.ModuloMateria
 
             tabelaMaterias.AtualizarRegistros(materias);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {materias.Count} materias(s)");
+            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando {0} matéria{1}", materias.Count, materias.Count == 1 ? "" : "s"));
         }
     }
 }

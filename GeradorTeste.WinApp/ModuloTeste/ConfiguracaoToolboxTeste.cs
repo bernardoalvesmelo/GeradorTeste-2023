@@ -21,5 +21,7 @@
         public override bool DuplicarHabilitado => true;
 
         public override bool VisualizarHabilitado => true;
+
+        public override bool GerarPdfHabilitado => true;
     }
 }

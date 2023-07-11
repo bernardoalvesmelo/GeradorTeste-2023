@@ -18,6 +18,11 @@ namespace eAgenda.Infra.Arquivos.ModuloTeste
             return contextoDados.Testes;
         }
 
+        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false)
+        {
+            return base.SelecionarPorId(id);
+        }
+
         public List<Teste> SelecionarTodos(bool incluirDisciplinaEhMateria)
         {
             return ObterRegistros();

@@ -1,4 +1,5 @@
 ﻿using GeradorTestes.Dominio.ModuloDisciplina;
+using GeradorTestes.Dominio.ModuloMateria;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -26,11 +27,11 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
             if (resultado == DialogResult.OK)
             {
                 Disciplina novaDisciplina = tela.ObterDisciplina();
-                
-                repositorioDisciplina.Inserir(novaDisciplina);
 
-                CarregarDisciplinas();
+                repositorioDisciplina.Inserir(novaDisciplina);
             }
+
+            CarregarDisciplinas();
         }
 
         public override void Editar()
@@ -57,9 +58,9 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
                 Disciplina disciplina = tela.ObterDisciplina();
 
                 repositorioDisciplina.Editar(disciplina);
-
-                CarregarDisciplinas();
             }
+
+            CarregarDisciplinas();
         }
 
         public override void Excluir()
@@ -81,8 +82,9 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
             if (resultado == DialogResult.OK)
             {
                 repositorioDisciplina.Excluir(disciplinaSelecionada);
-                CarregarDisciplinas();
             }
+
+            CarregarDisciplinas();
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
@@ -106,7 +108,7 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
 
             tabelaDisciplina.AtualizarRegistros(disciplinas);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {disciplinas.Count} disciplina(s)");
+            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando {0} disciplina{1}", disciplinas.Count, disciplinas.Count == 1 ? "" : "s"));
         }
     }
 }

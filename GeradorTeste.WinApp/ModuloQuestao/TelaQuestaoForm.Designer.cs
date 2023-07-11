@@ -29,193 +29,213 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaQuestaoForm));
-            this.cmbMaterias = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmbDisciplinas = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtEnunciado = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listAlternativas = new System.Windows.Forms.CheckedListBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnRemover = new System.Windows.Forms.ToolStripButton();
-            this.btnAdicionar = new System.Windows.Forms.Button();
-            this.txtResposta = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnGravar = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.SuspendLayout();
+            cmbMaterias = new System.Windows.Forms.ComboBox();
+            label4 = new System.Windows.Forms.Label();
+            cmbDisciplinas = new System.Windows.Forms.ComboBox();
+            label3 = new System.Windows.Forms.Label();
+            txtEnunciado = new System.Windows.Forms.TextBox();
+            label2 = new System.Windows.Forms.Label();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            listAlternativas = new System.Windows.Forms.CheckedListBox();
+            toolStrip1 = new System.Windows.Forms.ToolStrip();
+            btnRemover = new System.Windows.Forms.ToolStripButton();
+            btnAdicionar = new System.Windows.Forms.Button();
+            txtResposta = new System.Windows.Forms.TextBox();
+            label5 = new System.Windows.Forms.Label();
+            btnCancelar = new System.Windows.Forms.Button();
+            btnGravar = new System.Windows.Forms.Button();
+            txtId = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            groupBox1.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // cmbMaterias
             // 
-            this.cmbMaterias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMaterias.FormattingEnabled = true;
-            this.cmbMaterias.Location = new System.Drawing.Point(85, 50);
-            this.cmbMaterias.Name = "cmbMaterias";
-            this.cmbMaterias.Size = new System.Drawing.Size(217, 23);
-            this.cmbMaterias.TabIndex = 24;
+            cmbMaterias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbMaterias.FormattingEnabled = true;
+            cmbMaterias.Location = new System.Drawing.Point(85, 86);
+            cmbMaterias.Name = "cmbMaterias";
+            cmbMaterias.Size = new System.Drawing.Size(217, 23);
+            cmbMaterias.TabIndex = 3;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 15);
-            this.label4.TabIndex = 23;
-            this.label4.Text = "Matéria:";
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(30, 89);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(50, 15);
+            label4.TabIndex = 0;
+            label4.Text = "Matéria:";
             // 
             // cmbDisciplinas
             // 
-            this.cmbDisciplinas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDisciplinas.FormattingEnabled = true;
-            this.cmbDisciplinas.Location = new System.Drawing.Point(85, 21);
-            this.cmbDisciplinas.Name = "cmbDisciplinas";
-            this.cmbDisciplinas.Size = new System.Drawing.Size(217, 23);
-            this.cmbDisciplinas.TabIndex = 22;
-            this.cmbDisciplinas.SelectedIndexChanged += new System.EventHandler(this.cmbDisciplinas_SelectedIndexChanged);
+            cmbDisciplinas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbDisciplinas.FormattingEnabled = true;
+            cmbDisciplinas.Location = new System.Drawing.Point(85, 57);
+            cmbDisciplinas.Name = "cmbDisciplinas";
+            cmbDisciplinas.Size = new System.Drawing.Size(217, 23);
+            cmbDisciplinas.TabIndex = 2;
+            cmbDisciplinas.SelectedIndexChanged += cmbDisciplinas_SelectedIndexChanged;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 15);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "Disciplina:";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(19, 61);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(61, 15);
+            label3.TabIndex = 0;
+            label3.Text = "Disciplina:";
             // 
             // txtEnunciado
             // 
-            this.txtEnunciado.Location = new System.Drawing.Point(85, 79);
-            this.txtEnunciado.Multiline = true;
-            this.txtEnunciado.Name = "txtEnunciado";
-            this.txtEnunciado.Size = new System.Drawing.Size(389, 64);
-            this.txtEnunciado.TabIndex = 20;
+            txtEnunciado.Location = new System.Drawing.Point(85, 115);
+            txtEnunciado.Multiline = true;
+            txtEnunciado.Name = "txtEnunciado";
+            txtEnunciado.Size = new System.Drawing.Size(389, 64);
+            txtEnunciado.TabIndex = 4;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 99);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 15);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Enunciado:";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(14, 135);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(66, 15);
+            label2.TabIndex = 0;
+            label2.Text = "Enunciado:";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listAlternativas);
-            this.groupBox1.Controls.Add(this.toolStrip1);
-            this.groupBox1.Location = new System.Drawing.Point(18, 211);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(456, 255);
-            this.groupBox1.TabIndex = 25;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Alternativas";
+            groupBox1.Controls.Add(listAlternativas);
+            groupBox1.Controls.Add(toolStrip1);
+            groupBox1.Location = new System.Drawing.Point(18, 247);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new System.Drawing.Size(456, 255);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Alternativas";
             // 
             // listAlternativas
             // 
-            this.listAlternativas.CheckOnClick = true;
-            this.listAlternativas.FormattingEnabled = true;
-            this.listAlternativas.Location = new System.Drawing.Point(8, 70);
-            this.listAlternativas.Name = "listAlternativas";
-            this.listAlternativas.Size = new System.Drawing.Size(442, 166);
-            this.listAlternativas.TabIndex = 34;
+            listAlternativas.CheckOnClick = true;
+            listAlternativas.FormattingEnabled = true;
+            listAlternativas.Location = new System.Drawing.Point(8, 70);
+            listAlternativas.Name = "listAlternativas";
+            listAlternativas.Size = new System.Drawing.Size(442, 166);
+            listAlternativas.TabIndex = 0;
             // 
             // toolStrip1
             // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnRemover});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 19);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(450, 40);
-            this.toolStrip1.TabIndex = 33;
-            this.toolStrip1.Text = "toolStrip1";
+            toolStrip1.AutoSize = false;
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnRemover });
+            toolStrip1.Location = new System.Drawing.Point(3, 19);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new System.Drawing.Size(450, 40);
+            toolStrip1.TabIndex = 0;
+            toolStrip1.Text = "toolStrip1";
             // 
             // btnRemover
             // 
-            this.btnRemover.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnRemover.Image = ((System.Drawing.Image)(resources.GetObject("btnRemover.Image")));
-            this.btnRemover.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRemover.Name = "btnRemover";
-            this.btnRemover.Size = new System.Drawing.Size(58, 37);
-            this.btnRemover.Text = "Remover";
-            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            btnRemover.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            btnRemover.Image = (System.Drawing.Image)resources.GetObject("btnRemover.Image");
+            btnRemover.ImageTransparentColor = System.Drawing.Color.Magenta;
+            btnRemover.Name = "btnRemover";
+            btnRemover.Size = new System.Drawing.Size(58, 37);
+            btnRemover.Text = "Remover";
+            btnRemover.Click += btnRemover_Click;
             // 
             // btnAdicionar
             // 
-            this.btnAdicionar.Location = new System.Drawing.Point(381, 148);
-            this.btnAdicionar.Name = "btnAdicionar";
-            this.btnAdicionar.Size = new System.Drawing.Size(93, 46);
-            this.btnAdicionar.TabIndex = 30;
-            this.btnAdicionar.Text = "Adicionar";
-            this.btnAdicionar.UseVisualStyleBackColor = true;
-            this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
+            btnAdicionar.Location = new System.Drawing.Point(381, 184);
+            btnAdicionar.Name = "btnAdicionar";
+            btnAdicionar.Size = new System.Drawing.Size(93, 46);
+            btnAdicionar.TabIndex = 6;
+            btnAdicionar.Text = "Adicionar";
+            btnAdicionar.UseVisualStyleBackColor = true;
+            btnAdicionar.Click += btnAdicionar_Click;
             // 
             // txtResposta
             // 
-            this.txtResposta.Location = new System.Drawing.Point(85, 149);
-            this.txtResposta.Multiline = true;
-            this.txtResposta.Name = "txtResposta";
-            this.txtResposta.Size = new System.Drawing.Size(290, 45);
-            this.txtResposta.TabIndex = 29;
+            txtResposta.Location = new System.Drawing.Point(85, 185);
+            txtResposta.Multiline = true;
+            txtResposta.Name = "txtResposta";
+            txtResposta.Size = new System.Drawing.Size(290, 45);
+            txtResposta.TabIndex = 5;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 164);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 15);
-            this.label5.TabIndex = 28;
-            this.label5.Text = "Resposta:";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(23, 200);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(57, 15);
+            label5.TabIndex = 0;
+            label5.Text = "Resposta:";
             // 
             // btnCancelar
             // 
-            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancelar.Location = new System.Drawing.Point(399, 515);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 45);
-            this.btnCancelar.TabIndex = 27;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancelar.Location = new System.Drawing.Point(399, 515);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new System.Drawing.Size(75, 45);
+            btnCancelar.TabIndex = 8;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
             // 
             // btnGravar
             // 
-            this.btnGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnGravar.Location = new System.Drawing.Point(318, 515);
-            this.btnGravar.Name = "btnGravar";
-            this.btnGravar.Size = new System.Drawing.Size(75, 45);
-            this.btnGravar.TabIndex = 26;
-            this.btnGravar.Text = "Gravar";
-            this.btnGravar.UseVisualStyleBackColor = true;
-            this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
+            btnGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnGravar.Location = new System.Drawing.Point(318, 515);
+            btnGravar.Name = "btnGravar";
+            btnGravar.Size = new System.Drawing.Size(75, 45);
+            btnGravar.TabIndex = 7;
+            btnGravar.Text = "Gravar";
+            btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnGravar_Click;
             // 
-            // TelaCadastroQuestoesForm
+            // txtId
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(491, 572);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnGravar);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnAdicionar);
-            this.Controls.Add(this.cmbMaterias);
-            this.Controls.Add(this.txtResposta);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.cmbDisciplinas);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtEnunciado);
-            this.Controls.Add(this.label2);
-            this.Name = "TelaCadastroQuestoesForm";
-            this.Text = "Cadastro de Questões";
-            this.groupBox1.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            txtId.Enabled = false;
+            txtId.Location = new System.Drawing.Point(85, 28);
+            txtId.Name = "txtId";
+            txtId.Size = new System.Drawing.Size(60, 23);
+            txtId.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(59, 31);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(20, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Id:";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // TelaQuestaoForm
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(491, 572);
+            Controls.Add(label1);
+            Controls.Add(txtId);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnGravar);
+            Controls.Add(groupBox1);
+            Controls.Add(btnAdicionar);
+            Controls.Add(cmbMaterias);
+            Controls.Add(txtResposta);
+            Controls.Add(label4);
+            Controls.Add(label5);
+            Controls.Add(cmbDisciplinas);
+            Controls.Add(label3);
+            Controls.Add(txtEnunciado);
+            Controls.Add(label2);
+            Name = "TelaQuestaoForm";
+            Text = "Cadastro de Questões";
+            groupBox1.ResumeLayout(false);
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -236,5 +256,7 @@
         private System.Windows.Forms.ToolStripButton btnRemover;
         private System.Windows.Forms.ComboBox cmbAlternativaCorreta;
         private System.Windows.Forms.CheckedListBox listAlternativas;
+        private System.Windows.Forms.TextBox txtId;
+        private System.Windows.Forms.Label label1;
     }
 }

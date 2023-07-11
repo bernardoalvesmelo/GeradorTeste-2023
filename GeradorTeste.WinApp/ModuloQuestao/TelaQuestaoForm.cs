@@ -12,29 +12,29 @@ namespace GeradorTeste.WinApp.ModuloQuestao
     {
         private Questao questao;
 
-        private readonly List<Disciplina> disciplinas;
-
         public TelaQuestaoForm(List<Disciplina> disciplinas)
         {
             InitializeComponent();
             this.ConfigurarDialog();
             CarregarDisciplinas(disciplinas);
-            this.disciplinas = disciplinas;
         }
 
         public Questao ObterQuestao()
         {
+            questao.Id = Convert.ToInt32(txtId.Text);
             questao.Enunciado = txtEnunciado.Text;
             questao.Materia = (Materia)cmbMaterias.SelectedItem;
 
             int i = 0;
             foreach (var item in listAlternativas.Items)
             {
-                if (listAlternativas.GetItemChecked(i))
-                {
-                    Alternativa a = (Alternativa)item;
-                    questao.AtualizarAlternativaCorreta(a);
-                }
+                Alternativa a = (Alternativa)item;
+
+                if (listAlternativas.GetItemChecked(i))                                    
+                    a.Correta = true;
+                else
+                    a.Correta = false;
+
                 i++;
             }
 
@@ -45,12 +45,13 @@ namespace GeradorTeste.WinApp.ModuloQuestao
         {
             this.questao = questao;
 
+            txtId.Text = questao.Id.ToString();
             txtEnunciado.Text = questao.Enunciado;
             cmbDisciplinas.SelectedItem = questao.Materia?.Disciplina;
             cmbMaterias.SelectedItem = questao.Materia;
 
             RecarregarAlternativas();
-        }      
+        }
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
@@ -78,6 +79,8 @@ namespace GeradorTeste.WinApp.ModuloQuestao
             questao.AdicionarAlternativa(alternativa);
 
             RecarregarAlternativas();
+
+            txtResposta.Focus();    
         }
 
         private void btnRemover_Click(object sender, EventArgs e)

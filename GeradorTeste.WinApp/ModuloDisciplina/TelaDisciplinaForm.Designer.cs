@@ -42,7 +42,7 @@
             label2.Location = new System.Drawing.Point(36, 58);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(43, 15);
-            label2.TabIndex = 1;
+            label2.TabIndex = 0;
             label2.Text = "Nome:";
             // 
             // txtNome
@@ -50,7 +50,7 @@
             txtNome.Location = new System.Drawing.Point(85, 55);
             txtNome.Name = "txtNome";
             txtNome.Size = new System.Drawing.Size(253, 23);
-            txtNome.TabIndex = 3;
+            txtNome.TabIndex = 2;
             // 
             // btnGravar
             // 
@@ -58,7 +58,7 @@
             btnGravar.Location = new System.Drawing.Point(182, 156);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new System.Drawing.Size(75, 45);
-            btnGravar.TabIndex = 4;
+            btnGravar.TabIndex = 3;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnGravar_Click;
@@ -69,16 +69,17 @@
             btnCancelar.Location = new System.Drawing.Point(263, 156);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new System.Drawing.Size(75, 45);
-            btnCancelar.TabIndex = 5;
+            btnCancelar.TabIndex = 4;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
             // txtId
             // 
+            txtId.Enabled = false;
             txtId.Location = new System.Drawing.Point(85, 26);
             txtId.Name = "txtId";
-            txtId.Size = new System.Drawing.Size(91, 23);
-            txtId.TabIndex = 7;
+            txtId.Size = new System.Drawing.Size(60, 23);
+            txtId.TabIndex = 1;
             // 
             // label1
             // 
@@ -86,10 +87,10 @@
             label1.Location = new System.Drawing.Point(59, 29);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(20, 15);
-            label1.TabIndex = 6;
+            label1.TabIndex = 0;
             label1.Text = "Id:";
             // 
-            // TelaCadastroDisciplinasForm
+            // TelaDisciplinaForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

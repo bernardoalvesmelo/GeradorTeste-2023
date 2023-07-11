@@ -4,6 +4,9 @@ namespace GeradorTestes.Dominio.ModuloMateria
 {
     public enum SerieMateriaEnum
     {
+        [Description(" ")]
+        Nenhum = 0,
+
         [Description("1ª Série")]
         PrimeiraSerie = 1,
 

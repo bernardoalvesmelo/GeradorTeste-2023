@@ -15,13 +15,17 @@ namespace GeradorTestes.Dominio.ModuloTeste
             Questoes = new List<Questao>();
         }
 
-        public Teste(int id, string titulo, bool provao, DateTime dataGeracao, int quantidadeQuestoes) : this() 
+        public Teste(string titulo, bool provao, DateTime dataGeracao, int quantidadeQuestoes) : this()
         {
-            Id = id;
             Titulo = titulo;
             Provao = provao;
             DataGeracao = dataGeracao;
             QuantidadeQuestoes = quantidadeQuestoes;
+        }
+
+        public Teste(int id, string titulo, bool provao, DateTime dataGeracao, int quantidadeQuestoes) : this(titulo, provao, dataGeracao, quantidadeQuestoes) 
+        {
+            Id = id;
         }
 
         public string Titulo { get; set; }
@@ -34,29 +38,23 @@ namespace GeradorTestes.Dominio.ModuloTeste
 
         public Disciplina Disciplina { get; set; }
 
-        public Guid DisciplinaId { get; set; }
-
-        public Materia Materia { get; set; }
-
-        /// <summary>
-        /// A matéria é opcional para cada teste
-        /// Nullable
-        /// </summary>
-        public Guid? MateriaId { get; set; }
+        public Materia Materia { get; set; }        
 
         public int QuantidadeQuestoes { get; set; }
+
+        public bool QuestoesSorteadas { get; set; }
 
         public Gabarito ObterGabarito()
         {
             Gabarito gabarito = new Gabarito();
 
-            gabarito.QuestoesCorretas = new List<AlternativaCorreta>(QuantidadeQuestoes);
+            gabarito.AlternativasCorretas = new List<Alternativa>(QuantidadeQuestoes);
 
             foreach (var questao in Questoes)
             {
                 Alternativa alternativa = questao.ObtemAlternativaCorreta();
 
-                gabarito.AdicionaQuestaoCorreta(questao.Id, alternativa.Letra);
+                gabarito.AdicionaQuestaoCorreta(alternativa);
             }
 
             return gabarito;
@@ -87,32 +85,47 @@ namespace GeradorTestes.Dominio.ModuloTeste
             Materia = teste.Materia;
             QuantidadeQuestoes = teste.QuantidadeQuestoes;
             Questoes = teste.Questoes;
-        }
-
-        public Teste Clone()
-        {
-            return MemberwiseClone() as Teste;
-        }
-
-        public void ConfigurarMateria(Materia materia)
-        {
-            if (materia == null)
-                return;
-
-            Materia = materia;
-        }
-
-        public void ConfigurarDisciplina(Disciplina disciplina)
-        {
-            if (disciplina == null)
-                return;
-
-            Disciplina = disciplina;
-        }
+        }     
 
         public string[] Validar()
         {
-            return new string[] { };
+            List<string> erros = new List<string>();
+
+            if (string.IsNullOrEmpty(Titulo))
+                erros.Add($"O 'título' do teste deve estar preenchido");
+
+            if (Titulo.Length <= 2)
+                erros.Add($"O 'título' do teste deve ter mais de 3 letras");
+           
+            if (Disciplina == null)
+                erros.Add($"A 'disciplina' do teste deve estar preenchida");
+
+            if (DataGeracao == DateTime.MinValue)
+                erros.Add($"A 'data' do teste deve estar preenchida");
+
+            if (Provao == false && Materia == null)
+            {
+                erros.Add($"A 'matéria' do teste deve estar preenchida");
+            }
+
+            if (Provao)
+            {
+                if (Materia != null && Materia.Questoes.Count < 1)
+                    erros.Add("Matéria deve ter no mínimo uma questão");
+            }
+
+            if (QuantidadeQuestoes <= 1)
+                erros.Add("A quantidade de questões deve ser maior que 1");
+
+            if (QuestoesSorteadas == false && Questoes.Count <= 1)
+                erros.Add("Deve ser sorteado questões para o teste");
+
+            return erros.ToArray();
+        }
+
+        public void RemoverQuestoes()
+        {
+            Questoes.Clear();
         }
     }
 }

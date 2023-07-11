@@ -48,8 +48,8 @@ namespace GeradorTeste.Infra.MassaDados
             Teste novoTeste = new Teste();
 
             novoTeste.Titulo = "Revisão sobre Letras do Alfabeto";
-            novoTeste.ConfigurarDisciplina(portugues);
-            novoTeste.ConfigurarMateria(consoantes);
+            novoTeste.Disciplina = portugues;
+            novoTeste.Materia = consoantes;
             novoTeste.Provao = false;
             novoTeste.QuantidadeQuestoes = 5;
             novoTeste.SortearQuestoes();
@@ -154,8 +154,8 @@ namespace GeradorTeste.Infra.MassaDados
             Teste novoTeste = new Teste();
 
             novoTeste.Titulo = "Revisão sobre Adição de Unidades";
-            novoTeste.ConfigurarDisciplina(matematica);
-            novoTeste.ConfigurarMateria(adicaoUnidades);
+            novoTeste.Disciplina = matematica;
+            novoTeste.Materia = adicaoUnidades;
             novoTeste.Provao = false;
             novoTeste.QuantidadeQuestoes = 5;
             novoTeste.SortearQuestoes();

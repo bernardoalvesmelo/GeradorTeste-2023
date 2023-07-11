@@ -3,12 +3,12 @@ using System.Windows.Forms;
 
 namespace GeradorTeste.WinApp.ModuloTeste
 {
-    public partial class TelaVisualizacaoTesteForm : Form
+    public partial class TelaTestePdfForm : Form
     {
-        public TelaVisualizacaoTesteForm(Teste teste)
+        public TelaTestePdfForm(Teste teste)
         {
             InitializeComponent();
-            this.ConfigurarDialog();            
+            this.ConfigurarDialog();
             ConfigurarTela(teste);
         }
 
@@ -20,13 +20,6 @@ namespace GeradorTeste.WinApp.ModuloTeste
                 labelMateria.Text = "Todas as Matérias";
             else
                 labelMateria.Text = teste.Materia.Nome;
-
-            listQuestoes.Items.Clear();
-
-            foreach (var item in teste.Questoes)
-            {
-                listQuestoes.Items.Add(item);
-            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
+using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,12 @@ namespace GeradorTeste.WinApp.ModuloTeste
             this.ConfigurarDialog();
             CarregarDisciplinas(disciplinas);
         }
-
         public Teste ObterTeste()
         {
+            teste.Id = Convert.ToInt32(txtId.Text);
             teste.Titulo = txtTitulo.Text;
             teste.Disciplina = cmbDisciplinas.SelectedItem as Disciplina;
+            teste.DataGeracao = DateTime.Now;
             teste.Materia = cmbMaterias.SelectedItem as Materia;
             teste.Provao = chkProvao.Checked;
             teste.QuantidadeQuestoes = (int)txtQtdQuestoes.Value;
@@ -34,6 +36,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
         {
             this.teste = teste;
 
+            txtId.Text = teste.Id.ToString();
             txtTitulo.Text = teste.Titulo;
             cmbDisciplinas.SelectedItem = teste.Provao ? teste.Disciplina : teste.Materia?.Disciplina;
             cmbMaterias.SelectedItem = teste.Materia;
@@ -50,8 +53,9 @@ namespace GeradorTeste.WinApp.ModuloTeste
         }
 
         private void btnSortear_Click(object sender, EventArgs e)
-        {
+        {            
             this.teste = ObterTeste();
+            teste.QuestoesSorteadas = true;
 
             string[] erros = teste.Validar();
 
@@ -122,7 +126,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
             else
             {
                 cmbMaterias.Enabled = true;
-                var disciplina = cmbDisciplinas.SelectedItem as Disciplina;
+                Disciplina disciplina = cmbDisciplinas.SelectedItem as Disciplina;
 
                 if (disciplina != null)
                     CarregarMaterias(disciplina.Materias);

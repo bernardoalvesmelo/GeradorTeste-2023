@@ -33,9 +33,9 @@ namespace GeradorTeste.WinApp.ModuloQuestao
                 Questao novaQuestao = tela.ObterQuestao();
 
                 repositorioQuestao.Inserir(novaQuestao);
-
-                CarregarQuestoes();
             }
+
+            CarregarQuestoes();
         }
 
         public override void Editar()
@@ -55,7 +55,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
             TelaQuestaoForm tela = new TelaQuestaoForm(disciplinas);
 
-            tela.ConfigurarQuestao(questaoSelecionada); 
+            tela.ConfigurarQuestao(questaoSelecionada);
 
             DialogResult resultado = tela.ShowDialog();
 
@@ -64,9 +64,9 @@ namespace GeradorTeste.WinApp.ModuloQuestao
                 Questao questao = tela.ObterQuestao();
 
                 repositorioQuestao.Editar(questao);
-
-                CarregarQuestoes();
             }
+
+            CarregarQuestoes();
         }
 
         public override void Excluir()
@@ -88,9 +88,9 @@ namespace GeradorTeste.WinApp.ModuloQuestao
             if (resultado == DialogResult.OK)
             {
                 repositorioQuestao.Excluir(questaoSelecionada);
-
-                CarregarQuestoes();
             }
+
+            CarregarQuestoes();
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
@@ -114,7 +114,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
             tabelaQuestao.AtualizarRegistros(questoes);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando quest{0}", questoes.Count > 1 ? "ão" : "ões"));
+            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando {0} quest{1}", questoes.Count, questoes.Count == 1 ? "ão" : "ões"));
         }
     }
 }

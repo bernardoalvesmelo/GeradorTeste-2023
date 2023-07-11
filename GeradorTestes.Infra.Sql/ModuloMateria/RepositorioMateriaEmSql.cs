@@ -1,9 +1,4 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
-using GeradorTestes.Dominio.ModuloMateria;
-using GeradorTestes.Dominio.ModuloQuestao;
-using GeradorTestes.Infra.Sql.ModuloQuestao;
-using System;
-using System.Collections.Generic;
+﻿using GeradorTestes.Dominio.ModuloMateria;
 
 namespace GeradorTestes.Infra.Sql.ModuloMateria
 {
@@ -74,47 +69,6 @@ namespace GeradorTestes.Infra.Sql.ModuloMateria
                     ON MT.DISCIPLINA_ID = D.ID
 
             WHERE
-                MT.ID = @ID";
-
-        private string sqlSelecionarQuestoesDaMateria =>
-           @"SELECT 
-
-		            [ID]            QUESTAO_ID
-		           ,[ENUNCIADO]     QUESTAO_ENUNCIADO
-
-	            FROM 
-		            [TBQUESTAO]
-
-		        WHERE
-                    [MATERIA_ID] = @MATERIA_ID";
-
-        //public List<Materia> SelecionarTodos(bool incluirQuestoes = false)
-        //{
-        //    List<Materia> materias = base.SelecionarTodos();
-
-        //    if (incluirQuestoes)
-        //    {
-        //        foreach (Materia materia in materias)
-        //        {
-        //            CarregarQuestoes(materia);
-        //        }
-        //    }
-
-        //    return materias;
-        //}
-
-        //private void CarregarQuestoes(Materia materia)
-        //{
-        //    MapeadorQuestaoSql mapeador = new MapeadorQuestaoSql();
-
-        //    SqlParameter[] parametros = new SqlParameter[] { new SqlParameter("MATERIA_ID", materia.Id) };
-
-        //    List<Questao> questoes = SelecionarRegistros(sqlSelecionarQuestoesDaMateria, mapeador.ConverterRegistro, parametros);
-
-        //    foreach (Questao questao in questoes)
-        //    {
-        //        materia.AdicionaQuestao(questao);
-        //    }
-        //}
+                MT.ID = @ID";       
     }
 }

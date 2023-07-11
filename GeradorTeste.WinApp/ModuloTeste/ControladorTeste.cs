@@ -10,23 +10,22 @@ namespace GeradorTeste.WinApp.ModuloTeste
     {
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioTeste repositorioTeste;
-        private IRepositorioMateria repositorioMateria;
+        private IGeradorRelatorio geradorRelatorio;
 
         private TabelaTesteControl tabelaTeste;
 
-        public ControladorTeste(IRepositorioTeste repositorioTeste, 
-            IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria)
+        public ControladorTeste(IRepositorioTeste repositorioTeste,
+            IRepositorioDisciplina repositorioDisciplina,
+            IGeradorRelatorio geradorRelatorio)
         {
             this.repositorioDisciplina = repositorioDisciplina;
             this.repositorioTeste = repositorioTeste;
-            this.repositorioMateria = repositorioMateria;
+            this.geradorRelatorio = geradorRelatorio;
         }
 
         public override void Inserir()
         {
             List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true, incluirQuestoes: true);
-
-            //List<Materia> materias = repositorioMateria.SelecionarTodos(incluirQuestoes: true);
 
             TelaTesteForm tela = new TelaTesteForm(disciplinas);
 
@@ -59,9 +58,9 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true, incluirQuestoes: true);
 
-            //List<Materia> materias = repositorioMateria.SelecionarTodos(incluirQuestoes: true);
-
             TelaTesteForm tela = new TelaTesteForm(disciplinas);
+
+            testeSelecionado.RemoverQuestoes();
 
             tela.ConfigurarTeste(testeSelecionado);
 
@@ -105,18 +104,43 @@ namespace GeradorTeste.WinApp.ModuloTeste
         {
             int id = tabelaTeste.ObtemIdSelecionado();
 
-            Teste testeSelecionado = repositorioTeste.SelecionarPorId(id);
+            Teste testeSelecionado = repositorioTeste.SelecionarPorId(id, incluirQuestoes:true);
 
             if (testeSelecionado == null)
             {
                 MessageBox.Show("Selecione um Teste primeiro",
-                "Exclusão de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                "Visualização de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
             TelaVisualizacaoTesteForm tela = new TelaVisualizacaoTesteForm(testeSelecionado);
             tela.ShowDialog();
         }
+
+        public override void GerarPdf()
+        {
+            int id = tabelaTeste.ObtemIdSelecionado();
+
+            Teste testeSelecionado = repositorioTeste.SelecionarPorId(id, incluirQuestoes: true, incluirAlternativas: true);
+
+            if (testeSelecionado == null)
+            {
+                MessageBox.Show("Selecione um Teste primeiro",
+                "Gerar Pdf de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return;
+            }
+
+            TelaTestePdfForm tela = new TelaTestePdfForm(testeSelecionado);
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                geradorRelatorio.GerarRelatorioEmPdf(testeSelecionado, @"C:\temp", true);
+            }
+        }
+
+
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
         {
@@ -139,7 +163,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             tabelaTeste.AtualizarRegistros(testes);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {testes.Count} teste(s)");
-        }        
+            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando {0} teste{1}", testes.Count, testes.Count == 1 ? "" : "s"));
+        }
     }
 }

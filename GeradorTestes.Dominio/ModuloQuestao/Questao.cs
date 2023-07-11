@@ -1,6 +1,4 @@
 ﻿using GeradorTestes.Dominio.ModuloMateria;
-using GeradorTestes.Dominio.ModuloTeste;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,16 +23,11 @@ namespace GeradorTestes.Dominio.ModuloQuestao
             Id = id;
         }
 
-        public List<Alternativa> Alternativas
-        {
-            get; set;
-        }
+        public List<Alternativa> Alternativas { get; set; }
 
         public string Enunciado { get; set; }
 
         public Materia Materia { get; set; }
-
-        public List<Teste> Testes { get; set; }
 
         public bool AdicionarAlternativa(Alternativa alternativa)
         {
@@ -52,18 +45,16 @@ namespace GeradorTestes.Dominio.ModuloQuestao
             foreach (var a in Alternativas)
             {
                 if (a.Equals(alternativaCorreta))
-                    a.Correta = true;
-                else
-                    a.Correta = false;
+                    a.Correta = true;                
             }
         }
 
         public void RemoverAlternativa(Alternativa alternativa)
         {
             Alternativas.Remove(alternativa);
+
             RedefinirLetras();
         }
-
 
         public Alternativa ObtemAlternativaCorreta()
         {
@@ -115,7 +106,60 @@ namespace GeradorTestes.Dominio.ModuloQuestao
 
         public string[] Validar()
         {
-            return new string[] { };
+            List<string> erros = new List<string>();
+
+            if (Materia == null)
+                erros.Add($"A 'matéria' da questão deve estar preenchida");
+
+            if (string.IsNullOrEmpty(Enunciado))
+                erros.Add($"O 'enunciado' da questão deve estar preenchido");
+
+            if (Enunciado.Length <= 2)
+                erros.Add($"O 'enunciado' da questão deve ter mais de 3 letras");                       
+
+            foreach (Alternativa a in Alternativas)
+            {
+                if (string.IsNullOrEmpty(a.Resposta))
+                {
+                    erros.Add($"As 'respostas das alternativas' devem estar preenchidas");
+                    break;
+                }
+            }
+
+            if (Alternativas.Count(x => x.Correta) == 0)
+                erros.Add("Nenhuma alternativa correta foi informada");
+
+            if (Alternativas.Count() < 3)
+                erros.Add("No mínimo 3 alternativas precisa ser informada");
+
+            if (Alternativas.Count() > 5)
+                erros.Add("No máximo 5 alternativas deve ser informada");
+
+            if (Alternativas.Count(x => x.Correta) > 1)
+                erros.Add("Apenas uma alternativa pode ser correta");
+
+            if (AlternativasComValoresDuplicados())
+                erros.Add("Respostas iguais foram informadas nas alternativas");
+
+            return erros.ToArray();
+        }
+
+        private bool AlternativasComValoresDuplicados()
+        {
+            string[] respostas = Alternativas.Select(a => a.Resposta).ToArray();
+
+            Dictionary<string, int> dicionario = new Dictionary<string, int>();
+
+            foreach (var value in respostas)
+            {
+                dicionario.TryGetValue(value, out int count);
+                dicionario[value] = count + 1;
+            }
+
+            if (dicionario.Values.Any(x => x > 1))
+                return true;
+
+            return false;
         }
     }
 }

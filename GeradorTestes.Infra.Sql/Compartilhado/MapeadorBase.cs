@@ -1,6 +1,4 @@
 ﻿using GeradorTestes.Dominio;
-using System.Data;
-using System;
 
 namespace GeradorTestes.Infra.Sql.Compartilhado
 {

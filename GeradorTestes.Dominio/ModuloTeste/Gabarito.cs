@@ -1,16 +1,15 @@
 ﻿using GeradorTestes.Dominio.ModuloQuestao;
-using System;
 using System.Collections.Generic;
 
 namespace GeradorTestes.Dominio.ModuloTeste
 {
     public class Gabarito
     {
-        public List<AlternativaCorreta> QuestoesCorretas;
+        public List<Alternativa> AlternativasCorretas;
 
-        public void AdicionaQuestaoCorreta(int id, char letra)
+        public void AdicionaQuestaoCorreta(Alternativa alternativa)
         {
-            QuestoesCorretas.Add(new AlternativaCorreta(id, letra));
+            AlternativasCorretas.Add(alternativa);
         }
 
     }

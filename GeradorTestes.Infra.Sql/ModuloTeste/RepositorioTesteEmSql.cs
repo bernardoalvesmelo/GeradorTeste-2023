@@ -121,6 +121,20 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
 
                 WHERE 
 	                TQ.TESTE_ID = @TESTE_ID";
+
+        private string sqlSelecionarAlternativas =>
+          @"SELECT 
+	                [ID]            ALTERNATIVA_ID                   
+                   ,[LETRA]         ALTERNATIVA_LETRA
+                   ,[RESPOSTA]      ALTERNATIVA_RESPOSTA
+                   ,[CORRETA]       ALTERNATIVA_CORRETA
+
+                  FROM 
+	                    [TBALTERNATIVA]
+
+                  WHERE 
+	                    [QUESTAO_ID] = @QUESTAO_ID";
+
         #endregion
 
         public override void Inserir(Teste teste)
@@ -139,12 +153,22 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
 
         public override void Editar(Teste registro) { }
 
-        public override Teste SelecionarPorId(int id)
+        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false)
         {
             Teste teste = base.SelecionarPorId(id);
 
-            if (teste != null)
+            if (incluirQuestoes)
+            {
                 CarregarQuestoes(teste);
+
+                if (incluirAlternativas)
+                {
+                    foreach (Questao questao in teste.Questoes)
+                    {
+                        CarregarAlternativas(questao);
+                    }
+                }
+            }
 
             return teste;
         }
@@ -188,6 +212,20 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
                };
 
             ExecutarComando(sqlRemoverQuestao, parametros);
+        }
+
+        private void CarregarAlternativas(Questao questao)
+        {
+            MapeadorAlternativa mapeador = new MapeadorAlternativa();
+
+            SqlParameter[] parametros = new SqlParameter[] { new SqlParameter("QUESTAO_ID", questao.Id) };
+
+            List<Alternativa> alternativas = SelecionarRegistros(sqlSelecionarAlternativas, mapeador.ConverterRegistro, parametros);
+
+            foreach (Alternativa alternativa in alternativas)
+            {
+                questao.AdicionarAlternativa(alternativa);
+            }
         }
     }
 }

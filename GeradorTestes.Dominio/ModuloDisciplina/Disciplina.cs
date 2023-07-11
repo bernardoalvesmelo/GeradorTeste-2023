@@ -10,41 +10,42 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
     {
         public Disciplina()
         {
+            Materias = new List<Materia>();
         }
 
-        public Disciplina(string nome)
+        public Disciplina(string nome) : this()
         {
             Nome = nome;
         }
 
-        public Disciplina(int id, string nome)
+        public Disciplina(int id, string nome) : this(nome)        
         {
             Id = id;
-            Nome = nome;
         }
+
+        public string Nome { get; set; }
+
+        public List<Materia> Materias { get; set; }
+
 
         public List<Questao> ObterTodasQuestoes()
         {
             var todasQuestoes = new List<Questao>();
 
             if (Materias.Any())
+            {
                 foreach (var m in Materias)
                 {
                     if (m.Questoes != null)
                         todasQuestoes.AddRange(m.Questoes);
                 }
+            }
+
             return todasQuestoes;
-        }
-
-        public List<Materia> Materias { get; set; }
-
-        public string Nome { get; set; }
+        }       
 
         public bool AdicionarMateria(Materia materia)
         {
-            if (Materias == null)
-                Materias = new List<Materia>();
-
             if (Materias.Contains(materia))
                 return false;
 
@@ -75,14 +76,31 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
             return HashCode.Combine(Id, Materias, Nome);
         }
 
-        public Disciplina Clone()
-        {
-            return MemberwiseClone() as Disciplina;
-        }
-
         public string[] Validar()
         {
-            return new string[] { };
+            List<string> erros = new List<string>();
+
+            if (string.IsNullOrEmpty(Nome))
+                erros.Add($"O 'nome' da disciplina deve estar preenchido");
+
+            if (Nome.Length <= 2)
+                erros.Add($"O 'nome' da disciplina deve ter mais de 3 letras");
+
+            bool temCaracteresInvalidos = false;
+            
+            foreach (char letra in Nome)
+            {
+                if (letra == ' ')
+                    continue;
+
+                if (char.IsLetterOrDigit(letra) == false)
+                    temCaracteresInvalidos = true;
+            }
+
+            if (temCaracteresInvalidos)
+                erros.Add($"O 'nome' da disciplina deve ser composta por letras e números");
+
+            return erros.ToArray();
         }
     }
 }

@@ -9,9 +9,10 @@ namespace GeradorTestes.Dominio.ModuloMateria
     {
         public Materia()
         {
+            Questoes = new List<Questao>();
         }
 
-        public Materia(string n, SerieMateriaEnum s, Disciplina disciplina) 
+        public Materia(string n, SerieMateriaEnum s, Disciplina disciplina) : this()
         {
             Nome = n;
             Serie = s;
@@ -32,10 +33,7 @@ namespace GeradorTestes.Dominio.ModuloMateria
         public List<Questao> Questoes { get; set; }
 
         public void AdicionaQuestao(Questao questao)
-        {
-            if (Questoes == null)
-                Questoes = new List<Questao>();
-
+        {           
             if (Questoes.Contains(questao))
                 return;
 
@@ -46,17 +44,7 @@ namespace GeradorTestes.Dominio.ModuloMateria
         {
             return string.Format("{0}, {1}", Nome, Serie.GetDescription());
         }
-
-        public void ConfigurarDisciplina(Disciplina disciplina)
-        {
-            if (disciplina == null)
-                return;
-
-            Disciplina = disciplina;
-
-            Disciplina.AdicionarMateria(this);
-        }
-
+        
         public override void Atualizar(Materia materia)
         {
             Nome = materia.Nome;
@@ -79,7 +67,35 @@ namespace GeradorTestes.Dominio.ModuloMateria
 
         public string[] Validar()
         {
-            return new List<string>().ToArray();
+            List<string> erros = new List<string>();
+
+            if (string.IsNullOrEmpty(Nome))
+                erros.Add($"O 'nome' da matéria deve estar preenchido");
+
+            if (Nome.Length <= 2)
+                erros.Add($"O 'nome' da matéria deve ter mais de 3 letras");
+
+            bool temCaracteresInvalidos = false;
+
+            foreach (char letra in Nome)
+            {
+                if (letra == ' ')
+                    continue;
+
+                if (char.IsLetterOrDigit(letra) == false)
+                    temCaracteresInvalidos = true;
+            }
+
+            if (temCaracteresInvalidos)
+                erros.Add($"O 'nome' da matéria deve ser composta por letras e números");
+
+            if (Disciplina == null)
+                erros.Add($"A 'disciplina' da matéria deve estar preenchida");
+
+            if (Serie == SerieMateriaEnum.Nenhum)
+                erros.Add($"A 'série' da matéria deve estar preenchida");
+
+            return erros.ToArray();
         }
     }
 }
