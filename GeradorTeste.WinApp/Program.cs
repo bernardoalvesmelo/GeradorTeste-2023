@@ -1,4 +1,3 @@
-using GeradorTeste.Infra.MassaDados;
 using System;
 using System.Windows.Forms;
 
@@ -12,8 +11,6 @@ namespace GeradorTeste.WinApp
         [STAThread]
         static void Main()
         {
-            GeradorMassaDados.ConfigurarTesteMatematica();
-
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
