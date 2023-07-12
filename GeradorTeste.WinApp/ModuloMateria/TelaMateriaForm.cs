@@ -1,5 +1,4 @@
-﻿using FluentResults;
-using GeradorTestes.Dominio;
+﻿using GeradorTestes.Dominio;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using System;
