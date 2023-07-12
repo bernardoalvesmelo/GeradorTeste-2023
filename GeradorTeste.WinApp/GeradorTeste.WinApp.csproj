@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentResults" Version="3.15.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeradorTeste.Aplicacao\GeradorTeste.Aplicacao.csproj" />
     <ProjectReference Include="..\GeradorTeste.Infra.Pdf\GeradorTeste.Infra.Pdf.csproj" />
     <ProjectReference Include="..\GeradorTestes.Infra.Arquivos\GeradorTestes.Infra.Arquivos.csproj" />
     <ProjectReference Include="..\GeradorTestes.Infra.Sql\GeradorTestes.Infra.Sql.csproj" />

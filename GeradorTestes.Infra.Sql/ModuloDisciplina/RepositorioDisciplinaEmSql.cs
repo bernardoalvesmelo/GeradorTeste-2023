@@ -52,6 +52,17 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
 		        WHERE
                     [ID] = @ID";
 
+        private string sqlSelecionarPorNome =>
+            @"SELECT 
+		            [ID]    DISCIPLINA_ID
+		           ,[NOME]  DISCIPLINA_NOME
+
+	            FROM 
+		            [TBDISCIPLINA]
+
+		        WHERE
+                    [NOME] = @NOME";
+
         private string sqlSelecionarMateriasDaDisciplina =>
             @"SELECT 
 		            [ID]        MATERIA_ID 
@@ -76,8 +87,9 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
 		        WHERE
                     [MATERIA_ID] = @MATERIA_ID";
 
+      
         #endregion
-        
+
         public List<Disciplina> SelecionarTodos(bool incluirMaterias = false, bool incluirQuestoes=false)
         {
             List<Disciplina> disciplinas = base.SelecionarTodos();
@@ -100,6 +112,14 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
 
             return disciplinas;
         }
+
+        public List<Disciplina> SelecionarPorNome(string nome)
+        {
+            SqlParameter[] parametros = new SqlParameter[] { new SqlParameter("NOME", nome) };
+
+            return base.SelecionarPorParametro(sqlSelecionarPorNome, parametros);
+        }
+
 
         private void CarregarMaterias(Disciplina disciplina)
         {

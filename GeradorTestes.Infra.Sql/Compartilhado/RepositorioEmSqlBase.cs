@@ -145,6 +145,42 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
             return registros;
         }
 
+        public virtual List<TEntidade> SelecionarPorParametro(string sqlSelecionarPorParametro, SqlParameter[] parametros)
+        {
+            //obter a conexão com o banco e abrir ela
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            conexaoComBanco.Open();
+
+            //cria um comando e relaciona com a conexão aberta
+            SqlCommand comandoSelecionarPorParametro = conexaoComBanco.CreateCommand();
+            comandoSelecionarPorParametro.CommandText = sqlSelecionarPorParametro;
+
+            foreach (SqlParameter parametro in parametros)
+            {
+                comandoSelecionarPorParametro.Parameters.Add(parametro);
+            }
+
+            //executa o comando
+            SqlDataReader leitorItens = comandoSelecionarPorParametro.ExecuteReader();
+
+            List<TEntidade> registros = new List<TEntidade>();
+
+            TMapeador mapeador = new TMapeador();
+
+            while (leitorItens.Read())
+            {
+                TEntidade registro = mapeador.ConverterRegistro(leitorItens);
+
+                if (registro != null)
+                    registros.Add(registro);
+            }
+
+            //encerra a conexão
+            conexaoComBanco.Close();
+
+            return registros;
+        }
+
         protected static List<T> SelecionarRegistros<T>(string sql, ConverterRegistroDelegate<T> ConverterRegistro, SqlParameter[] parametros)
         {
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);

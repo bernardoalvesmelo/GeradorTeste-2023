@@ -1,6 +1,9 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using FluentResults;
+using GeradorTeste.Aplicacao.ModuloDisciplina;
+using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GeradorTeste.WinApp.ModuloDisciplina
@@ -11,14 +14,20 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
 
         private TabelaDisciplinaControl tabelaDisciplina;
 
-        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina)
+        private ServicoDisciplina servicoDisciplina;
+
+        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina,
+            ServicoDisciplina servicoDisciplina)
         {
             this.repositorioDisciplina = repositorioDisciplina;
+            this.servicoDisciplina = servicoDisciplina;
         }
 
         public override void Inserir()
         {
             TelaDisciplinaForm tela = new TelaDisciplinaForm();
+
+            tela.onGravarRegistro += servicoDisciplina.Inserir;
 
             tela.ConfigurarDisciplina(new Disciplina());
 
@@ -26,12 +35,8 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
 
             if (resultado == DialogResult.OK)
             {
-                Disciplina novaDisciplina = tela.ObterDisciplina();
-
-                repositorioDisciplina.Inserir(novaDisciplina);
-            }
-
-            CarregarDisciplinas();
+                CarregarDisciplinas();
+            }            
         }
 
         public override void Editar()
@@ -49,18 +54,16 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
 
             TelaDisciplinaForm tela = new TelaDisciplinaForm();
 
+            tela.onGravarRegistro += servicoDisciplina.Editar;
+
             tela.ConfigurarDisciplina(disciplinaSelecionada);
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
             {
-                Disciplina disciplina = tela.ObterDisciplina();
-
-                repositorioDisciplina.Editar(disciplina);
+                CarregarDisciplinas();                
             }
-
-            CarregarDisciplinas();
         }
 
         public override void Excluir()
@@ -76,15 +79,22 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
                 return;
             }
 
-            DialogResult resultado = MessageBox.Show("Deseja realmente excluir a disciplina?",
+            DialogResult opcaoEscolhida = MessageBox.Show("Deseja realmente excluir a disciplina?",
                "Exclusão de Disciplinas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (resultado == DialogResult.OK)
+            if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioDisciplina.Excluir(disciplinaSelecionada);
-            }
+                Result resultado = servicoDisciplina.Excluir(disciplinaSelecionada);
 
-            CarregarDisciplinas();
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Disciplinas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
+                CarregarDisciplinas();
+            }            
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()

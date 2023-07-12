@@ -1,4 +1,5 @@
-﻿using GeradorTeste.Infra.Pdf;
+﻿using GeradorTeste.Aplicacao.ModuloDisciplina;
+using GeradorTeste.Infra.Pdf;
 using GeradorTeste.WinApp.ModuloDisciplina;
 using GeradorTeste.WinApp.ModuloMateria;
 using GeradorTeste.WinApp.ModuloQuestao;
@@ -40,7 +41,10 @@ namespace GeradorTeste.WinApp
         private void ConfigurarControladores()
         {
             IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
-            controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina));
+
+            ServicoDisciplina servicoDisciplina = new ServicoDisciplina(repositorioDisciplina);
+
+            controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina, servicoDisciplina));
 
             IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
             controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina));

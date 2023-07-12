@@ -1,4 +1,6 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using FluentResults;
+using GeradorTeste.WinApp.Compartilhado;
+using GeradorTestes.Dominio.ModuloDisciplina;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,6 +11,7 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
     {
         private Disciplina disciplina;
 
+        public event GravarRegistroDelegate onGravarRegistro;
         public TelaDisciplinaForm()
         {
             InitializeComponent();
@@ -35,11 +38,11 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
         {
             this.disciplina = ObterDisciplina();
 
-            string[] erros = this.disciplina.Validar();
+            Result resultado = onGravarRegistro(disciplina);
 
-            if (erros.Count() > 0)
+            if (resultado.IsFailed)
             {
-                string erro = erros[0];
+                string erro = resultado.Errors[0].Message;
 
                 TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
