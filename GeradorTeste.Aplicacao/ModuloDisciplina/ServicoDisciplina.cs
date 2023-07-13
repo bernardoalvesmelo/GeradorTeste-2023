@@ -66,7 +66,7 @@ namespace GeradorTeste.Aplicacao.ModuloDisciplina
             return erros;
         }
 
-        private bool NomeDuplicado(Disciplina disciplina, bool estaInserindo = false)
+        private bool NomeDuplicado(Disciplina disciplina)
         {
             List<Disciplina> disciplinas = repositorioDisciplina.SelecionarPorNome(disciplina.Nome);
 

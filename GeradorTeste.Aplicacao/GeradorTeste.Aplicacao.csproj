@@ -15,4 +15,8 @@
     <ProjectReference Include="..\GeradorTestes.Dominio\GeradorTestes.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ModuloQuestao\" />
+  </ItemGroup>
+
 </Project>

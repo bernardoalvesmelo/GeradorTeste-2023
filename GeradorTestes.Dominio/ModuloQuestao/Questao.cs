@@ -29,6 +29,8 @@ namespace GeradorTestes.Dominio.ModuloQuestao
 
         public Materia Materia { get; set; }
 
+        public bool JaUtilizada { get; set; }
+
         public bool AdicionarAlternativa(Alternativa alternativa)
         {
             if (Alternativas.Contains(alternativa))
