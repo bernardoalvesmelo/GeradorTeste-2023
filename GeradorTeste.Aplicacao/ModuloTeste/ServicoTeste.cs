@@ -1,7 +1,7 @@
 ﻿using FluentResults;
-using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
+using Microsoft.Data.SqlClient;
 
 namespace GeradorTeste.Aplicacao.ModuloTeste
 {
@@ -36,7 +36,21 @@ namespace GeradorTeste.Aplicacao.ModuloTeste
 
         public Result Excluir(Teste teste)
         {
-           
+            List<string> erros = new List<string>();
+
+            try
+            {
+                repositorioTeste.Excluir(teste);
+
+                return Result.Ok();
+            }
+            catch (SqlException ex)
+            {
+                //if (ex.Message.Contains("FK_TBMateria_TBDisciplina"))
+                    //erros.Add("Esta disciplina está relacionada com uma matéria e não pode ser excluída");
+
+                return Result.Fail(erros);
+            }
         }
 
         private List<string> ValidarTeste(Teste teste)
