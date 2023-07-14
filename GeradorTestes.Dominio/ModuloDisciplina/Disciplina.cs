@@ -8,7 +8,6 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
 {
     public class Disciplina : EntidadeBase<Disciplina>
     {
-        public DateTime MyProperty { get; set; }
         public Disciplina()
         {
             Materias = new List<Materia>();
