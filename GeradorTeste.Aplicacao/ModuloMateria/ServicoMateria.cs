@@ -13,67 +13,71 @@ namespace GeradorTeste.Aplicacao.ModuloMateria
             this.repositorioMateria = repositorioMateria;
         }
 
-        public Result Inserir(Materia disciplina)
+        public Result Inserir(Materia materia)
         {
-            List<string> erros = ValidarMateria(disciplina);
+            List<string> erros = ValidarMateria(materia);
 
             if (erros.Count() > 0)
                 return Result.Fail(erros);
 
-            repositorioMateria.Inserir(disciplina);
+            repositorioMateria.Inserir(materia);
 
             return Result.Ok();
         }
 
-        public Result Editar(Materia disciplina)
+        public Result Editar(Materia materia)
         {
-            List<string> erros = ValidarMateria(disciplina);
+            List<string> erros = ValidarMateria(materia);
 
             if (erros.Count() > 0)
                 return Result.Fail(erros);
 
-            repositorioMateria.Editar(disciplina);
+            repositorioMateria.Editar(materia);
 
             return Result.Ok();
         }
 
-        public Result Excluir(Materia disciplinaSelecionada)
+        public Result Excluir(Materia materiaSelecionada)
         {
             List<string> erros = new List<string>();
 
             try
             {
-                repositorioMateria.Excluir(disciplinaSelecionada);
+                repositorioMateria.Excluir(materiaSelecionada);
 
                 return Result.Ok();
             }
             catch (SqlException ex)
             {
-                if (ex.Message.Contains("FK_TBMateria_TBMateria"))
-                    erros.Add("Esta disciplina está relacionada com uma matéria e não pode ser excluída");
+                if (ex.Message.Contains("FK_TBQuestao_TBMateria"))
+                    erros.Add("Esta materia está relacionada com uma questão e não pode ser excluída");
 
                 return Result.Fail(erros);
             }
         }
 
-        private List<string> ValidarMateria(Materia disciplina)
+        private List<string> ValidarMateria(Materia materia)
         {
-            List<string> erros = new List<string>(disciplina.Validar());
+            List<string> erros = new List<string>(materia.Validar());
 
-            if (NomeDuplicado(disciplina))
-                erros.Add($"Este nome '{disciplina.Nome}' já está sendo utilizado na aplicação");
+            if (NomeDuplicado(materia))
+                erros.Add($"Este nome '{materia.Nome}' já está sendo utilizado na aplicação");
 
             return erros;
         }
 
-        private bool NomeDuplicado(Materia disciplina)
+        private bool NomeDuplicado(Materia materia)
         {
-            List<Materia> disciplinas = repositorioMateria.SelecionarPorNome(disciplina.Nome);
+            Materia materiaEncontrada = repositorioMateria.SelecionarPorNome(materia.Nome);
 
-            if (disciplinas.Exists(x => x.Id != disciplina.Id && x.Nome == disciplina.Nome))
+            if (materiaEncontrada != null &&
+                materiaEncontrada.Id != materia.Id &&
+                materiaEncontrada.Nome == materia.Nome)
+            {
                 return true;
+            }
 
             return false;
         }
-
     }
+}

@@ -1,7 +1,6 @@
 ﻿using FluentResults;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
-using Microsoft.Data.SqlClient;
 
 namespace GeradorTeste.Aplicacao.ModuloTeste
 {
@@ -21,7 +20,7 @@ namespace GeradorTeste.Aplicacao.ModuloTeste
             List<string> erros = ValidarTeste(teste);
 
             if (erros.Count() > 0)
-                return Result.Fail(erros);           
+                return Result.Fail(erros);
 
             repositorioTeste.Inserir(teste);
 
@@ -42,12 +41,17 @@ namespace GeradorTeste.Aplicacao.ModuloTeste
             {
                 repositorioTeste.Excluir(teste);
 
+                foreach (Questao questao in teste.Questoes)
+                {
+                    questao.JaUtilizada = false;
+                    repositorioQuestao.Editar(questao);
+                }
+
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch
             {
-                //if (ex.Message.Contains("FK_TBMateria_TBDisciplina"))
-                    //erros.Add("Esta disciplina está relacionada com uma matéria e não pode ser excluída");
+                erros.Add("Falha ao tentar remover o teste selecionado...");
 
                 return Result.Fail(erros);
             }
@@ -56,7 +60,7 @@ namespace GeradorTeste.Aplicacao.ModuloTeste
         private List<string> ValidarTeste(Teste teste)
         {
             List<string> erros = new List<string>(teste.Validar());
-            
+
             return erros;
         }
 

@@ -1,6 +1,6 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTeste.WinApp.Compartilhado;
+using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
-using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,8 @@ namespace GeradorTeste.WinApp.ModuloTeste
     public partial class TelaTesteForm : Form
     {
         private Teste teste;
+
+        public GravarRegistroDelegate<Teste> onGravarRegistro;
 
         public TelaTesteForm(List<Disciplina> disciplinas)
         {
@@ -84,11 +86,11 @@ namespace GeradorTeste.WinApp.ModuloTeste
         {
             this.teste = ObterTeste();
 
-            string[] erros = this.teste.Validar();
+            Result resultado = onGravarRegistro(teste);
 
-            if (erros.Count() > 0)
+            if (resultado.IsFailed)
             {
-                string erro = erros[0];
+                string erro = resultado.Errors[0].Message;
 
                 TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
@@ -100,7 +102,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
         {
             cmbDisciplinas.Items.Clear();
 
-            foreach (var disciplina in disciplinas)
+            foreach (Disciplina disciplina in disciplinas)
             {
                 cmbDisciplinas.Items.Add(disciplina);
             }
@@ -110,7 +112,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
         {
             cmbMaterias.Items.Clear();
 
-            foreach (var item in materias)
+            foreach (Materia item in materias)
             {
                 cmbMaterias.Items.Add(item);
             }
@@ -135,7 +137,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
         private void cmbDisciplinas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var disciplina = cmbDisciplinas.SelectedItem as Disciplina;
+            Disciplina disciplina = cmbDisciplinas.SelectedItem as Disciplina;
 
             if (disciplina != null)
                 CarregarMaterias(disciplina.Materias);

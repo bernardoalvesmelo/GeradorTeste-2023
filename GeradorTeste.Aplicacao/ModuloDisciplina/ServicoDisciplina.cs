@@ -68,10 +68,14 @@ namespace GeradorTeste.Aplicacao.ModuloDisciplina
 
         private bool NomeDuplicado(Disciplina disciplina)
         {
-            List<Disciplina> disciplinas = repositorioDisciplina.SelecionarPorNome(disciplina.Nome);
+            Disciplina disciplinaEncontrada = repositorioDisciplina.SelecionarPorNome(disciplina.Nome);
 
-            if (disciplinas.Exists(x => x.Id != disciplina.Id && x.Nome == disciplina.Nome))
+            if (disciplinaEncontrada != null &&
+                disciplinaEncontrada.Id != disciplina.Id &&
+                disciplinaEncontrada.Nome == disciplina.Nome)
+            {
                 return true;
+            }
 
             return false;
         }

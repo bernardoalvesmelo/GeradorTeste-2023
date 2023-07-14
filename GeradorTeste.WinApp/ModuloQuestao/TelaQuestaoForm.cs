@@ -1,9 +1,9 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTeste.WinApp.Compartilhado;
+using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GeradorTeste.WinApp.ModuloQuestao
@@ -11,6 +11,8 @@ namespace GeradorTeste.WinApp.ModuloQuestao
     public partial class TelaQuestaoForm : Form
     {
         private Questao questao;
+
+        public event GravarRegistroDelegate<Questao> onGravarRegistro;
 
         public TelaQuestaoForm(List<Disciplina> disciplinas)
         {
@@ -24,13 +26,14 @@ namespace GeradorTeste.WinApp.ModuloQuestao
             questao.Id = Convert.ToInt32(txtId.Text);
             questao.Enunciado = txtEnunciado.Text;
             questao.Materia = (Materia)cmbMaterias.SelectedItem;
+            questao.JaUtilizada = chkJaUtilizada.Checked;
 
             int i = 0;
             foreach (var item in listAlternativas.Items)
             {
                 Alternativa a = (Alternativa)item;
 
-                if (listAlternativas.GetItemChecked(i))                                    
+                if (listAlternativas.GetItemChecked(i))
                     a.Correta = true;
                 else
                     a.Correta = false;
@@ -49,6 +52,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
             txtEnunciado.Text = questao.Enunciado;
             cmbDisciplinas.SelectedItem = questao.Materia?.Disciplina;
             cmbMaterias.SelectedItem = questao.Materia;
+            chkJaUtilizada.Checked = questao.JaUtilizada;
 
             RecarregarAlternativas();
         }
@@ -57,11 +61,11 @@ namespace GeradorTeste.WinApp.ModuloQuestao
         {
             this.questao = ObterQuestao();
 
-            string[] erros = questao.Validar();
+            Result resultado = onGravarRegistro(questao);
 
-            if (erros.Count() > 0)
+            if (resultado.IsFailed)
             {
-                string erro = erros[0];
+                string erro = resultado.Errors[0].Message;
 
                 TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
@@ -80,7 +84,7 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
             RecarregarAlternativas();
 
-            txtResposta.Focus();    
+            txtResposta.Focus();
         }
 
         private void btnRemover_Click(object sender, EventArgs e)

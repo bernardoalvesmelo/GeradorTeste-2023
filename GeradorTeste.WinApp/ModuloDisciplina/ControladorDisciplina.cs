@@ -1,9 +1,6 @@
-﻿using FluentResults;
-using GeradorTeste.Aplicacao.ModuloDisciplina;
+﻿using GeradorTeste.Aplicacao.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloDisciplina;
-using GeradorTestes.Dominio.ModuloMateria;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GeradorTeste.WinApp.ModuloDisciplina
@@ -118,7 +115,9 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
 
             tabelaDisciplina.AtualizarRegistros(disciplinas);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando {0} disciplina{1}", disciplinas.Count, disciplinas.Count == 1 ? "" : "s"));
+            mensagemRodape = string.Format("Visualizando {0} disciplina{1}", disciplinas.Count, disciplinas.Count == 1 ? "" : "s");
+
+            TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
     }
 }

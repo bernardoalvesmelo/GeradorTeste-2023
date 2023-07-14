@@ -12,13 +12,14 @@ namespace GeradorTestes.Dominio.ModuloQuestao
             Alternativas = new List<Alternativa>();
         }
 
-        public Questao(string enunciado, Materia materia) : this()
+        public Questao(string enunciado, Materia materia, bool jaUtilizada) : this()
         {
             Enunciado = enunciado;
             Materia = materia;
+            JaUtilizada = jaUtilizada;
         }
 
-        public Questao(int id, string enunciado, Materia materia) : this(enunciado, materia)
+        public Questao(int id, string enunciado, Materia materia, bool jaUtilizada) : this(enunciado, materia, jaUtilizada)
         {
             Id = id;
         }

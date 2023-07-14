@@ -12,6 +12,12 @@ namespace GeradorTeste.WinApp
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MaximizeBox = false;
             form.MinimizeBox = false;
+            form.FormClosing += Form_FormClosing;
+        }
+
+        private static void Form_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            TelaPrincipalForm.Instancia.AtualizarRodape();
         }
     }
 }

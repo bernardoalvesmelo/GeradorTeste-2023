@@ -4,6 +4,8 @@ namespace GeradorTeste.WinApp
 {
     public abstract class ControladorBase
     {
+        protected string mensagemRodape;
+
         public abstract void Inserir();
 
         public virtual void Editar() { }
@@ -21,5 +23,10 @@ namespace GeradorTeste.WinApp
         public abstract UserControl ObtemListagem();
 
         public abstract ConfiguracaoToolboxBase ObtemConfiguracaoToolbox();
+
+        public string ObterMensagemRodape()
+        {
+            return mensagemRodape;
+        }
     }
 }

@@ -1,9 +1,9 @@
-﻿using FluentResults;
-using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTestes.Dominio;
 
 namespace GeradorTeste.WinApp.Compartilhado
 {
 
-    public delegate Result GravarRegistroDelegate(Disciplina disciplina);    
+    public delegate Result GravarRegistroDelegate<TEntidade>(TEntidade disciplina)
+        where TEntidade : EntidadeBase<TEntidade>;    
     
 }

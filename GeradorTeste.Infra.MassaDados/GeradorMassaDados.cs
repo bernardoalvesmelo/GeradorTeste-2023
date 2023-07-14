@@ -1,4 +1,5 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTeste.Aplicacao.ModuloTeste;
+using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
@@ -17,6 +18,8 @@ namespace GeradorTeste.Infra.MassaDados
         static IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
         static IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
         static IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
+
+        static ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao);
 
         public static void ConfigurarAplicacao()
         {
@@ -55,12 +58,12 @@ namespace GeradorTeste.Infra.MassaDados
             novoTeste.SortearQuestoes();
             novoTeste.DataGeracao = DateTime.Now;
 
-            repositorioTeste.Inserir(novoTeste);
+            servicoTeste.Inserir(novoTeste);
         }
 
         private static Questao NovaQuestaoPortugues(Materia materia, char letra, char resposta)
         {
-            Questao questao = new Questao($"Depois da letra {letra} qual é a próxima letra no alfabeto?", materia);
+            Questao questao = new Questao($"Depois da letra {letra} qual é a próxima letra no alfabeto?", materia, jaUtilizada:false);
 
             Alternativa[] alternativas = new Alternativa[4];
 
@@ -161,7 +164,7 @@ namespace GeradorTeste.Infra.MassaDados
             novoTeste.SortearQuestoes();
             novoTeste.DataGeracao = DateTime.Now;
 
-            repositorioTeste.Inserir(novoTeste);
+            servicoTeste.Inserir(novoTeste);
         }
 
         private static Questao NovaQuestaoMatematica(Materia materia, int resposta, int fator)

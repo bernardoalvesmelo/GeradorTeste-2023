@@ -20,14 +20,15 @@ namespace eAgenda.Infra.Arquivos.ModuloDisciplina
             return contextoDados.Disciplinas;
         }
 
-        public List<Disciplina> SelecionarPorNome(string nome)
+        public Disciplina SelecionarPorNome(string nome)
         {
-            return ObterRegistros().Where(x => x.Nome == nome).ToList();   
+            return ObterRegistros().FirstOrDefault(x => x.Nome == nome);   
         }
 
         public List<Disciplina> SelecionarTodos(bool incluirMaterias = false, bool incluirQuestoes = false)
         {
             return ObterRegistros();
         }
+
     }
 }

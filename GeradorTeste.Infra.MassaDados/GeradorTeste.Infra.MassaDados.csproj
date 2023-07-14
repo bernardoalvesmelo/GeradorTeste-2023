@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GeradorTeste.Aplicacao\GeradorTeste.Aplicacao.csproj" />
     <ProjectReference Include="..\GeradorTestes.Dominio\GeradorTestes.Dominio.csproj" />
     <ProjectReference Include="..\GeradorTestes.Infra.Arquivos\GeradorTestes.Infra.Arquivos.csproj" />
     <ProjectReference Include="..\GeradorTestes.Infra.Sql\GeradorTestes.Infra.Sql.csproj" />

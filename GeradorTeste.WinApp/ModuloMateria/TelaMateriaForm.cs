@@ -1,10 +1,10 @@
-﻿using GeradorTestes.Dominio;
+﻿using GeradorTeste.WinApp.Compartilhado;
+using GeradorTestes.Dominio;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GeradorTeste.WinApp.ModuloMateria
@@ -12,6 +12,8 @@ namespace GeradorTeste.WinApp.ModuloMateria
     public partial class TelaMateriaForm : Form
     {
         private Materia materia;
+
+        public event GravarRegistroDelegate<Materia> onGravarRegistro;
 
         public TelaMateriaForm(List<Disciplina> disciplinas)
         {
@@ -45,11 +47,11 @@ namespace GeradorTeste.WinApp.ModuloMateria
         {
             this.materia = ObterMateria();
 
-            string[] erros = this.materia.Validar();
+            Result resultado = onGravarRegistro(materia);
 
-            if (erros.Count() > 0)
+            if (resultado.IsFailed)
             {
-                string erro = erros[0];
+                string erro = resultado.Errors[0].Message;
 
                 TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 

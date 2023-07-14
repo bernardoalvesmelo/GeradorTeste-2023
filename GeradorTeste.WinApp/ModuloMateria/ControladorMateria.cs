@@ -1,4 +1,5 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTeste.Aplicacao.ModuloMateria;
+using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -10,14 +11,18 @@ namespace GeradorTeste.WinApp.ModuloMateria
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioMateria repositorioMateria;
 
+        private ServicoMateria servicoMateria;
+
         private TabelaMateriasControl tabelaMaterias;
 
         public ControladorMateria(
             IRepositorioMateria repositorioMateria,
-            IRepositorioDisciplina repositorioDisciplina)
+            IRepositorioDisciplina repositorioDisciplina,
+            ServicoMateria servicoMateria)
         {
             this.repositorioMateria = repositorioMateria;
             this.repositorioDisciplina = repositorioDisciplina;
+            this.servicoMateria = servicoMateria;
         }
 
         public override void Inserir()
@@ -26,18 +31,16 @@ namespace GeradorTeste.WinApp.ModuloMateria
 
             TelaMateriaForm tela = new TelaMateriaForm(disciplinas);
 
+            tela.onGravarRegistro += servicoMateria.Inserir;
+
             tela.ConfigurarMateria(new Materia());
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
             {
-                Materia novaMateria = tela.ObterMateria();
-
-                this.repositorioMateria.Inserir(novaMateria);
-
+                CarregarMaterias();               
             }
-            CarregarMaterias();
         }
 
         public override void Editar()
@@ -57,18 +60,16 @@ namespace GeradorTeste.WinApp.ModuloMateria
 
             TelaMateriaForm tela = new TelaMateriaForm(materias);
 
+            tela.onGravarRegistro += servicoMateria.Editar;
+
             tela.ConfigurarMateria(materiaSelecionada);
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
             {
-                Materia materia = tela.ObterMateria();
-
-                this.repositorioMateria.Editar(materia);
-
+                CarregarMaterias();
             }
-            CarregarMaterias();
         }
 
         public override void Excluir()
@@ -84,14 +85,22 @@ namespace GeradorTeste.WinApp.ModuloMateria
                 return;
             }
 
-            DialogResult resultado = MessageBox.Show("Deseja realmente excluir a matéria?",
+            DialogResult opcaoEscolhida = MessageBox.Show("Deseja realmente excluir a matéria?",
                "Exclusão de Materias", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (resultado == DialogResult.OK)
+            if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioMateria.Excluir(materiaSelecionada);
+                Result resultado = servicoMateria.Excluir(materiaSelecionada);
+
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Matérias", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
+                CarregarMaterias();
             }
-            CarregarMaterias();
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
@@ -107,7 +116,7 @@ namespace GeradorTeste.WinApp.ModuloMateria
             CarregarMaterias();
 
             return tabelaMaterias;
-        }
+        }        
 
         private void CarregarMaterias()
         {
@@ -115,7 +124,9 @@ namespace GeradorTeste.WinApp.ModuloMateria
 
             tabelaMaterias.AtualizarRegistros(materias);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando {0} matéria{1}", materias.Count, materias.Count == 1 ? "" : "s"));
+            mensagemRodape = string.Format("Visualizando {0} matéria{1}", materias.Count, materias.Count == 1 ? "" : "s");
+
+            TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
     }
 }

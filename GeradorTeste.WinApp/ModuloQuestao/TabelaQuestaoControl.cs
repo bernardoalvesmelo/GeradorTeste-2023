@@ -22,9 +22,11 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
                 new DataGridViewTextBoxColumn { Name = "Nome", HeaderText = "Nome", FillWeight=35F },
 
-                new DataGridViewTextBoxColumn { Name = "Materia.Nome", HeaderText = "Matéria", FillWeight=25F },
+                new DataGridViewTextBoxColumn { Name = "JaUtilizada", HeaderText = "Já foi utilizada?", FillWeight=20F },
 
-                new DataGridViewTextBoxColumn { Name = "Disciplina.Nome", HeaderText = "Disciplina", FillWeight=25F }
+                new DataGridViewTextBoxColumn { Name = "Materia.Nome", HeaderText = "Matéria", FillWeight=15F },
+
+                new DataGridViewTextBoxColumn { Name = "Disciplina.Nome", HeaderText = "Disciplina", FillWeight=15F }
 
             };
 
@@ -37,7 +39,9 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
             foreach (var questao in questoes)
             {
-                grid.Rows.Add(questao.Id, questao.Enunciado, questao?.Materia?.Nome, questao.Materia?.Disciplina?.Nome);
+                string stituacao = questao.JaUtilizada ? "Indisponível :-|" : "Disponível para uso :-)";
+
+                grid.Rows.Add(questao.Id, questao.Enunciado, stituacao, questao?.Materia?.Nome, questao.Materia?.Disciplina?.Nome);
             }
         }
 

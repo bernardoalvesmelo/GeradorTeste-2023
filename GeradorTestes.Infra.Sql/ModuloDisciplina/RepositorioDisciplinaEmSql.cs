@@ -80,12 +80,13 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
 
 		            [ID]            QUESTAO_ID
 		           ,[ENUNCIADO]     QUESTAO_ENUNCIADO
+	               ,[JAUTILIZADA]   QUESTAO_JAUTILIZADA                        
 
 	            FROM 
 		            [TBQUESTAO]
 
 		        WHERE
-                    [MATERIA_ID] = @MATERIA_ID";
+                    [MATERIA_ID] = @MATERIA_ID AND [JAUTILIZADA] = 0";
 
       
         #endregion
@@ -113,11 +114,11 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
             return disciplinas;
         }
 
-        public List<Disciplina> SelecionarPorNome(string nome)
+        public Disciplina SelecionarPorNome(string nome)
         {
             SqlParameter[] parametros = new SqlParameter[] { new SqlParameter("NOME", nome) };
 
-            return base.SelecionarPorParametro(sqlSelecionarPorNome, parametros);
+            return base.SelecionarRegistroPorParametro(sqlSelecionarPorNome, parametros);
         }
 
 

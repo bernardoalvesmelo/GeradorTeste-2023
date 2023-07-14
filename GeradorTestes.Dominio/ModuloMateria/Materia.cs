@@ -38,6 +38,7 @@ namespace GeradorTestes.Dominio.ModuloMateria
                 return;
 
             Questoes.Add(questao);
+            questao.Materia = this;
         }
 
         public override string ToString()

@@ -46,6 +46,8 @@
             btnGravar = new System.Windows.Forms.Button();
             txtId = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
+            chkJaUtilizada = new System.Windows.Forms.CheckBox();
+            label6 = new System.Windows.Forms.Label();
             groupBox1.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -54,7 +56,7 @@
             // 
             cmbMaterias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cmbMaterias.FormattingEnabled = true;
-            cmbMaterias.Location = new System.Drawing.Point(85, 86);
+            cmbMaterias.Location = new System.Drawing.Point(85, 73);
             cmbMaterias.Name = "cmbMaterias";
             cmbMaterias.Size = new System.Drawing.Size(217, 23);
             cmbMaterias.TabIndex = 3;
@@ -62,7 +64,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(30, 89);
+            label4.Location = new System.Drawing.Point(30, 76);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(50, 15);
             label4.TabIndex = 0;
@@ -72,7 +74,7 @@
             // 
             cmbDisciplinas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cmbDisciplinas.FormattingEnabled = true;
-            cmbDisciplinas.Location = new System.Drawing.Point(85, 57);
+            cmbDisciplinas.Location = new System.Drawing.Point(85, 44);
             cmbDisciplinas.Name = "cmbDisciplinas";
             cmbDisciplinas.Size = new System.Drawing.Size(217, 23);
             cmbDisciplinas.TabIndex = 2;
@@ -81,7 +83,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(19, 61);
+            label3.Location = new System.Drawing.Point(19, 48);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(61, 15);
             label3.TabIndex = 0;
@@ -89,16 +91,16 @@
             // 
             // txtEnunciado
             // 
-            txtEnunciado.Location = new System.Drawing.Point(85, 115);
+            txtEnunciado.Location = new System.Drawing.Point(85, 135);
             txtEnunciado.Multiline = true;
             txtEnunciado.Name = "txtEnunciado";
-            txtEnunciado.Size = new System.Drawing.Size(389, 64);
+            txtEnunciado.Size = new System.Drawing.Size(389, 44);
             txtEnunciado.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(14, 135);
+            label2.Location = new System.Drawing.Point(18, 152);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(66, 15);
             label2.TabIndex = 0;
@@ -195,7 +197,7 @@
             // txtId
             // 
             txtId.Enabled = false;
-            txtId.Location = new System.Drawing.Point(85, 28);
+            txtId.Location = new System.Drawing.Point(85, 15);
             txtId.Name = "txtId";
             txtId.Size = new System.Drawing.Size(60, 23);
             txtId.TabIndex = 1;
@@ -203,18 +205,39 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(59, 31);
+            label1.Location = new System.Drawing.Point(59, 18);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(20, 15);
             label1.TabIndex = 0;
             label1.Text = "Id:";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // chkJaUtilizada
+            // 
+            chkJaUtilizada.AutoSize = true;
+            chkJaUtilizada.Enabled = false;
+            chkJaUtilizada.Location = new System.Drawing.Point(85, 108);
+            chkJaUtilizada.Name = "chkJaUtilizada";
+            chkJaUtilizada.Size = new System.Drawing.Size(15, 14);
+            chkJaUtilizada.TabIndex = 10;
+            chkJaUtilizada.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(107, 107);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(154, 15);
+            label6.TabIndex = 11;
+            label6.Text = "Já utilizada em algum teste?";
+            // 
             // TelaQuestaoForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(491, 572);
+            Controls.Add(label6);
+            Controls.Add(chkJaUtilizada);
             Controls.Add(label1);
             Controls.Add(txtId);
             Controls.Add(btnCancelar);
@@ -258,5 +281,7 @@
         private System.Windows.Forms.CheckedListBox listAlternativas;
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkJaUtilizada;
+        private System.Windows.Forms.Label label6;
     }
 }

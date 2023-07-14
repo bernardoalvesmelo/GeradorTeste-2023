@@ -9,11 +9,13 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
              @"INSERT INTO [TBQUESTAO]
                 (
                     [ENUNCIADO]
+                   ,[JAUTILIZADA]
                    ,[MATERIA_ID]
 	            )
 	            VALUES
                 (
                     @ENUNCIADO
+                   ,@JAUTILIZADA
                    ,@MATERIA_ID
                 );
                 
@@ -24,6 +26,7 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
 
 		            SET                    
                         [ENUNCIADO] = @ENUNCIADO
+                       ,[JAUTILIZADA] = @JAUTILIZADA
                        ,[MATERIA_ID] = @MATERIA_ID
 
 		            WHERE
@@ -39,6 +42,7 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
             @"SELECT 
 	                Q.ID            QUESTAO_ID                
 	               ,Q.ENUNCIADO     QUESTAO_ENUNCIADO
+	               ,Q.JAUTILIZADA   QUESTAO_JAUTILIZADA
                    
 	               ,M.ID            MATERIA_ID
 	               ,M.NOME          MATERIA_NOME
@@ -60,6 +64,7 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
             @"SELECT 
 	                Q.ID            QUESTAO_ID                
 	               ,Q.ENUNCIADO     QUESTAO_ENUNCIADO
+	               ,Q.JAUTILIZADA   QUESTAO_JAUTILIZADA
                    
 	               ,M.ID            MATERIA_ID
 	               ,M.NOME          MATERIA_NOME

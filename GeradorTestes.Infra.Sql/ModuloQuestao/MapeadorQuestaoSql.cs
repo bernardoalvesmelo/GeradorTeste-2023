@@ -15,6 +15,8 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
 
             comando.Parameters.AddWithValue("ENUNCIADO", questao.Enunciado);
 
+            comando.Parameters.AddWithValue("JAUTILIZADA", questao.JaUtilizada);
+
             comando.Parameters.AddWithValue("MATERIA_ID", questao.Materia.Id);
         }
 
@@ -31,7 +33,9 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
 
             string enunciado = Convert.ToString(leitorQuestao["QUESTAO_ENUNCIADO"]);
 
-            Questao questao = new Questao(id, enunciado, materia);
+            bool jaUtilizada = Convert.ToBoolean(leitorQuestao["QUESTAO_JAUTILIZADA"]);
+
+            Questao questao = new Questao(id, enunciado, materia, jaUtilizada);
 
             return questao;
         }

@@ -112,12 +112,20 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
             @"SELECT 
 	                Q.ID            QUESTAO_ID
 	               ,Q.ENUNCIADO     QUESTAO_ENUNCIADO
+	               ,Q.JAUTILIZADA   QUESTAO_JAUTILIZADA
 
+	               ,M.ID            MATERIA_ID
+	               ,M.NOME          MATERIA_NOME
+                   ,M.SERIE         MATERIA_SERIE
+                   
                 FROM 
 	                TBQUESTAO AS Q 
 
                 INNER JOIN TBTESTE_TBQUESTAO AS TQ
                     ON Q.ID = TQ.QUESTAO_ID
+
+                INNER JOIN TBMATERIA M 
+                    ON Q.MATERIA_ID = M.ID                    
 
                 WHERE 
 	                TQ.TESTE_ID = @TESTE_ID";
@@ -156,6 +164,9 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
         public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false)
         {
             Teste teste = base.SelecionarPorId(id);
+
+            if (teste == null)
+                return null;            
 
             if (incluirQuestoes)
             {

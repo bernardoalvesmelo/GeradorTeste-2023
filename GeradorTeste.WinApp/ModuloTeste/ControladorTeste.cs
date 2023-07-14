@@ -1,4 +1,5 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTeste.Aplicacao.ModuloTeste;
+using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloTeste;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -10,16 +11,19 @@ namespace GeradorTeste.WinApp.ModuloTeste
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioTeste repositorioTeste;
         private IGeradorArquivo geradorArquivo;
+        private ServicoTeste servicoTeste;
 
         private TabelaTesteControl tabelaTeste;
 
         public ControladorTeste(IRepositorioTeste repositorioTeste,
             IRepositorioDisciplina repositorioDisciplina,
-            IGeradorArquivo geradorArquivo)
+            IGeradorArquivo geradorArquivo,
+            ServicoTeste servicoTeste)
         {
             this.repositorioDisciplina = repositorioDisciplina;
             this.repositorioTeste = repositorioTeste;
             this.geradorArquivo = geradorArquivo;
+            this.servicoTeste = servicoTeste;
         }
 
         public override void Inserir()
@@ -28,16 +32,14 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             TelaTesteForm tela = new TelaTesteForm(disciplinas);
 
+            tela.onGravarRegistro += servicoTeste.Inserir;
+
             tela.ConfigurarTeste(new Teste());
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
-            {
-                Teste novoTeste = tela.ObterTeste();
-
-                repositorioTeste.Inserir(novoTeste);
-
+            {               
                 CarregarTestes();
             }
         }
@@ -59,6 +61,8 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             TelaTesteForm tela = new TelaTesteForm(disciplinas);
 
+            tela.onGravarRegistro += servicoTeste.Inserir;
+
             testeSelecionado.RemoverQuestoes();
 
             tela.ConfigurarTeste(testeSelecionado);
@@ -66,11 +70,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
-            {
-                Teste novoTeste = tela.ObterTeste();
-
-                repositorioTeste.Inserir(novoTeste);
-
+            {               
                 CarregarTestes();
             }
         }
@@ -79,7 +79,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
         {
             int id = tabelaTeste.ObtemIdSelecionado();
 
-            Teste testeSelecionado = repositorioTeste.SelecionarPorId(id);
+            Teste testeSelecionado = repositorioTeste.SelecionarPorId(id, incluirQuestoes:true);
 
             if (testeSelecionado == null)
             {
@@ -88,12 +88,19 @@ namespace GeradorTeste.WinApp.ModuloTeste
                 return;
             }
 
-            DialogResult resultado = MessageBox.Show("Deseja realmente excluir o Teste?",
+            DialogResult opcaoEscolhida = MessageBox.Show("Deseja realmente excluir o Teste?",
                "Exclusão de Testes", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (resultado == DialogResult.OK)
+            if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioTeste.Excluir(testeSelecionado);
+                Result resultado = servicoTeste.Excluir(testeSelecionado);
+
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Testes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
 
                 CarregarTestes();
             }
@@ -108,7 +115,8 @@ namespace GeradorTeste.WinApp.ModuloTeste
             if (testeSelecionado == null)
             {
                 MessageBox.Show("Selecione um Teste primeiro",
-                "Visualização de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    "Visualização de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                 return;
             }
 
@@ -160,7 +168,9 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             tabelaTeste.AtualizarRegistros(testes);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando {0} teste{1}", testes.Count, testes.Count == 1 ? "" : "s"));
+            mensagemRodape = string.Format("Visualizando {0} teste{1}", testes.Count, testes.Count == 1 ? "" : "s");
+
+            TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
     }
 }

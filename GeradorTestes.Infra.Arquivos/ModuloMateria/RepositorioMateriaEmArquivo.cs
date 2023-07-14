@@ -1,6 +1,7 @@
 ﻿using GeradorTestes.Dominio;
 using GeradorTestes.Dominio.ModuloMateria;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace eAgenda.Infra.Arquivos.ModuloMateria
 {
@@ -16,6 +17,11 @@ namespace eAgenda.Infra.Arquivos.ModuloMateria
         public override List<Materia> ObterRegistros()
         {
             return contextoDados.Materias;
+        }
+
+        public Materia SelecionarPorNome(string nome)
+        {
+            return ObterRegistros().FirstOrDefault(x => x.Nome == nome);
         }
 
         public List<Materia> SelecionarTodos(bool incluirDisciplina = false)

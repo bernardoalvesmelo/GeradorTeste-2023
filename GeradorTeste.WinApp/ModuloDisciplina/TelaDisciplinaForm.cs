@@ -2,7 +2,6 @@
 using GeradorTeste.WinApp.Compartilhado;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GeradorTeste.WinApp.ModuloDisciplina
@@ -11,7 +10,8 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
     {
         private Disciplina disciplina;
 
-        public event GravarRegistroDelegate onGravarRegistro;
+        public event GravarRegistroDelegate<Disciplina> onGravarRegistro;
+
         public TelaDisciplinaForm()
         {
             InitializeComponent();

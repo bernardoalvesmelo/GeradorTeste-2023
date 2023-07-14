@@ -1,4 +1,7 @@
 ﻿using GeradorTeste.Aplicacao.ModuloDisciplina;
+using GeradorTeste.Aplicacao.ModuloMateria;
+using GeradorTeste.Aplicacao.ModuloQuestao;
+using GeradorTeste.Aplicacao.ModuloTeste;
 using GeradorTeste.Infra.Pdf;
 using GeradorTeste.WinApp.ModuloDisciplina;
 using GeradorTeste.WinApp.ModuloMateria;
@@ -47,20 +50,36 @@ namespace GeradorTeste.WinApp
             controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina, servicoDisciplina));
 
             IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
-            controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina));
+
+            ServicoMateria servicoMateria = new ServicoMateria(repositorioMateria);
+
+            controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina, servicoMateria));
 
             IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
-            controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina));
+
+            ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao);
+            controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina, servicoQuestao ));
 
             IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
+            
             IGeradorArquivo geradorRelatorio = new GeradorTesteEmPdf();
-            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste, repositorioDisciplina, geradorRelatorio));
+
+            ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao);
+
+            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste, repositorioDisciplina, geradorRelatorio, servicoTeste));
         }
 
         public static TelaPrincipalForm Instancia
         {
             get;
             private set;
+        }
+
+        public void AtualizarRodape()
+        {
+            string mensagemRodape = controlador.ObterMensagemRodape();
+
+            AtualizarRodape(mensagemRodape);
         }
 
         public void AtualizarRodape(string mensagem)
@@ -152,6 +171,10 @@ namespace GeradorTeste.WinApp
             ConfigurarToolbox();
 
             ConfigurarListagem();
+
+            string mensagemRodape = controlador.ObterMensagemRodape();
+
+            AtualizarRodape(mensagemRodape);
         }
 
         private void ConfigurarToolbox()
@@ -182,5 +205,7 @@ namespace GeradorTeste.WinApp
 
             panelRegistros.Controls.Add(listagemControl);
         }
+
+       
     }
 }

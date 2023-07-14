@@ -1,4 +1,6 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTeste.Aplicacao.ModuloMateria;
+using GeradorTeste.Aplicacao.ModuloQuestao;
+using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloQuestao;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -10,12 +12,18 @@ namespace GeradorTeste.WinApp.ModuloQuestao
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioQuestao repositorioQuestao;
 
+        private ServicoQuestao servicoQuestao;
+
         private TabelaQuestaoControl tabelaQuestao;
 
-        public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioDisciplina repositorioDisciplina)
+        public ControladorQuestao(
+            IRepositorioQuestao repositorioQuestao,
+            IRepositorioDisciplina repositorioDisciplina,
+            ServicoQuestao servicoQuestao)
         {
             this.repositorioQuestao = repositorioQuestao;
             this.repositorioDisciplina = repositorioDisciplina;
+            this.servicoQuestao = servicoQuestao;
         }
 
         public override void Inserir()
@@ -24,18 +32,16 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
             TelaQuestaoForm tela = new TelaQuestaoForm(disciplinas);
 
+            tela.onGravarRegistro += servicoQuestao.Inserir;
+
             tela.ConfigurarQuestao(new Questao());
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
             {
-                Questao novaQuestao = tela.ObterQuestao();
-
-                repositorioQuestao.Inserir(novaQuestao);
+                CarregarQuestoes();
             }
-
-            CarregarQuestoes();
         }
 
         public override void Editar()
@@ -55,18 +61,16 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
             TelaQuestaoForm tela = new TelaQuestaoForm(disciplinas);
 
+            tela.onGravarRegistro += servicoQuestao.Editar;
+
             tela.ConfigurarQuestao(questaoSelecionada);
 
             DialogResult resultado = tela.ShowDialog();
 
             if (resultado == DialogResult.OK)
             {
-                Questao questao = tela.ObterQuestao();
-
-                repositorioQuestao.Editar(questao);
+                CarregarQuestoes();
             }
-
-            CarregarQuestoes();
         }
 
         public override void Excluir()
@@ -82,15 +86,22 @@ namespace GeradorTeste.WinApp.ModuloQuestao
                 return;
             }
 
-            DialogResult resultado = MessageBox.Show("Deseja realmente excluir a questão?",
+            DialogResult opcaoEscolhida = MessageBox.Show("Deseja realmente excluir a questão?",
                "Exclusão de Questões", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (resultado == DialogResult.OK)
+            if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioQuestao.Excluir(questaoSelecionada);
-            }
+                Result resultado = servicoQuestao.Excluir(questaoSelecionada);
 
-            CarregarQuestoes();
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Questões", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
+                CarregarQuestoes();
+            }            
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
@@ -114,7 +125,9 @@ namespace GeradorTeste.WinApp.ModuloQuestao
 
             tabelaQuestao.AtualizarRegistros(questoes);
 
-            TelaPrincipalForm.Instancia.AtualizarRodape(string.Format("Visualizando {0} quest{1}", questoes.Count, questoes.Count == 1 ? "ão" : "ões"));
+            mensagemRodape = string.Format("Visualizando {0} quest{1}", questoes.Count, questoes.Count == 1 ? "ão" : "ões");
+
+            TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
     }
 }
