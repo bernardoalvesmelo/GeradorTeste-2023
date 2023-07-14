@@ -8,6 +8,7 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
 {
     public class Disciplina : EntidadeBase<Disciplina>
     {
+        public DateTime MyProperty { get; set; }
         public Disciplina()
         {
             Materias = new List<Materia>();
@@ -74,33 +75,6 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
         public override int GetHashCode()
         {
             return HashCode.Combine(Id, Materias, Nome);
-        }
-
-        public string[] Validar()
-        {
-            List<string> erros = new List<string>();
-
-            if (string.IsNullOrEmpty(Nome))
-                erros.Add($"O 'nome' da disciplina deve estar preenchido");
-
-            if (Nome.Length <= 2)
-                erros.Add($"O 'nome' da disciplina deve ter mais de 3 letras");
-
-            bool temCaracteresInvalidos = false;
-            
-            foreach (char letra in Nome)
-            {
-                if (letra == ' ')
-                    continue;
-
-                if (char.IsLetterOrDigit(letra) == false)
-                    temCaracteresInvalidos = true;
-            }
-
-            if (temCaracteresInvalidos)
-                erros.Add($"O 'nome' da disciplina deve ser composta por letras e números");
-
-            return erros.ToArray();
-        }
+        }       
     }
 }

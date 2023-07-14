@@ -45,7 +45,9 @@ namespace GeradorTeste.WinApp
         {
             IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
 
-            ServicoDisciplina servicoDisciplina = new ServicoDisciplina(repositorioDisciplina);
+            ValidadorDisciplina validadorDisciplina = new ValidadorDisciplina();
+
+            ServicoDisciplina servicoDisciplina = new ServicoDisciplina(repositorioDisciplina, validadorDisciplina);
 
             controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina, servicoDisciplina));
 

@@ -1,26 +1,48 @@
 ﻿using FluentResults;
+using FluentValidation.Results;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic;
+using Serilog;
 
 namespace GeradorTeste.Aplicacao.ModuloDisciplina
 {
     public class ServicoDisciplina
     {
         private IRepositorioDisciplina repositorioDisciplina;
+        private ValidadorDisciplina validadorDisciplina;
 
-        public ServicoDisciplina(IRepositorioDisciplina repositorioDisciplina)
+        public ServicoDisciplina(
+            IRepositorioDisciplina repositorioDisciplina,
+            ValidadorDisciplina validadorDisciplina)
         {
             this.repositorioDisciplina = repositorioDisciplina;
+            this.validadorDisciplina = validadorDisciplina;
         }
-       
+
         public Result Inserir(Disciplina disciplina)
         {
+            Log.Debug("Tentando inserir disciplina...{d}", disciplina);
+
             List<string> erros = ValidarDisciplina(disciplina);
 
             if (erros.Count() > 0)
                 return Result.Fail(erros);
 
-            repositorioDisciplina.Inserir(disciplina);
+            try
+            {
+                repositorioDisciplina.Inserir(disciplina);
+
+                Log.Debug("Disciplina {DisciplinaId} inserida com sucesso", disciplina.Id);
+            }
+            catch (SqlException exc)
+            {
+                string msgErro = "Falha ao tentar inserir disciplina.";
+
+                Log.Error(exc, msgErro + "{d}", disciplina);
+
+                return Result.Fail(msgErro);
+            }
 
             return Result.Ok();
         }
@@ -58,10 +80,16 @@ namespace GeradorTeste.Aplicacao.ModuloDisciplina
 
         private List<string> ValidarDisciplina(Disciplina disciplina)
         {
-            List<string> erros = new List<string>(disciplina.Validar());
+            List<string> erros = validadorDisciplina.Validate(disciplina)
+                .Errors.Select(x => x.ErrorMessage).ToList();
 
             if (NomeDuplicado(disciplina))
                 erros.Add($"Este nome '{disciplina.Nome}' já está sendo utilizado na aplicação");
+
+            foreach (string erro in erros)
+            {
+                Log.Warning(erro);
+            }
 
             return erros;
         }

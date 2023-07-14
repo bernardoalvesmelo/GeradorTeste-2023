@@ -97,7 +97,8 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
                 if (resultado.IsFailed)
                 {
-                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Testes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Testes", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
                 }

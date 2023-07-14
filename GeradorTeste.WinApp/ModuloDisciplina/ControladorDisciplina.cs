@@ -13,7 +13,8 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
 
         private ServicoDisciplina servicoDisciplina;
 
-        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina,
+        public ControladorDisciplina(
+            IRepositorioDisciplina repositorioDisciplina,
             ServicoDisciplina servicoDisciplina)
         {
             this.repositorioDisciplina = repositorioDisciplina;
@@ -85,7 +86,8 @@ namespace GeradorTeste.WinApp.ModuloDisciplina
 
                 if (resultado.IsFailed)
                 {
-                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Disciplinas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Disciplinas", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
                 }
