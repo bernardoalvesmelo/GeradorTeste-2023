@@ -22,7 +22,7 @@ namespace GeradorTeste.Aplicacao.ModuloDisciplina
 
         public Result Inserir(Disciplina disciplina)
         {
-            Log.Debug("Tentando inserir disciplina...{d}", disciplina);
+            Log.Debug("Tentando inserir disciplina...{@d}", disciplina);
 
             List<string> erros = ValidarDisciplina(disciplina);
 
