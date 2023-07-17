@@ -1,7 +1,10 @@
 ﻿using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using iText.IO.Font.Constants;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 using System.IO;
 
 namespace GeradorTeste.Infra.Pdf
@@ -19,78 +22,102 @@ namespace GeradorTeste.Infra.Pdf
         }
 
         private void GerarGabarito(Teste testeSelecionado, string diretorio)
-        {            
+        {
             string caminhoArquivo = Path.Combine(diretorio, $"{testeSelecionado.Titulo}-gabarito.pdf");
 
-            Document doc = new Document();
+            PdfWriter writer = new PdfWriter(caminhoArquivo);
 
-            PdfWriter.GetInstance(doc, new FileStream(caminhoArquivo, FileMode.Create));
+            PdfDocument pdf = new PdfDocument(writer);
 
-            doc.Open();
+            Document document = new Document(pdf);
 
-            doc.Add(new Paragraph($"Título: {testeSelecionado.Titulo}"));
+            PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+
+            PdfFont bold = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+
+            document.Add(new Paragraph($"Título: {testeSelecionado.Titulo}").SetFont(bold));
 
             string nomeDisciplina = testeSelecionado.Disciplina == null ? testeSelecionado.Materia.Disciplina.Nome : testeSelecionado.Disciplina.Nome;
 
-            doc.Add(new Paragraph($"Disciplina: {nomeDisciplina}"));
+            document.Add(new Paragraph($"Disciplina: {nomeDisciplina}").SetFont(bold));
 
-            doc.Add(new Paragraph($"Matéria: {testeSelecionado.Materia.Nome}"));
+            document.Add(new Paragraph($"Matéria: {testeSelecionado.Materia.Nome}").SetFont(bold));
 
-            doc.Add(new Paragraph("\n\n"));
+            document.Add(new Paragraph("\n\n"));
 
             Gabarito gabarito = testeSelecionado.ObterGabarito();
 
             for (int i = 0; i < gabarito.AlternativasCorretas.Count; i++)
             {
-                Alternativa alternativaCorreta = gabarito.AlternativasCorretas[i];                
-                
-                doc.Add(new Paragraph($"Pergunta {i + 1}: \n"));
-                
-                doc.Add(new Paragraph($"{alternativaCorreta}"));
+                Alternativa alternativaCorreta = gabarito.AlternativasCorretas[i];
+
+                Questao questao = alternativaCorreta.Questao;
+
+                document.Add(new Paragraph($"Pergunta {i + 1}: {questao.Enunciado} \n").SetFont(font));
+
+                document.Add(new Paragraph($"{alternativaCorreta}").SetFont(font));
                 
                 if (i + 1 != gabarito.AlternativasCorretas.Count)
-                    doc.Add(new Paragraph($"--------------------------------------------------------------------------------------"));
+                {
+                    document.Add(new Paragraph($"--------------------------------------------------------------------------------------"));
+                }                    
             }
 
-            doc.Close();
+            document.Close();
         }
 
         private static void GerarTeste(Teste testeSelecionado, string diretorio)
         {
             string caminhoArquivo = Path.Combine(diretorio, $"{testeSelecionado.Titulo}.pdf");
 
-            Document doc = new Document();
+            PdfWriter writer = new PdfWriter(caminhoArquivo);
 
-            PdfWriter.GetInstance(doc, new FileStream(caminhoArquivo, FileMode.Create));
+            PdfDocument pdf = new PdfDocument(writer);
 
-            doc.Open();
+            Document document = new Document(pdf);
 
-            doc.Add(new Paragraph($"Título: {testeSelecionado.Titulo}"));
+            PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+
+            PdfFont bold = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+
+            document.Add(new Paragraph($"Título: {testeSelecionado.Titulo}").SetFont(bold));
 
             string nomeDisciplina = testeSelecionado.Disciplina == null ? testeSelecionado.Materia.Disciplina.Nome : testeSelecionado.Disciplina.Nome;
 
-            doc.Add(new Paragraph($"Disciplina: {nomeDisciplina}"));
+            document.Add(new Paragraph($"Disciplina: {nomeDisciplina}").SetFont(bold));
 
-            doc.Add(new Paragraph($"Matéria: {testeSelecionado.Materia.Nome}"));
+            document.Add(new Paragraph($"Matéria: {testeSelecionado.Materia.Nome}").SetFont(bold));
 
-            doc.Add(new Paragraph("\n\n"));
+            document.Add(new Paragraph("\n\n"));
+
+            //PdfCanvas canvas = new PdfCanvas(pdf.GetFirstPage());
 
             for (int i = 0; i < testeSelecionado.Questoes.Count; i++)
             {
                 Questao questao = testeSelecionado.Questoes[i];
 
-                doc.Add(new Paragraph($"Pergunta {i + 1}: {questao.Enunciado} \n"));
+                document.Add(new Paragraph($"Pergunta {i + 1}: {questao.Enunciado} \n"));
 
                 foreach (Alternativa alternativa in questao.Alternativas)
                 {
-                    doc.Add(new Paragraph($"{alternativa}"));
+                    document.Add(new Paragraph($"{alternativa}").SetFont(font));
                 }
 
                 if (i + 1 != testeSelecionado.Questoes.Count)
-                    doc.Add(new Paragraph($"--------------------------------------------------------------------------------------"));
+                {
+                    document.Add(new Paragraph($"--------------------------------------------------------------------------------------"));
+
+                    // Initial point of the line       
+                    // canvas.MoveTo(100, 300);
+
+                    // Drawing the line       
+                    // canvas.LineTo(500, 300);
+
+                    // canvas.ClosePathStroke();
+                }
             }
 
-            doc.Close();
+            document.Close();
         }
     }
 }
