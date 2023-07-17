@@ -62,6 +62,8 @@ namespace GeradorTestes.Dominio.ModuloTeste
 
         public void SortearQuestoes()
         {
+            QuestoesSorteadas = true;
+
             List<Questao> questoesSelecionadas = Provao ? Disciplina.ObterTodasQuestoes() : Materia.Questoes;
 
             if (questoesSelecionadas == null)
@@ -85,8 +87,14 @@ namespace GeradorTestes.Dominio.ModuloTeste
             Materia = teste.Materia;
             QuantidadeQuestoes = teste.QuantidadeQuestoes;
             Questoes = teste.Questoes;
-        }     
+        }
 
+        public void RemoverQuestoes()
+        {
+            Questoes.Clear();
+        }
+
+        /*
         public string[] Validar()
         {
             List<string> erros = new List<string>();
@@ -120,12 +128,15 @@ namespace GeradorTestes.Dominio.ModuloTeste
             if (QuestoesSorteadas == false && Questoes.Count <= 1)
                 erros.Add("Deve ser sorteado questões para o teste");
 
+            if (Questoes.Count < QuantidadeQuestoes) 
+            {
+                erros.Add("Não tem questões suficiente para realizar o teste");
+            }
+
             return erros.ToArray();
         }
+        */
 
-        public void RemoverQuestoes()
-        {
-            Questoes.Clear();
-        }
+
     }
 }

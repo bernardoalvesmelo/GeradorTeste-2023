@@ -19,7 +19,10 @@ namespace GeradorTeste.Infra.MassaDados
         static IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
         static IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
 
-        static ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao);
+        static ValidadorTeste validadorTeste = new ValidadorTeste();
+        static IGeradorArquivo geradorArquivo = null;
+
+        static ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao, validadorTeste, geradorArquivo);
 
         public static void ConfigurarAplicacao()
         {

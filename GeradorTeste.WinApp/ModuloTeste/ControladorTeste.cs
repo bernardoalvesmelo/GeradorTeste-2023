@@ -10,19 +10,16 @@ namespace GeradorTeste.WinApp.ModuloTeste
     {
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioTeste repositorioTeste;
-        private IGeradorArquivo geradorArquivo;
         private ServicoTeste servicoTeste;
 
         private TabelaTesteControl tabelaTeste;
 
         public ControladorTeste(IRepositorioTeste repositorioTeste,
             IRepositorioDisciplina repositorioDisciplina,
-            IGeradorArquivo geradorArquivo,
             ServicoTeste servicoTeste)
         {
             this.repositorioDisciplina = repositorioDisciplina;
             this.repositorioTeste = repositorioTeste;
-            this.geradorArquivo = geradorArquivo;
             this.servicoTeste = servicoTeste;
         }
 
@@ -144,7 +141,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
             if (resultado == DialogResult.OK)
             {
-                geradorArquivo.GravarTesteEmPdf(testeSelecionado, tela.Diretorio, tela.GerarGabarito);
+                servicoTeste.GerarTesteEmPdf(testeSelecionado, tela.Diretorio, tela.GerarGabarito);
             }
         }
 

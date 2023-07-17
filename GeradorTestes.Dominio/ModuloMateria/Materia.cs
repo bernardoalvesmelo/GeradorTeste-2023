@@ -66,6 +66,7 @@ namespace GeradorTestes.Dominio.ModuloMateria
             return HashCode.Combine(Id, Nome, Serie, Disciplina, Questoes);
         }
 
+        /*
         public string[] Validar()
         {
             List<string> erros = new List<string>();
@@ -98,5 +99,6 @@ namespace GeradorTestes.Dominio.ModuloMateria
 
             return erros.ToArray();
         }
+        */
     }
 }

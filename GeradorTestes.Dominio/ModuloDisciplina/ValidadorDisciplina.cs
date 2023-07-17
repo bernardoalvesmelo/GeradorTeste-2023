@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using GeradorTestes.Dominio.Compartilhado;
 
 namespace GeradorTestes.Dominio.ModuloDisciplina
 {
@@ -10,24 +11,7 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
                 .NotEmpty()
                 .NotNull()
                 .MinimumLength(3)
-                .Custom(ValidarCaracteresInvalidos);
+                .NaoPodeCaracteresEspeciais();
         }
-
-        private void ValidarCaracteresInvalidos(string nome, ValidationContext<Disciplina> contextoValidacao)
-        {
-            bool temCaracteresInvalidos = false;
-
-            foreach (char letra in nome)
-            {
-                if (letra == ' ')
-                    continue;
-
-                if (char.IsLetterOrDigit(letra) == false)
-                    temCaracteresInvalidos = true;
-            }
-
-            if (temCaracteresInvalidos)
-                contextoValidacao.AddFailure($"'Nome' da disciplina deve ser composta por letras e números.");
-        }       
     }
 }

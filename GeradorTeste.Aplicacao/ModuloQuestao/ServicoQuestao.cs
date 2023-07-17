@@ -1,65 +1,118 @@
 ﻿using FluentResults;
 using GeradorTestes.Dominio.ModuloQuestao;
 using Microsoft.Data.SqlClient;
+using Serilog;
 
 namespace GeradorTeste.Aplicacao.ModuloQuestao
 {
     public class ServicoQuestao
     {
         private IRepositorioQuestao repositorioQuestao;
+        private ValidadorQuestao validadorQuestao;
 
-        public ServicoQuestao(IRepositorioQuestao repositorioQuestao)
+        public ServicoQuestao(IRepositorioQuestao repositorioQuestao, ValidadorQuestao validadorQuestao)
         {
             this.repositorioQuestao = repositorioQuestao;
+            this.validadorQuestao = validadorQuestao;
         }
 
         public Result Inserir(Questao questao)
         {
+            Log.Debug("Tentando inserir questão...{@q}", questao);
+
             List<string> erros = ValidarQuestao(questao);
 
             if (erros.Count() > 0)
                 return Result.Fail(erros);
 
-            repositorioQuestao.Inserir(questao);
+            try
+            {
+                repositorioQuestao.Inserir(questao);
 
-            return Result.Ok();
+                Log.Debug("Questão {QuestaoId} inserida com sucesso", questao.Id);
+
+                return Result.Ok();
+            }
+            catch (SqlException exc)
+            {
+                string msgErro = "Falha ao tentar inserir questão.";
+
+                Log.Error(exc, msgErro + "{@q}", questao);
+
+                return Result.Fail(msgErro);
+            }
         }
 
         public Result Editar(Questao questao)
         {
+            Log.Debug("Tentando editar questão...{@q}", questao);
+
             List<string> erros = ValidarQuestao(questao);
 
             if (erros.Count() > 0)
                 return Result.Fail(erros);
 
-            repositorioQuestao.Editar(questao);
-
-            return Result.Ok();
-        }
-
-        public Result Excluir(Questao questaoSelecionada)
-        {
-            List<string> erros = new List<string>();
-
             try
             {
-                repositorioQuestao.Excluir(questaoSelecionada);
+                repositorioQuestao.Editar(questao);
+
+                Log.Debug("Questão {QuestaoId} editada com sucesso", questao.Id);
+
+                return Result.Ok();
+            }
+            catch (SqlException exc)
+            {
+                string msgErro = "Falha ao tentar editar questão.";
+
+                Log.Error(exc, msgErro + "{@q}", questao);
+
+                return Result.Fail(msgErro);
+            }
+        }
+
+        public Result Excluir(Questao questao)
+        {
+            Log.Debug("Tentando excluir questão...{@q}", questao);
+            
+            try
+            {
+                repositorioQuestao.Excluir(questao);
+
+                Log.Debug("Questão {QuestaoId} excluída com sucesso", questao.Id);
 
                 return Result.Ok();
             }
             catch (SqlException ex)
             {
-                if (ex.Message.Contains("FK_TBTesteTBQuestao_TBQuestao"))
-                    erros.Add("Esta questao está relacionada com um teste e não pode ser excluída");
+                List<string> erros = new List<string>();
+
+                string msgErro = ObterMensagemDeErro(ex);
+
+                Log.Logger.Error(ex, msgErro + " {QuestaoId}", questao.Id);
+
+                erros.Add(msgErro);
 
                 return Result.Fail(erros);
             }
         }
 
+        private string ObterMensagemDeErro(SqlException ex)
+        {
+            string msgErro;
+
+            if (ex.Message.Contains("FK_TBTesteTBQuestao_TBQuestao"))
+                msgErro = "Esta questao está relacionada com um teste e não pode ser excluída";
+            else
+                msgErro = "Esta questão não pode ser excluída";
+
+            return msgErro;
+        }
+
         private List<string> ValidarQuestao(Questao questao)
         {
-            List<string> erros = new List<string>(questao.Validar());
-            
+            List<string> erros = validadorQuestao.Validate(questao)
+                .Errors.Select(x => x.ErrorMessage).ToList();
+
             return erros;
         }
     }

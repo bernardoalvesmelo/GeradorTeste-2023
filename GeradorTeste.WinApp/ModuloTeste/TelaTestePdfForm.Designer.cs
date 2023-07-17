@@ -123,6 +123,7 @@
             // 
             txtDiretorio.Location = new System.Drawing.Point(96, 116);
             txtDiretorio.Name = "txtDiretorio";
+            txtDiretorio.ReadOnly = true;
             txtDiretorio.Size = new System.Drawing.Size(342, 23);
             txtDiretorio.TabIndex = 14;
             // 
@@ -155,6 +156,11 @@
             btnGerar.TabIndex = 42;
             btnGerar.Text = "Gerar";
             btnGerar.UseVisualStyleBackColor = true;
+            // 
+            // folderBrowserDialog1
+            // 
+            folderBrowserDialog1.InitialDirectory = "C:\\temp\\pdfs";
+            folderBrowserDialog1.SelectedPath = "C:\\temp\\pdfs";
             // 
             // TelaTestePdfForm
             // 

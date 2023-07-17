@@ -59,7 +59,8 @@ namespace GeradorTeste.WinApp.ModuloTeste
             this.teste = ObterTeste();
             teste.QuestoesSorteadas = true;
 
-            string[] erros = teste.Validar();
+            string[] erros = new ValidadorTeste().Validate(teste)
+                .Errors.Select(x => x.ErrorMessage).ToArray();
 
             if (erros.Count() > 0)
             {

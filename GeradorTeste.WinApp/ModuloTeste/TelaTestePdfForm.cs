@@ -14,7 +14,7 @@ namespace GeradorTeste.WinApp.ModuloTeste
 
         public string Diretorio
         {
-            get { return txtDiretorio.Text;  }
+            get { return txtDiretorio.Text; }
         }
 
         public bool GerarGabarito

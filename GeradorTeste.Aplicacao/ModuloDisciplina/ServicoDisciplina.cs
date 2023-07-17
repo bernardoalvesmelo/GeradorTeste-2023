@@ -1,8 +1,7 @@
 ﻿using FluentResults;
-using FluentValidation.Results;
 using GeradorTestes.Dominio.ModuloDisciplina;
+using GeradorTestes.Dominio.ModuloMateria;
 using Microsoft.Data.SqlClient;
-using Microsoft.VisualBasic;
 using Serilog;
 
 namespace GeradorTeste.Aplicacao.ModuloDisciplina
@@ -34,49 +33,71 @@ namespace GeradorTeste.Aplicacao.ModuloDisciplina
                 repositorioDisciplina.Inserir(disciplina);
 
                 Log.Debug("Disciplina {DisciplinaId} inserida com sucesso", disciplina.Id);
+
+                return Result.Ok();
             }
             catch (SqlException exc)
             {
                 string msgErro = "Falha ao tentar inserir disciplina.";
 
-                Log.Error(exc, msgErro + "{d}", disciplina);
+                Log.Error(exc, msgErro + "{@d}", disciplina);
 
                 return Result.Fail(msgErro);
             }
-
-            return Result.Ok();
         }
 
         public Result Editar(Disciplina disciplina)
         {
+            Log.Debug("Tentando editar disciplina...{@d}", disciplina);
+
             List<string> erros = ValidarDisciplina(disciplina);
 
             if (erros.Count() > 0)
                 return Result.Fail(erros);
 
-            repositorioDisciplina.Editar(disciplina);
+            try
+            {
+                repositorioDisciplina.Editar(disciplina);
 
-            return Result.Ok();
+                Log.Debug("Disciplina {DisciplinaId} editada com sucesso", disciplina.Id);
+
+                return Result.Ok();
+            }
+            catch (SqlException exc)
+            {
+                string msgErro = "Falha ao tentar editar disciplina.";
+
+                Log.Error(exc, msgErro + "{@d}", disciplina);
+
+                return Result.Fail(msgErro);
+            }
         }
 
-        public Result Excluir(Disciplina disciplinaSelecionada)
+        public Result Excluir(Disciplina disciplina)
         {
-            List<string> erros = new List<string>();
+            Log.Debug("Tentando excluir disciplina...{@d}", disciplina);
 
             try
             {
-                repositorioDisciplina.Excluir(disciplinaSelecionada);
+                repositorioDisciplina.Excluir(disciplina);
+
+                Log.Debug("Disciplina {DisciplinaId} excluída com sucesso", disciplina.Id);
 
                 return Result.Ok();
             }
             catch (SqlException ex)
             {
-                if (ex.Message.Contains("FK_TBMateria_TBDisciplina"))
-                    erros.Add("Esta disciplina está relacionada com uma matéria e não pode ser excluída");
+                List<string> erros = new List<string>();
+
+                string msgErro = ObterMensagemDeErro(ex);
+
+                erros.Add(msgErro);
+
+                Log.Error(ex, msgErro + " {DisciplinaId}", disciplina.Id);
 
                 return Result.Fail(erros);
             }
-        }
+        }       
 
         private List<string> ValidarDisciplina(Disciplina disciplina)
         {
@@ -84,7 +105,7 @@ namespace GeradorTeste.Aplicacao.ModuloDisciplina
                 .Errors.Select(x => x.ErrorMessage).ToList();
 
             if (NomeDuplicado(disciplina))
-                erros.Add($"Este nome '{disciplina.Nome}' já está sendo utilizado na aplicação");
+                erros.Add($"Este nome '{disciplina.Nome}' já está sendo utilizado");
 
             foreach (string erro in erros)
             {
@@ -108,6 +129,16 @@ namespace GeradorTeste.Aplicacao.ModuloDisciplina
             return false;
         }
 
-       
+        private static string ObterMensagemDeErro(SqlException ex)
+        {
+            string msgErro;
+
+            if (ex.Message.Contains("FK_TBMateria_TBDisciplina"))
+                msgErro = "Esta disciplina está relacionada com uma matéria e não pode ser excluída";
+            else
+                msgErro = "Esta disciplina não pode ser excluída";
+
+            return msgErro;
+        }
     }
 }

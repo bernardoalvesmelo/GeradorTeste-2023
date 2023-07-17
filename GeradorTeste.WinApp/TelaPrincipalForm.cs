@@ -53,22 +53,25 @@ namespace GeradorTeste.WinApp
 
             IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
 
-            ServicoMateria servicoMateria = new ServicoMateria(repositorioMateria);
+            ValidadorMateria validadorMateria = new ValidadorMateria();
+            ServicoMateria servicoMateria = new ServicoMateria(repositorioMateria, validadorMateria);
 
             controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina, servicoMateria));
 
             IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
 
-            ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao);
+            ValidadorQuestao validadorQuestao = new ValidadorQuestao();
+            ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao, validadorQuestao);
             controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina, servicoQuestao ));
 
             IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
             
             IGeradorArquivo geradorRelatorio = new GeradorTesteEmPdf();
 
-            ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao);
+            ValidadorTeste validadorTeste = new ValidadorTeste();
+            ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao, validadorTeste, geradorRelatorio);
 
-            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste, repositorioDisciplina, geradorRelatorio, servicoTeste));
+            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste, repositorioDisciplina, servicoTeste));
         }
 
         public static TelaPrincipalForm Instancia

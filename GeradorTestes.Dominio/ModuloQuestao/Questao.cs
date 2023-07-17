@@ -107,6 +107,7 @@ namespace GeradorTestes.Dominio.ModuloQuestao
             return Enunciado;
         }
 
+        /*
         public string[] Validar()
         {
             List<string> erros = new List<string>();
@@ -164,5 +165,6 @@ namespace GeradorTestes.Dominio.ModuloQuestao
 
             return false;
         }
+        */
     }
 }
