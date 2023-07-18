@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp
+namespace GeradorTestes.WinApp
 {
     public abstract class ControladorBase
     {

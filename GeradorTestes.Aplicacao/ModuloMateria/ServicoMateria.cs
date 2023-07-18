@@ -1,6 +1,6 @@
 ﻿using GeradorTestes.Dominio.ModuloMateria;
 
-namespace GeradorTeste.Aplicacao.ModuloMateria
+namespace GeradorTestes.Aplicacao.ModuloMateria
 {
     public class ServicoMateria
     {

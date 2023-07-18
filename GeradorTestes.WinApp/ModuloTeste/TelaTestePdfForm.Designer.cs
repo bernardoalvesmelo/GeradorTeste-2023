@@ -1,4 +1,4 @@
-﻿namespace GeradorTeste.WinApp.ModuloTeste
+﻿namespace GeradorTestes.WinApp.ModuloTeste
 {
     partial class TelaTestePdfForm
     {

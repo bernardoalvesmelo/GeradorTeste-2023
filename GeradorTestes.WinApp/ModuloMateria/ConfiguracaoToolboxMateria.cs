@@ -1,4 +1,4 @@
-﻿namespace GeradorTeste.WinApp.ModuloMateria
+﻿namespace GeradorTestes.WinApp.ModuloMateria
 {
     public class ConfiguracaoToolboxMateria : ConfiguracaoToolboxBase
     {

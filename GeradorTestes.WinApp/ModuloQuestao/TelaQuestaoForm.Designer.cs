@@ -1,4 +1,4 @@
-﻿namespace GeradorTeste.WinApp.ModuloQuestao
+﻿namespace GeradorTestes.WinApp.ModuloQuestao
 {
     partial class TelaQuestaoForm
     {

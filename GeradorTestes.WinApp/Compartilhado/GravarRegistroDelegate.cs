@@ -1,6 +1,6 @@
 ﻿using GeradorTestes.Dominio;
 
-namespace GeradorTeste.WinApp.Compartilhado
+namespace GeradorTestes.WinApp.Compartilhado
 {
 
     public delegate Result GravarRegistroDelegate<TEntidade>(TEntidade disciplina)

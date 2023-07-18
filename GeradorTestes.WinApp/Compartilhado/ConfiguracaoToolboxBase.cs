@@ -1,4 +1,4 @@
-﻿namespace GeradorTeste.WinApp
+﻿namespace GeradorTestes.WinApp
 {
     public abstract class ConfiguracaoToolboxBase
     {

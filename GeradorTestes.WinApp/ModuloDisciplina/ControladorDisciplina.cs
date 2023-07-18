@@ -1,9 +1,9 @@
-﻿using GeradorTeste.Aplicacao.ModuloDisciplina;
+﻿using GeradorTestes.Aplicacao.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp.ModuloDisciplina
+namespace GeradorTestes.WinApp.ModuloDisciplina
 {
     public class ControladorDisciplina : ControladorBase
     {

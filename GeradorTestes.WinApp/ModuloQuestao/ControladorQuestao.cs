@@ -1,11 +1,11 @@
-﻿using GeradorTeste.Aplicacao.ModuloMateria;
-using GeradorTeste.Aplicacao.ModuloQuestao;
+﻿using GeradorTestes.Aplicacao.ModuloMateria;
+using GeradorTestes.Aplicacao.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloQuestao;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp.ModuloQuestao
+namespace GeradorTestes.WinApp.ModuloQuestao
 {
     public class ControladorQuestao : ControladorBase
     {

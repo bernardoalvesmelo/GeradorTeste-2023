@@ -3,7 +3,7 @@ using GeradorTestes.Dominio.ModuloMateria;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp.ModuloMateria
+namespace GeradorTestes.WinApp.ModuloMateria
 {
     public partial class TabelaMateriasControl : UserControl
     {

@@ -1,10 +1,10 @@
 ﻿using FluentResults;
-using GeradorTeste.WinApp.Compartilhado;
+using GeradorTestes.WinApp.Compartilhado;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using System;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp.ModuloDisciplina
+namespace GeradorTestes.WinApp.ModuloDisciplina
 {
     public partial class TelaDisciplinaForm : Form
     {

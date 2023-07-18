@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GeradorTeste.WinApp
+namespace GeradorTestes.WinApp
 {
     partial class TelaPrincipalForm
     {

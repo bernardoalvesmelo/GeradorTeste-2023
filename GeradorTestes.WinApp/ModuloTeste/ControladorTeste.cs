@@ -1,10 +1,10 @@
-﻿using GeradorTeste.Aplicacao.ModuloTeste;
+﻿using GeradorTestes.Aplicacao.ModuloTeste;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloTeste;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp.ModuloTeste
+namespace GeradorTestes.WinApp.ModuloTeste
 {
     public class ControladorTeste : ControladorBase
     {

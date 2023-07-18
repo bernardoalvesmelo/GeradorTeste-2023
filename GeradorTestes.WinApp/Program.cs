@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp
+namespace GeradorTestes.WinApp
 {
     internal static class Program
     {

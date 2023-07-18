@@ -7,7 +7,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using System.IO;
 
-namespace GeradorTeste.Infra.Pdf
+namespace GeradorTestes.Infra.Pdf
 {
     public class GeradorTesteEmPdf : IGeradorArquivo
     {

@@ -1,7 +1,7 @@
 ﻿using GeradorTestes.Dominio.ModuloTeste;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp.ModuloTeste
+namespace GeradorTestes.WinApp.ModuloTeste
 {
     public partial class TelaVisualizacaoTesteForm : Form
     {

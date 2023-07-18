@@ -1,4 +1,4 @@
-﻿using GeradorTeste.WinApp.Compartilhado;
+﻿using GeradorTestes.WinApp.Compartilhado;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp.ModuloQuestao
+namespace GeradorTestes.WinApp.ModuloQuestao
 {
     public partial class TelaQuestaoForm : Form
     {

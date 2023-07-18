@@ -1,6 +1,6 @@
 ﻿using GeradorTestes.Dominio.ModuloDisciplina;
 
-namespace GeradorTeste.Aplicacao.ModuloDisciplina
+namespace GeradorTestes.Aplicacao.ModuloDisciplina
 {
     public class ServicoDisciplina
     {

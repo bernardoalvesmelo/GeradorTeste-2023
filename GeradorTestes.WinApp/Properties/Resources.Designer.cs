@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GeradorTeste.WinApp.Properties {
+namespace GeradorTestes.WinApp.Properties {
     using System;
     
     

@@ -1,6 +1,6 @@
 ﻿using GeradorTestes.Dominio.ModuloQuestao;
 
-namespace GeradorTeste.Aplicacao.ModuloQuestao
+namespace GeradorTestes.Aplicacao.ModuloQuestao
 {
     public class ServicoQuestao
     {

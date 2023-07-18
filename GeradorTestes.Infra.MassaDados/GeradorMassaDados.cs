@@ -1,4 +1,4 @@
-﻿using GeradorTeste.Aplicacao.ModuloTeste;
+﻿using GeradorTestes.Aplicacao.ModuloTeste;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
@@ -10,7 +10,7 @@ using GeradorTestes.Infra.Sql.ModuloTeste;
 using System;
 using System.Collections.Generic;
 
-namespace GeradorTeste.Infra.MassaDados
+namespace GeradorTestes.Infra.MassaDados
 {
     public class GeradorMassaDados
     {

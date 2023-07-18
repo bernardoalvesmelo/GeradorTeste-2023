@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace GeradorTeste.WinApp.ModuloQuestao
+namespace GeradorTestes.WinApp.ModuloQuestao
 {
     public partial class TabelaQuestaoControl : UserControl
     {
