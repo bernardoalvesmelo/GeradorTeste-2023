@@ -18,6 +18,9 @@ namespace GeradorTestes.Dominio.Compartilhado
         {
             nomePropriedade = contextoValidacao.DisplayName;
 
+            if (string.IsNullOrEmpty(texto))
+                return false;
+
             bool estaValido = true;
 
             foreach (char letra in texto)

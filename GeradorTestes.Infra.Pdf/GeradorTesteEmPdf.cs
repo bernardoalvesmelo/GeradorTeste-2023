@@ -10,9 +10,7 @@ using System.IO;
 namespace GeradorTestes.Infra.Pdf
 {
     public class GeradorTesteEmPdf : IGeradorArquivo
-    {
-        
-        
+    {                
         public void GerarGabarito(Teste testeSelecionado, string diretorio)
         {
             string caminhoArquivo = Path.Combine(diretorio, $"{testeSelecionado.Titulo}-gabarito.pdf");

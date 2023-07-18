@@ -24,7 +24,6 @@ namespace GeradorTestes.Dominio.ModuloDisciplina
 
         public List<Materia> Materias { get; set; }
 
-
         public List<Questao> ObterTodasQuestoes()
         {
             var todasQuestoes = new List<Questao>();

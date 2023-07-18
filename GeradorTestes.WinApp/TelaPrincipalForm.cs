@@ -61,10 +61,10 @@ namespace GeradorTestes.WinApp
 
             ValidadorQuestao validadorQuestao = new ValidadorQuestao();
             ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao, validadorQuestao);
-            controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina, servicoQuestao ));
+            controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina, servicoQuestao));
 
             IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
-            
+
             IGeradorArquivo geradorRelatorio = new GeradorTesteEmPdf();
 
             ValidadorTeste validadorTeste = new ValidadorTeste();
@@ -210,6 +210,6 @@ namespace GeradorTestes.WinApp
             panelRegistros.Controls.Add(listagemControl);
         }
 
-       
+
     }
 }

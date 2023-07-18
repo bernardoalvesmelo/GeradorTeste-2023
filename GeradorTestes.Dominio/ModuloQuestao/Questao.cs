@@ -10,6 +10,13 @@ namespace GeradorTestes.Dominio.ModuloQuestao
             Alternativas = new List<Alternativa>();
         }
 
+        public Questao(string enunciado, Materia materia) : this()
+        {
+            Enunciado = enunciado;
+            Materia = materia;
+            JaUtilizada = false;
+        }
+
         public Questao(string enunciado, Materia materia, bool jaUtilizada) : this()
         {
             Enunciado = enunciado;

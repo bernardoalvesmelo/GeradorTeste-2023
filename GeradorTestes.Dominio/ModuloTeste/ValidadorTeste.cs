@@ -35,11 +35,7 @@ namespace GeradorTestes.Dominio.ModuloTeste
                 .GreaterThanOrEqualTo(1);
 
             RuleFor(x => x.QuestoesSorteadas).Must(qs => qs == true)
-                .WithMessage("Deve ser sorteado questões para o teste")
-                .DependentRules(() => {
-                    RuleFor(x => x.Questoes)
-                        .Custom(NoMininoTresQuestoes);
-                });
+                .WithMessage("Deve ser sorteado questões para o teste");                
         }
 
         private void NoMininoTresQuestoes(List<Questao> questoes, ValidationContext<Teste> ctx)

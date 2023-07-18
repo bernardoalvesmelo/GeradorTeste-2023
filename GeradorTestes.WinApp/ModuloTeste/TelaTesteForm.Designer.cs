@@ -152,7 +152,7 @@
             // 
             // btnSortear
             // 
-            btnSortear.Image = Properties.Resources.checklist_FILL0_wght400_GRAD0_opsz24;
+            //btnSortear.Image = Properties.Resources.checklist_FILL0_wght400_GRAD0_opsz24;
             btnSortear.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             btnSortear.ImageTransparentColor = System.Drawing.Color.Magenta;
             btnSortear.Margin = new System.Windows.Forms.Padding(5);
