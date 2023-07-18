@@ -1,7 +1,6 @@
 ﻿using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Infra.Sql.ModuloDisciplina;
-using System;
 
 namespace GeradorTestes.Infra.Sql.ModuloMateria
 {

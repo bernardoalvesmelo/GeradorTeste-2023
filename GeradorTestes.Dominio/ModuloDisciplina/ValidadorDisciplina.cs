@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using GeradorTestes.Dominio.Compartilhado;
-
-namespace GeradorTestes.Dominio.ModuloDisciplina
+﻿namespace GeradorTestes.Dominio.ModuloDisciplina
 {
     public class ValidadorDisciplina : AbstractValidator<Disciplina>
     {

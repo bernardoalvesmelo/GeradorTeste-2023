@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GeradorTestes.Dominio.ModuloDisciplina
+﻿namespace GeradorTestes.Dominio.ModuloDisciplina
 {
     public interface IRepositorioDisciplina : IRepositorio<Disciplina>
     {

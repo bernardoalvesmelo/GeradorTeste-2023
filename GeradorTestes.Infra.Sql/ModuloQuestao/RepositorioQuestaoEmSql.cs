@@ -1,5 +1,4 @@
 ﻿using GeradorTestes.Dominio.ModuloQuestao;
-using System.Collections.Generic;
 
 namespace GeradorTestes.Infra.Sql.ModuloQuestao
 {

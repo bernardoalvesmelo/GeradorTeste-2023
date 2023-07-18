@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GeradorTestes.Dominio.ModuloQuestao
+﻿namespace GeradorTestes.Dominio.ModuloQuestao
 {
     public class Alternativa : EntidadeBase<Alternativa>
     {

@@ -1,9 +1,5 @@
-﻿using FluentResults;
-using GeradorTestes.Dominio.ModuloQuestao;
+﻿using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
-using Microsoft.Data.SqlClient;
-using Serilog;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GeradorTeste.Aplicacao.ModuloTeste
 {

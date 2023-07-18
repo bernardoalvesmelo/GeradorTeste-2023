@@ -3,7 +3,6 @@ using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Infra.Sql.ModuloDisciplina;
 using GeradorTestes.Infra.Sql.ModuloMateria;
-using System;
 
 namespace GeradorTestes.Infra.Sql.ModuloQuestao
 {

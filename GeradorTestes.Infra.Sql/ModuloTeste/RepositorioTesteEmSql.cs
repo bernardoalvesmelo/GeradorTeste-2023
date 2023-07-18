@@ -1,7 +1,6 @@
 ﻿using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
 using GeradorTestes.Infra.Sql.ModuloQuestao;
-using System.Collections.Generic;
 
 namespace GeradorTestes.Infra.Sql.ModuloTeste
 {

@@ -1,7 +1,4 @@
-﻿using FluentResults;
-using GeradorTestes.Dominio.ModuloQuestao;
-using Microsoft.Data.SqlClient;
-using Serilog;
+﻿using GeradorTestes.Dominio.ModuloQuestao;
 
 namespace GeradorTeste.Aplicacao.ModuloQuestao
 {

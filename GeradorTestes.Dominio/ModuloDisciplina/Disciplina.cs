@@ -1,8 +1,5 @@
 ﻿using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GeradorTestes.Dominio.ModuloDisciplina
 {

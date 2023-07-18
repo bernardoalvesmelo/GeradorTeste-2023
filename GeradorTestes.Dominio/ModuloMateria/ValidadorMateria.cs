@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using GeradorTestes.Dominio.Compartilhado;
-
-namespace GeradorTestes.Dominio.ModuloMateria
+﻿namespace GeradorTestes.Dominio.ModuloMateria
 {
     public class ValidadorMateria : AbstractValidator<Materia>
     {

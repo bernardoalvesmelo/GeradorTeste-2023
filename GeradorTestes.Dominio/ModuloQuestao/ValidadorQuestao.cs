@@ -1,8 +1,5 @@
 ﻿using FluentValidation.Results;
-using FluentValidation;
 using GeradorTestes.Dominio.ModuloMateria;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GeradorTestes.Dominio.ModuloQuestao
 {

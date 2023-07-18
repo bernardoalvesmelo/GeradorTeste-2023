@@ -1,9 +1,5 @@
 ﻿using GeradorTestes.Dominio;
-using GeradorTestes.Dominio.ModuloMateria;
-using GeradorTestes.Dominio.ModuloQuestao;
-using GeradorTestes.Infra.Sql.ModuloQuestao;
-using System;
-using System.Collections.Generic;
+
 
 namespace GeradorTestes.Infra.Sql.Compartilhado
 {

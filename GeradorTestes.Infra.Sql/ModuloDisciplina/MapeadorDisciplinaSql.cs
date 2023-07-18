@@ -1,6 +1,4 @@
 ﻿using GeradorTestes.Dominio.ModuloDisciplina;
-using System;
-using System.Data;
 
 namespace GeradorTestes.Infra.Sql.ModuloDisciplina
 {

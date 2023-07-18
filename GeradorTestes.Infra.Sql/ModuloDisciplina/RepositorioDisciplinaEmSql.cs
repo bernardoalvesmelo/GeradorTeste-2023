@@ -1,9 +1,8 @@
 ﻿using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
-using GeradorTestes.Infra.Sql.ModuloQuestao;
 using GeradorTestes.Infra.Sql.ModuloMateria;
-using System.Collections.Generic;
+using GeradorTestes.Infra.Sql.ModuloQuestao;
 
 namespace GeradorTestes.Infra.Sql.ModuloDisciplina
 {
