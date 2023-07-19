@@ -31,12 +31,12 @@ namespace GeradorTestes.Dominio.ModuloMateria
         public List<Questao> Questoes { get; set; }
 
         public void AdicionaQuestao(Questao questao)
-        {           
+        {
             if (Questoes.Contains(questao))
                 return;
 
-            Questoes.Add(questao);
             questao.Materia = this;
+            Questoes.Add(questao);
         }
 
         public override string ToString()
