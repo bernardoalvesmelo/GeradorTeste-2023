@@ -50,5 +50,49 @@ namespace GeradorTestes.TestesUnitarios
             //assert
             resultado.ShouldHaveValidationErrorFor(x => x.Enunciado);
         }
+
+        [TestMethod]
+        public void Alternativas_questao_deve_ter_no_minimo_3_alternativas()
+        {
+            //arrange
+            Alternativa alternativaA = new Alternativa('A', "1", false);
+            Alternativa alternativaB = new Alternativa('B', "2", false);
+
+            List<Alternativa> alternativas = 
+                new List<Alternativa>() { alternativaA, alternativaB };
+
+            questao.Alternativas = alternativas;
+
+            //action
+            var resultado = validador.TestValidate(questao);
+
+            //assert
+            resultado.ShouldHaveValidationErrorFor(x => x.Alternativas);
+        }
+
+        [TestMethod]
+        public void Alternativas_questao_deve_ter_no_maximo_5_alternativas()
+        {
+            //arrange
+            Alternativa alternativaA = new Alternativa('A', "1", true);
+            Alternativa alternativaB = new Alternativa('B', "2", false);
+            Alternativa alternativaC = new Alternativa('C', "3", false);
+            Alternativa alternativaD = new Alternativa('D', "4", false);
+            Alternativa alternativaE = new Alternativa('E', "5", false);
+            Alternativa alternativaF = new Alternativa('F', "6", false);
+
+            List<Alternativa> alternativas =
+                new List<Alternativa>() { alternativaA, alternativaB };
+
+            questao.Alternativas = alternativas;
+
+            //action
+            var resultado = validador.TestValidate(questao);
+
+            //assert
+            resultado.ShouldHaveValidationErrorFor(x => x.Alternativas);
+        }
+
+
     }
 }
