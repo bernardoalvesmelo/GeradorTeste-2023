@@ -4,6 +4,10 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
 {
     public class RepositorioQuestaoEmSql : RepositorioEmSqlBase<Questao, MapeadorQuestaoSql>, IRepositorioQuestao
     {
+        public RepositorioQuestaoEmSql(string connectionString) : base(connectionString)
+        {
+
+        }
         protected override string sqlInserir =>
              @"INSERT INTO [TBQUESTAO]
                 (

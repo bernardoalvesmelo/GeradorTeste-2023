@@ -7,8 +7,13 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
      where TEntidade : EntidadeBase<TEntidade>
      where TMapeador : MapeadorBase<TEntidade>, new()
     {
-        protected static string enderecoBanco =
-           @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=GeradorTesteSql;Integrated Security=True";
+        protected static string connectionString;
+        //@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=GeradorTesteSql;Integrated Security=True";
+
+        public RepositorioEmSqlBase(string connString)
+        {
+            connectionString = connString;
+        }
 
         protected abstract string sqlInserir { get; }
         protected abstract string sqlEditar { get; }
@@ -19,7 +24,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
         public virtual void Inserir(TEntidade novoRegistro)
         {
             //obter a conexão com o banco e abrir ela
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
             conexaoComBanco.Open();
 
             //cria um comando e relaciona com a conexão aberta
@@ -43,7 +48,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
         public virtual void Editar(TEntidade registro)
         {
             //obter a conexão com o banco e abrir ela
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
             conexaoComBanco.Open();
 
             //cria um comando e relaciona com a conexão aberta
@@ -64,7 +69,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
         public virtual void Excluir(TEntidade registroSelecionado)
         {
             //obter a conexão com o banco e abrir ela
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
             conexaoComBanco.Open();
 
             //cria um comando e relaciona com a conexão aberta
@@ -84,7 +89,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
         public virtual TEntidade SelecionarPorId(int id)
         {
             //obter a conexão com o banco e abrir ela
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
             conexaoComBanco.Open();
 
             //cria um comando e relaciona com a conexão aberta
@@ -113,7 +118,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
         public virtual List<TEntidade> SelecionarTodos()
         {
             //obter a conexão com o banco e abrir ela
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
             conexaoComBanco.Open();
 
             //cria um comando e relaciona com a conexão aberta
@@ -144,7 +149,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
         public virtual List<TEntidade> SelecionarTodosPorParametro(string sqlSelecionarPorParametro, SqlParameter[] parametros)
         {
             //obter a conexão com o banco e abrir ela
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
             conexaoComBanco.Open();
 
             //cria um comando e relaciona com a conexão aberta
@@ -180,7 +185,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
         public virtual TEntidade SelecionarRegistroPorParametro(string sqlSelecionarPorParametro, SqlParameter[] parametros)
         {
             //obter a conexão com o banco e abrir ela
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
             conexaoComBanco.Open();
 
             //cria um comando e relaciona com a conexão aberta
@@ -209,7 +214,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
 
         protected static List<T> SelecionarRegistros<T>(string sql, ConverterRegistroDelegate<T> ConverterRegistro, SqlParameter[] parametros)
         {
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
 
             SqlCommand comandoSelecao = new SqlCommand(sql, conexaoComBanco);
 
@@ -237,7 +242,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
 
         protected static void ExecutarComando(string sql, SqlParameter[] parametros)
         {
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
 
             SqlCommand comando = new SqlCommand(sql, conexaoComBanco);
 

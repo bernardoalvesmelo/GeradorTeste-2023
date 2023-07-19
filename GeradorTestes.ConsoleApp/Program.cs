@@ -1,9 +1,16 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTestes.Aplicacao.ModuloTeste;
+using GeradorTestes.Dominio.ModuloDisciplina;
+using GeradorTestes.Dominio.ModuloMateria;
+using GeradorTestes.Dominio.ModuloQuestao;
+using GeradorTestes.Dominio.ModuloTeste;
 using GeradorTestes.Infra.MassaDados;
+using GeradorTestes.Infra.Pdf;
 using GeradorTestes.Infra.Sql.ModuloDisciplina;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using GeradorTestes.Infra.Sql.ModuloMateria;
+using GeradorTestes.Infra.Sql.ModuloQuestao;
+using GeradorTestes.Infra.Sql.ModuloTeste;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace GeradorTestes.ConsoleApp
 {
@@ -11,36 +18,25 @@ namespace GeradorTestes.ConsoleApp
     {       
         static void Main(string[] args)
         {
-            var resultado = 12 + 09;
+            var configuracao = new ConfigurationBuilder()
+              .SetBasePath(Directory.GetCurrentDirectory())
+              .AddJsonFile("appsettings.json")
+              .Build();
 
-            Console.WriteLine( resultado.GetType() );
+            var connectionString = configuracao.GetConnectionString("SqlServer");
 
-            var repositorioDisciplina = new RepositorioDisciplinaEmSql();
+            IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql(connectionString);
+            IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql(connectionString);
+            IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql(connectionString);
+            IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql(connectionString);
 
-            var disciplinas = repositorioDisciplina
-                .SelecionarTodos()
-                .OrderBy(x => x.Nome)
-                .Select(x => x.Nome);
+            IGeradorArquivo geradorRelatorio = new GeradorTesteEmPdf();
+            ValidadorTeste validadorTeste = new ValidadorTeste();
+            ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao, validadorTeste, geradorRelatorio);
 
-            var x = new { id = 1, nome = "Alexandre Rech" }; //objetos anônimos
+            GeradorMassaDados geradorMassa = new GeradorMassaDados(repositorioDisciplina, repositorioMateria, repositorioQuestao, servicoTeste);
 
-            Console.WriteLine( x.id + " - " + x.nome );
-
-            foreach (var item in disciplinas)
-            {
-                Console.WriteLine( item );
-            }
-
-            foreach (var item in "ABCV")
-            {
-
-            }
-
-            GeradorMassaDados.ConfigurarTesteMatematica();
-        }
-
-        private static void Teste()
-        {
-        }
+            geradorMassa.ConfigurarTesteMatematica();
+        }     
     }
 }

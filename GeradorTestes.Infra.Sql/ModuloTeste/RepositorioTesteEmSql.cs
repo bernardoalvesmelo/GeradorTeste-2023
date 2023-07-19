@@ -7,6 +7,11 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
     public class RepositorioTesteEmSql :
         RepositorioEmSqlBase<Teste, MapeadorTesteSql>, IRepositorioTeste
     {
+        public RepositorioTesteEmSql(string connectionString) : base(connectionString)
+        {
+
+        }
+
         #region sql queries
         protected override string sqlInserir =>
           @"INSERT INTO [TBTESTE]

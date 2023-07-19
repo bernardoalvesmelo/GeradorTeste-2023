@@ -9,6 +9,11 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
     public class RepositorioDisciplinaEmSql :
         RepositorioEmSqlBase<Disciplina, MapeadorDisciplinaSql>, IRepositorioDisciplina
     {
+        public RepositorioDisciplinaEmSql(string connectionString) : base(connectionString)
+        {
+            
+        }
+
         #region slq queries
         protected override string sqlInserir =>
             @"INSERT INTO [TBDISCIPLINA]

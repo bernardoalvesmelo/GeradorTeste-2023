@@ -15,7 +15,9 @@ using GeradorTestes.WinApp.ModuloDisciplina;
 using GeradorTestes.WinApp.ModuloMateria;
 using GeradorTestes.WinApp.ModuloQuestao;
 using GeradorTestes.WinApp.ModuloTeste;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace GeradorTestes.WinApp
@@ -42,7 +44,14 @@ namespace GeradorTestes.WinApp
 
         private void ConfigurarControladores()
         {
-            IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
+            var configuracao = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json")
+               .Build();
+
+            var connectionString = configuracao.GetConnectionString("SqlServer");
+
+            IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql(connectionString);
 
             ValidadorDisciplina validadorDisciplina = new ValidadorDisciplina();
 
@@ -50,20 +59,20 @@ namespace GeradorTestes.WinApp
 
             controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina, servicoDisciplina));
 
-            IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
+            IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql(connectionString);
 
             ValidadorMateria validadorMateria = new ValidadorMateria();
             ServicoMateria servicoMateria = new ServicoMateria(repositorioMateria, validadorMateria);
 
             controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina, servicoMateria));
 
-            IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
+            IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql(connectionString);
 
             ValidadorQuestao validadorQuestao = new ValidadorQuestao();
             ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao, validadorQuestao);
             controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina, servicoQuestao));
 
-            IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
+            IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql(connectionString);
 
             IGeradorArquivo geradorRelatorio = new GeradorTesteEmPdf();
 

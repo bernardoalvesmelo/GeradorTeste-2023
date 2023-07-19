@@ -5,6 +5,10 @@ namespace GeradorTestes.Infra.Sql.ModuloMateria
     public class RepositorioMateriaEmSql :
         RepositorioEmSqlBase<Materia, MapeadorMateriaSql>, IRepositorioMateria
     {
+        public RepositorioMateriaEmSql(string connectionString) : base(connectionString)
+        {
+
+        }
         protected override string sqlInserir =>
             @"INSERT INTO [TBMATERIA]
                    (
