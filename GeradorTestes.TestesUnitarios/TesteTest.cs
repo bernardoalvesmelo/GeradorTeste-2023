@@ -23,9 +23,20 @@ namespace GeradorTestes.TestesUnitarios
         }
 
         [TestMethod]
-        public void Questoes_Devem_ser_diferentes_de_null()
+        public void Questoes_devem_ser_diferentes_de_null()
         {
             Assert.IsNotNull(teste.Questoes);
+        }
+
+        [TestMethod]
+        public void Deve_permitir_excluir_todas_as_questoes_no_teste()
+        {
+            List<Questao> questoes = new List<Questao> { questao1 };
+
+            teste.Questoes = questoes;
+            teste.RemoverQuestoes();
+
+            Assert.AreEqual(0, teste.Questoes.Count);
         }
     }
 }
