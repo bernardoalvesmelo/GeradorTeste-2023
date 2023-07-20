@@ -31,6 +31,19 @@ namespace GeradorTestes.TestesUnitarios
         [TestMethod]
         public void Enunciado_questao_nao_deve_ser_nulo_ou_vazio()
         {
+            //arrange
+            questao.Enunciado = "abcde";
+            questao.Materia = null;
+
+            Alternativa alternativaA = new Alternativa('A', "1", true);
+            Alternativa alternativaB = new Alternativa('B', "2", false);
+            Alternativa alternativaC = new Alternativa('C', "3", false);
+
+            List<Alternativa> alternativas =
+                new List<Alternativa>() { alternativaA, alternativaB, alternativaC };
+
+            questao.Alternativas = alternativas;
+
             //action
             var resultado = validador.TestValidate(questao);
 
@@ -84,7 +97,14 @@ namespace GeradorTestes.TestesUnitarios
             Alternativa alternativaF = new Alternativa('F', "6", false);
 
             List<Alternativa> alternativas =
-                new List<Alternativa>() { alternativaA, alternativaB };
+                new List<Alternativa>() { 
+                    alternativaA, 
+                    alternativaB,
+                    alternativaC,
+                    alternativaD,
+                    alternativaE,
+                    alternativaF,
+                };
 
             questao.Alternativas = alternativas;
 
@@ -104,7 +124,7 @@ namespace GeradorTestes.TestesUnitarios
             Alternativa alternativaC = new Alternativa('C', "3", false);
 
             List<Alternativa> alternativas =
-                new List<Alternativa>() { alternativaA, alternativaB };
+                new List<Alternativa>() { alternativaA, alternativaB, alternativaC };
 
             questao.Alternativas = alternativas;
 
@@ -124,7 +144,7 @@ namespace GeradorTestes.TestesUnitarios
             Alternativa alternativaC = new Alternativa('C', "3", false);
 
             List<Alternativa> alternativas =
-                new List<Alternativa>() { alternativaA, alternativaB };
+                new List<Alternativa>() { alternativaA, alternativaB, alternativaC };
 
             questao.Alternativas = alternativas;
 
@@ -144,7 +164,7 @@ namespace GeradorTestes.TestesUnitarios
             Alternativa alternativaC = new Alternativa('C', "3", false);
 
             List<Alternativa> alternativas =
-                new List<Alternativa>() { alternativaA, alternativaB };
+                new List<Alternativa>() { alternativaA, alternativaB, alternativaC };
 
             questao.Alternativas = alternativas;
 
