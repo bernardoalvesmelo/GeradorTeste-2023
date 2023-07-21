@@ -20,30 +20,18 @@ namespace GeradorTestes.TestesUnitarios
 
         [TestMethod]
         public void Materia_questao_nao_deve_ser_nulo_ou_vazio()
-        {            
+        {
             //action
             var resultado = validador.TestValidate(questao);
 
             //assert
-            resultado.ShouldHaveValidationErrorFor(x => x.Materia);
+            resultado.ShouldHaveAnyValidationError()
+                .WithErrorMessage("Disciplina e Matéria não podem estar em branco");
         }
 
         [TestMethod]
         public void Enunciado_questao_nao_deve_ser_nulo_ou_vazio()
         {
-            //arrange
-            questao.Enunciado = "abcde";
-            questao.Materia = null;
-
-            Alternativa alternativaA = new Alternativa('A', "1", true);
-            Alternativa alternativaB = new Alternativa('B', "2", false);
-            Alternativa alternativaC = new Alternativa('C', "3", false);
-
-            List<Alternativa> alternativas =
-                new List<Alternativa>() { alternativaA, alternativaB, alternativaC };
-
-            questao.Alternativas = alternativas;
-
             //action
             var resultado = validador.TestValidate(questao);
 

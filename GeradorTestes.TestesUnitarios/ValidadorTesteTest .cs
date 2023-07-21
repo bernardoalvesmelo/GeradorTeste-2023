@@ -1,58 +1,95 @@
 ﻿using FluentValidation.TestHelper;
-
 using GeradorTestes.Dominio.ModuloMateria;
+using GeradorTestes.Dominio.ModuloQuestao;
+using GeradorTestes.Dominio.ModuloTeste;
 using System.Runtime.ConstrainedExecution;
 
 namespace GeradorTestes.TestesUnitarios
 {
     [TestClass]
-    public class ValidadorMateriaTest
+    public class ValidadorTesteTest
     {
-        private Materia materia;
-        private ValidadorMateria validador;
+        private Teste teste;
+        private ValidadorTeste validador;
 
-        public ValidadorMateriaTest()
+        public ValidadorTesteTest()
         {
-            materia = new Materia();
+            teste = new Teste();
 
-            validador = new ValidadorMateria();
+            validador = new ValidadorTeste();
         }
 
         [TestMethod]
-        public void Nome_materia_nao_deve_ser_nulo_ou_vazio()
-        {            
+        public void Titulo_teste_nao_deve_ser_nulo_ou_vazio()
+        {
             //action
-            var resultado = validador.TestValidate(materia);
+            var resultado = validador.TestValidate(teste);
 
             //assert
-            resultado.ShouldHaveValidationErrorFor(x => x.Nome);
+            resultado.ShouldHaveValidationErrorFor(x => x.Titulo);
+        }
+
+
+        [TestMethod]
+        public void Disciplina_teste_nao_deve_ser_nulo_ou_vazio()
+        {
+            //action
+            var resultado = validador.TestValidate(teste);
+
+            //assert
+            resultado.ShouldHaveValidationErrorFor(x => x.Disciplina);
         }
 
         [TestMethod]
-        public void Nome_materia_deve_ter_no_minimo_3_caracteres()
+        public void Data_teste_nao_deve_ser_nulo_ou_vazio()
+        {
+            //action
+            var resultado = validador.TestValidate(teste);
+
+            //assert
+            resultado.ShouldHaveValidationErrorFor(x => x.DataGeracao);
+        }
+
+        [TestMethod]
+        public void Materia_teste_deve_ser_nulo_em_provao()
         {
             //arrange
-            materia.Nome = "ab";
+            teste.Provao = true;
+            teste.Materia = new Materia();
+            teste.Materia.Questoes.Add(new Questao());
 
             //action
-            var resultado = validador.TestValidate(materia);
+            var resultado = validador.TestValidate(teste);
 
             //assert
-            resultado.ShouldHaveValidationErrorFor(x => x.Nome);
+            resultado.ShouldHaveValidationErrorFor(x => x.Materia);
         }
 
         [TestMethod]
-        public void Nome_materia_deve_ser_composto_por_letras_e_numeros()
+        public void Materia_teste_deve_ter_questoes()
         {
             //arrange
-            materia.Nome = "-Erro-";
+            teste.Materia = new Materia();
 
             //action
-            var resultado = validador.TestValidate(materia);
+            var resultado = validador.TestValidate(teste);
 
             //assert
-            resultado.ShouldHaveValidationErrorFor(x => x.Nome)
-                .WithErrorMessage("'Nome' deve ser composto por letras e números.");
+            resultado.ShouldHaveValidationErrorFor(x => x.Materia)
+                .WithErrorMessage("Matéria deve ter no mínimo uma questão");
+        }
+
+        [TestMethod]
+        public void QuantidadeQuestoes_teste_deve_ser_maior_que_zero()
+        {
+            //arrange
+            teste.QuantidadeQuestoes = 0;
+
+            //action
+            var resultado = validador.TestValidate(teste);
+
+            //assert
+            resultado.ShouldHaveValidationErrorFor(x => x.QuantidadeQuestoes);
         }
     }
 }

@@ -8,8 +8,11 @@
 
         public string ObterTipo()
         {
-            if (LadoA != LadoB && LadoB != LadoC)
+            if (LadoA != LadoB && LadoB != LadoC && LadoA != LadoC)
                 return "Escaleno";
+
+            if (LadoA == LadoB && LadoB == LadoC)
+                return "Equilátero";
 
             return "";
         }
