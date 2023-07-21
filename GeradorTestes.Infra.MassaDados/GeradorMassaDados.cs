@@ -3,10 +3,6 @@ using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
-using GeradorTestes.Infra.Sql.ModuloDisciplina;
-using GeradorTestes.Infra.Sql.ModuloMateria;
-using GeradorTestes.Infra.Sql.ModuloQuestao;
-using GeradorTestes.Infra.Sql.ModuloTeste;
 using System;
 using System.Collections.Generic;
 
@@ -14,24 +10,33 @@ namespace GeradorTestes.Infra.MassaDados
 {
     public class GeradorMassaDados
     {
-        static IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
-        static IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
-        static IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
-        static IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
+        IRepositorioDisciplina repositorioDisciplina;
+        IRepositorioMateria repositorioMateria;
+        IRepositorioQuestao repositorioQuestao;
 
-        static ValidadorTeste validadorTeste = new ValidadorTeste();
-        static IGeradorArquivo geradorArquivo = null;
+        ServicoTeste servicoTeste;
 
-        static ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao, validadorTeste, geradorArquivo);
+        public GeradorMassaDados(
+            IRepositorioDisciplina repositorioDisciplina,
+            IRepositorioMateria repositorioMateria,
+            IRepositorioQuestao repositorioQuestao,
+            ServicoTeste servicoTeste)
+        {
+            this.repositorioDisciplina = repositorioDisciplina;
+            this.repositorioMateria = repositorioMateria;
+            this.repositorioQuestao = repositorioQuestao;
 
-        public static void ConfigurarAplicacao()
+            this.servicoTeste = servicoTeste;
+        }
+
+        public void ConfigurarAplicacao()
         {
             ConfigurarTesteMatematica();
 
             ConfigurarTestePortugues();
         }
 
-        private static void ConfigurarTestePortugues()
+        private void ConfigurarTestePortugues()
         {
             Disciplina portugues = new Disciplina("Português");            
 
@@ -64,7 +69,7 @@ namespace GeradorTestes.Infra.MassaDados
             servicoTeste.Inserir(novoTeste);
         }
 
-        private static Questao NovaQuestaoPortugues(Materia materia, char letra, char resposta)
+        private Questao NovaQuestaoPortugues(Materia materia, char letra, char resposta)
         {
             Questao questao = new Questao($"Depois da letra {letra} qual é a próxima letra no alfabeto?", materia, jaUtilizada:false);
 
@@ -89,7 +94,7 @@ namespace GeradorTestes.Infra.MassaDados
             return questao;
         }
 
-        public static void ConfigurarTesteMatematica()
+        public void ConfigurarTesteMatematica()
         {
             Disciplina matematica = new Disciplina("Matemática");
 
@@ -170,7 +175,7 @@ namespace GeradorTestes.Infra.MassaDados
             servicoTeste.Inserir(novoTeste);
         }
 
-        private static Questao NovaQuestaoMatematica(Materia materia, int resposta, int fator)
+        private Questao NovaQuestaoMatematica(Materia materia, int resposta, int fator)
         {
             var questao = new Questao
             {

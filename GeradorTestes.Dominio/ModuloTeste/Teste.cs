@@ -41,6 +41,13 @@ namespace GeradorTestes.Dominio.ModuloTeste
 
         public bool QuestoesSorteadas { get; set; }
 
+        #region Periodos em Texto
+        public string ObterPeriodoEmTexto()
+        {
+            return new PeriodoEmTexto(DateTime.Now, DataGeracao).ObterPeriodo();
+        }
+        #endregion
+
         public Gabarito ObterGabarito()
         {
             Gabarito gabarito = new Gabarito();
