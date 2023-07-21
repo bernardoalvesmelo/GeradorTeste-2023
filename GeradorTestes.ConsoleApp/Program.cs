@@ -25,6 +25,8 @@ namespace GeradorTestes.ConsoleApp
 
             var connectionString = configuracao.GetConnectionString("SqlServer");
 
+            var diretorioLogs = configuracao.GetSection("DiretorioLogs:Caminho").Value;
+
             IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql(connectionString);
             IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql(connectionString);
             IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql(connectionString);
